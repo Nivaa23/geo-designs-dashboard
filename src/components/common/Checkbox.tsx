@@ -1,0 +1,67 @@
+import React, { type InputHTMLAttributes, useId } from 'react';
+import { Check } from 'lucide-react';
+
+interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  label: React.ReactNode;
+}
+
+export const Checkbox: React.FC<CheckboxProps> = ({
+  label,
+  checked,
+  onChange,
+  disabled,
+  id,
+  ...props
+}) => {
+  const generatedId = useId();
+  const checkboxId = id || generatedId;
+
+  return (
+    <label
+      htmlFor={checkboxId}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '0.65rem',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        userSelect: 'none',
+        fontSize: '0.88rem',
+        color: 'var(--text-primary)',
+        opacity: disabled ? 0.6 : 1
+      }}
+    >
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+        <input
+          type="checkbox"
+          id={checkboxId}
+          checked={checked}
+          onChange={onChange}
+          disabled={disabled}
+          style={{
+            position: 'absolute',
+            opacity: 0,
+            width: 0,
+            height: 0
+          }}
+          {...props}
+        />
+        <div
+          style={{
+            width: '18px',
+            height: '18px',
+            borderRadius: '4px',
+            border: `1.5px solid ${checked ? 'var(--color-accent-500)' : 'var(--color-brand-600)'}`,
+            backgroundColor: checked ? 'var(--color-accent-500)' : 'var(--bg-input)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all var(--transition-fast)'
+          }}
+        >
+          {checked && <Check size={13} color="#FFFFFF" strokeWidth={3} />}
+        </div>
+      </div>
+      <span>{label}</span>
+    </label>
+  );
+};
