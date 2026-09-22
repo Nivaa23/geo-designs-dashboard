@@ -37,7 +37,17 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [currentView, setCurrentView] = useState<AuthScreenView>('login');
+  const [currentView, setCurrentView] = useState<AuthScreenView>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const viewParam = params.get('view') || params.get('screen');
+    if (viewParam === 'reset-password' || params.get('token')) {
+      return 'reset-password';
+    }
+    if (viewParam === 'force-password-change' || viewParam === 'first-time-login' || viewParam === 'force-password') {
+      return 'force-password-change';
+    }
+    return 'login';
+  });
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorState, setErrorState] = useState<AuthErrorState | null>(null);

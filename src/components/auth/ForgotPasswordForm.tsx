@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { Input } from '../common/Input';
 import { Button } from '../common/Button';
 import { Alert } from '../common/Alert';
-import { Mail, ArrowLeft } from 'lucide-react';
+import { Mail, ArrowLeft, ArrowRight } from 'lucide-react';
 
 export const ForgotPasswordForm: React.FC = () => {
   const { 
@@ -33,7 +33,7 @@ export const ForgotPasswordForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) {
-      setEmailError('Company email is required');
+      setEmailError('Company email address is required');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
@@ -49,12 +49,25 @@ export const ForgotPasswordForm: React.FC = () => {
 
   if (isSuccessState) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>
         <div>
-          <h2 style={{ fontSize: '1.5rem', color: '#0F172A', fontWeight: 800, marginBottom: '0.35rem', letterSpacing: '-0.025em' }}>
+          <div
+            style={{
+              fontSize: '0.65rem',
+              fontWeight: 650,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: 'var(--color-accent-500)',
+              marginBottom: '4px',
+              fontFamily: 'var(--font-sans)'
+            }}
+          >
+            PASSWORD RECOVERY
+          </div>
+          <h2 style={{ fontSize: '1.3rem', color: '#0F172A', fontWeight: 700, marginBottom: '0.25rem', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
             Check your email
           </h2>
-          <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 400, lineHeight: 1.45 }}>
             Reset instructions have been sent to <strong>{resetTargetEmail}</strong>.
           </p>
         </div>
@@ -64,7 +77,17 @@ export const ForgotPasswordForm: React.FC = () => {
           message="The link expires in 15 minutes. Check your spam folder if you do not receive it."
         />
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.25rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.2rem' }}>
+          <Button
+            variant="primary"
+            size="md"
+            fullWidth
+            onClick={() => setCurrentView('reset-password')}
+            iconRight={<ArrowRight size={15} />}
+          >
+            Open Password Reset Link (Simulated)
+          </Button>
+
           <Button
             variant="secondary"
             size="md"
@@ -75,41 +98,55 @@ export const ForgotPasswordForm: React.FC = () => {
             {resendTimer > 0 ? `Resend Link in ${resendTimer}s` : 'Resend Email'}
           </Button>
 
-          <button
-            type="button"
-            onClick={() => {
-              clearError();
-              setCurrentView('login');
-            }}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#475569',
-              fontSize: '0.85rem',
-              fontWeight: 500,
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.4rem',
-              marginTop: '0.25rem'
-            }}
-          >
-            <ArrowLeft size={15} /> Back to Sign In
-          </button>
+          <div style={{ textAlign: 'center', marginTop: '0.2rem' }}>
+            <button
+              type="button"
+              onClick={() => {
+                clearError();
+                setCurrentView('login');
+              }}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#475569',
+                fontSize: '0.78125rem',
+                fontWeight: 500,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem'
+              }}
+            >
+              <ArrowLeft size={15} /> Back to Sign In
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>
+      {/* Form Header — FORGOT PASSWORD */}
       <div>
-        <h2 style={{ fontSize: '1.5rem', color: '#0F172A', fontWeight: 800, marginBottom: '0.35rem', letterSpacing: '-0.025em' }}>
-          Reset your password
+        <div
+          style={{
+            fontSize: '0.65rem',
+            fontWeight: 650,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: 'var(--color-accent-500)',
+            marginBottom: '4px',
+            fontFamily: 'var(--font-sans)'
+          }}
+        >
+          PASSWORD RECOVERY
+        </div>
+        <h2 style={{ fontSize: '1.3rem', color: '#0F172A', fontWeight: 700, marginBottom: '0.25rem', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
+          Forgot your password?
         </h2>
-        <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5 }}>
-          Enter your company email address to receive password reset instructions.
+        <p style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 400, lineHeight: 1.45 }}>
+          Enter your company email address and we'll send you a link to reset your password.
         </p>
       </div>
 
@@ -125,10 +162,10 @@ export const ForgotPasswordForm: React.FC = () => {
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }} noValidate>
         <Input
-          label="Company Email"
+          label="COMPANY EMAIL ADDRESS"
           type="email"
-          placeholder="name@geodesigns.com"
-          prefixIcon={<Mail size={16} />}
+          placeholder="employee@geodesigns.com"
+          prefixIcon={<Mail size={16} style={{ color: 'var(--color-accent-500)' }} />}
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
@@ -136,20 +173,23 @@ export const ForgotPasswordForm: React.FC = () => {
           }}
           error={emailError}
           required
+          autoComplete="email"
         />
 
         <Button
           type="submit"
           variant="primary"
-          size="lg"
+          size="md"
           fullWidth
           isLoading={isLoading}
+          iconRight={<ArrowRight size={15} />}
+          style={{ marginTop: '0.2rem' }}
         >
           Send Reset Link
         </Button>
       </form>
 
-      <div style={{ textAlign: 'center', marginTop: '0.25rem' }}>
+      <div style={{ textAlign: 'center', marginTop: '0.2rem' }}>
         <button
           type="button"
           onClick={() => {
@@ -160,7 +200,7 @@ export const ForgotPasswordForm: React.FC = () => {
             background: 'none',
             border: 'none',
             color: '#475569',
-            fontSize: '0.85rem',
+            fontSize: '0.78125rem',
             fontWeight: 500,
             cursor: 'pointer',
             display: 'inline-flex',

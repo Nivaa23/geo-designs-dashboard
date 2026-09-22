@@ -3,41 +3,33 @@ import { useAuth } from '../../context/AuthContext';
 import { PasswordInput } from '../common/PasswordInput';
 import { Button } from '../common/Button';
 import { Alert } from '../common/Alert';
-import { PasswordStrengthMeter } from '../common/PasswordStrengthMeter';
+import { Lock, ArrowRight } from 'lucide-react';
 import { evaluatePasswordRequirements } from '../../services/mockAuthService';
 
 export const ForcePasswordChangeForm: React.FC = () => {
-  const { currentUser, changeMandatoryPassword, isLoading, errorState, clearError } = useAuth();
+  const { changeMandatoryPassword, isLoading, errorState, clearError } = useAuth();
 
-  const [currentPassword, setCurrentPassword] = useState<string>('tempPass2026!');
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [fieldErrors, setFieldErrors] = useState<{
-    current?: string;
     new?: string;
     confirm?: string;
   }>({});
 
   const validateForm = (): boolean => {
-    const errors: { current?: string; new?: string; confirm?: string } = {};
-
-    if (!currentPassword) {
-      errors.current = 'Temporary password is required';
-    }
+    const errors: { new?: string; confirm?: string } = {};
 
     if (!newPassword) {
       errors.new = 'New password is required';
     } else {
-      const reqs = evaluatePasswordRequirements(newPassword, currentPassword);
-      if (!reqs.minLength || !reqs.hasUppercase || !reqs.hasLowercase || !reqs.hasNumber || !reqs.hasSpecialChar) {
-        errors.new = 'Password must meet all complexity requirements';
-      } else if (!reqs.notSameAsOld) {
-        errors.new = 'New password cannot match your temporary password';
+      const reqs = evaluatePasswordRequirements(newPassword);
+      if (!reqs.minLength || !reqs.hasUppercase || !reqs.hasNumber) {
+        errors.new = 'Password must be at least 8 characters with an uppercase letter and a number';
       }
     }
 
     if (!confirmPassword) {
-      errors.confirm = 'Confirm your new password';
+      errors.confirm = 'Confirming your new password is required';
     } else if (newPassword !== confirmPassword) {
       errors.confirm = 'Passwords do not match';
     }
@@ -49,24 +41,33 @@ export const ForcePasswordChangeForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
-    await changeMandatoryPassword(currentPassword, newPassword);
+    await changeMandatoryPassword('tempPass2026!', newPassword);
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>
+      {/* Form Header — FIRST-TIME LOGIN */}
       <div>
-        <h2 style={{ fontSize: '1.5rem', color: '#0F172A', fontWeight: 800, marginBottom: '0.35rem', letterSpacing: '-0.025em' }}>
-          Set your permanent password
+        <div
+          style={{
+            fontSize: '0.65rem',
+            fontWeight: 650,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: 'var(--color-accent-500)',
+            marginBottom: '4px',
+            fontFamily: 'var(--font-sans)'
+          }}
+        >
+          FIRST-TIME LOGIN
+        </div>
+        <h2 style={{ fontSize: '1.3rem', color: '#0F172A', fontWeight: 700, marginBottom: '0.25rem', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
+          Create your new password
         </h2>
-        <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5 }}>
-          Welcome, <strong>{currentUser?.name || 'Employee'}</strong>. Your account was created with a temporary password. Update it before accessing the workspace.
+        <p style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 400, lineHeight: 1.45 }}>
+          For security, you must create a new password before continuing to your workspace.
         </p>
       </div>
-
-      <Alert
-        type="info"
-        message="Your new password must remain private and should not be shared with other employees."
-      />
 
       {errorState && (
         <Alert
@@ -79,22 +80,12 @@ export const ForcePasswordChangeForm: React.FC = () => {
       )}
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }} noValidate>
-        <PasswordInput
-          label="Temporary Password"
-          placeholder="Enter received temporary password"
-          value={currentPassword}
-          onChange={(e) => {
-            setCurrentPassword(e.target.value);
-            if (fieldErrors.current) setFieldErrors((prev) => ({ ...prev, current: undefined }));
-          }}
-          error={fieldErrors.current}
-          required
-        />
-
+        {/* Field 1: New Password */}
         <div>
           <PasswordInput
-            label="New Password"
-            placeholder="Create new password"
+            label="NEW PASSWORD"
+            placeholder="Enter your new password"
+            prefixIcon={<Lock size={16} style={{ color: 'var(--color-accent-500)' }} />}
             value={newPassword}
             onChange={(e) => {
               setNewPassword(e.target.value);
@@ -102,14 +93,18 @@ export const ForcePasswordChangeForm: React.FC = () => {
             }}
             error={fieldErrors.new}
             required
+            autoComplete="new-password"
           />
-
-          <PasswordStrengthMeter password={newPassword} oldPassword={currentPassword} />
+          <div style={{ fontSize: '0.73rem', color: '#64748B', marginTop: '4px', fontWeight: 400 }}>
+            Must be at least 8 characters with 1 uppercase letter and 1 number.
+          </div>
         </div>
 
+        {/* Field 2: Confirm New Password */}
         <PasswordInput
-          label="Confirm New Password"
-          placeholder="Re-enter new password"
+          label="CONFIRM NEW PASSWORD"
+          placeholder="Re-enter your new password"
+          prefixIcon={<Lock size={16} style={{ color: 'var(--color-accent-500)' }} />}
           value={confirmPassword}
           onChange={(e) => {
             setConfirmPassword(e.target.value);
@@ -117,17 +112,20 @@ export const ForcePasswordChangeForm: React.FC = () => {
           }}
           error={fieldErrors.confirm}
           required
+          autoComplete="new-password"
         />
 
+        {/* Mandatory Update Password Button */}
         <Button
           type="submit"
           variant="primary"
-          size="lg"
+          size="md"
           fullWidth
           isLoading={isLoading}
-          style={{ marginTop: '0.35rem' }}
+          iconRight={<ArrowRight size={15} />}
+          style={{ marginTop: '0.2rem' }}
         >
-          Update Password &amp; Continue
+          Update Password
         </Button>
       </form>
     </div>
