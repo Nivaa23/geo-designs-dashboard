@@ -28,14 +28,15 @@ export const Input: React.FC<InputProps> = ({
   const errorId = `${inputId}-error`;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', width: '100%' }}>
       {label && (
         <label
           htmlFor={inputId}
           style={{
-            fontSize: '0.85rem',
+            fontSize: '0.72rem',
             fontWeight: 600,
-            color: '#0F172A',
+            letterSpacing: '0.04em',
+            color: '#334155',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between'
@@ -86,7 +87,8 @@ export const Input: React.FC<InputProps> = ({
             color: 'var(--text-right-primary)',
             border: `1px solid ${error ? 'var(--color-error)' : 'var(--border-input)'}`,
             borderRadius: 'var(--radius-md)',
-            fontSize: '0.92rem',
+            fontSize: '0.85rem',
+            fontWeight: 400,
             outline: 'none',
             transition: 'all var(--transition-fast)',
             boxShadow: error ? '0 0 0 1px var(--color-error)' : 'none',
@@ -113,11 +115,11 @@ export const Input: React.FC<InputProps> = ({
       </div>
 
       {error ? (
-        <span id={errorId} style={{ fontSize: '0.78rem', color: 'var(--color-error)', fontWeight: 500 }}>
+        <span id={errorId} style={{ fontSize: '0.75rem', color: 'var(--color-error)', fontWeight: 500 }}>
           {error}
         </span>
       ) : helperText ? (
-        <span id={helperId} style={{ fontSize: '0.78rem', color: 'var(--text-right-muted)' }}>
+        <span id={helperId} style={{ fontSize: '0.75rem', color: 'var(--text-right-muted)' }}>
           {helperText}
         </span>
       ) : null}

@@ -64,11 +64,12 @@ export const Button: React.FC<ButtonProps> = ({
   const getSizeStyles = (): React.CSSProperties => {
     switch (size) {
       case 'sm':
-        return { height: '38px', padding: '0 0.95rem', fontSize: '0.82rem', borderRadius: 'var(--radius-sm)' };
-      case 'lg':
+        return { height: '34px', padding: '0 0.85rem', fontSize: '0.78125rem', borderRadius: 'var(--radius-sm)' };
       case 'md':
+        return { height: '42px', padding: '0 1.25rem', fontSize: '0.84rem', borderRadius: 'var(--radius-md)' };
+      case 'lg':
       default:
-        return { height: '48px', padding: '0 1.5rem', fontSize: '0.95rem', borderRadius: 'var(--radius-md)' };
+        return { height: '44px', padding: '0 1.35rem', fontSize: '0.85rem', borderRadius: 'var(--radius-md)' };
     }
   };
 

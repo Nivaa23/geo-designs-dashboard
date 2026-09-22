@@ -5,7 +5,7 @@ import { PasswordInput } from '../common/PasswordInput';
 import { Button } from '../common/Button';
 import { Checkbox } from '../common/Checkbox';
 import { Alert } from '../common/Alert';
-import { Mail } from 'lucide-react';
+import { Mail, Lock, ArrowRight } from 'lucide-react';
 
 export const LoginForm: React.FC = () => {
   const { login, isLoading, errorState, clearError, rememberMe, setRememberMe, setCurrentView } = useAuth();
@@ -38,14 +38,27 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.6rem', textAlign: 'left' }}>
-      {/* Form Header — LEFT ALIGNED */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', textAlign: 'left' }}>
+      {/* Form Header — LEFT ALIGNED ENTERPRISE GATEWAY */}
       <div>
-        <h2 style={{ fontSize: '1.65rem', color: '#0F172A', fontWeight: 800, marginBottom: '0.35rem', letterSpacing: '-0.025em', lineHeight: 1.2 }}>
-          Sign in to your workspace
+        <div
+          style={{
+            fontSize: '0.65rem',
+            fontWeight: 650,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: 'var(--color-accent-500)',
+            marginBottom: '4px',
+            fontFamily: 'var(--font-sans)'
+          }}
+        >
+          SECURE AUTHENTICATION GATEWAY
+        </div>
+        <h2 style={{ fontSize: '1.3rem', color: '#0F172A', fontWeight: 700, marginBottom: '0.25rem', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
+          Sign in to your account
         </h2>
-        <p style={{ fontSize: '0.88rem', color: '#64748B', fontWeight: 400, lineHeight: 1.5 }}>
-          Enter your company credentials to continue.
+        <p style={{ fontSize: '0.8125rem', color: '#64748B', fontWeight: 400, lineHeight: 1.45 }}>
+          Enter your corporate credentials to access the workspace.
         </p>
       </div>
 
@@ -65,13 +78,13 @@ export const LoginForm: React.FC = () => {
       )}
 
       {/* Form Fields */}
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }} noValidate>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }} noValidate>
         {/* Field 1: Company Email */}
         <Input
-          label="Company Email"
+          label="COMPANY EMAIL ADDRESS"
           type="email"
           placeholder="name@geodesigns.com"
-          prefixIcon={<Mail size={16} />}
+          prefixIcon={<Mail size={16} style={{ color: 'var(--color-accent-500)' }} />}
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
@@ -84,8 +97,9 @@ export const LoginForm: React.FC = () => {
 
         {/* Field 2: Password */}
         <PasswordInput
-          label="Password"
-          placeholder="Enter your password"
+          label="PASSWORD"
+          placeholder="Enter your corporate password"
+          prefixIcon={<Lock size={16} style={{ color: 'var(--color-accent-500)' }} />}
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
@@ -102,7 +116,7 @@ export const LoginForm: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            fontSize: '0.85rem'
+            fontSize: '0.78125rem'
           }}
         >
           <Checkbox
@@ -120,9 +134,9 @@ export const LoginForm: React.FC = () => {
             style={{
               background: 'none',
               border: 'none',
-              color: '#0284C7',
-              fontSize: '0.85rem',
-              fontWeight: 600,
+              color: 'var(--color-accent-500)',
+              fontSize: '0.78125rem',
+              fontWeight: 500,
               cursor: 'pointer',
               padding: 0
             }}
@@ -135,10 +149,11 @@ export const LoginForm: React.FC = () => {
         <Button
           type="submit"
           variant="primary"
-          size="lg"
+          size="md"
           fullWidth
           isLoading={isLoading}
-          style={{ marginTop: '0.35rem' }}
+          iconRight={<ArrowRight size={15} />}
+          style={{ marginTop: '0.2rem' }}
         >
           Sign In
         </Button>

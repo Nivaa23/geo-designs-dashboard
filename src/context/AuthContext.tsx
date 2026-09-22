@@ -2,7 +2,15 @@ import React, { createContext, useContext, useState, type ReactNode } from 'reac
 import type { User, AuthScreenView, AuthErrorState } from '../types/auth';
 import { mockAuthService, AuthError } from '../services/mockAuthService';
 
-export type AppTheme = 'dark' | 'light';
+export type ColorTheme =
+  | 'blue'
+  | 'green'
+  | 'neutral'
+  | 'orange'
+  | 'red'
+  | 'rose'
+  | 'violet'
+  | 'yellow';
 
 interface AuthContextType {
   currentView: AuthScreenView;
@@ -11,7 +19,7 @@ interface AuthContextType {
   errorState: AuthErrorState | null;
   resetTargetEmail: string;
   rememberMe: boolean;
-  theme: AppTheme;
+  colorTheme: ColorTheme;
   setCurrentView: (view: AuthScreenView) => void;
   setErrorState: (error: AuthErrorState | null) => void;
   setRememberMe: (val: boolean) => void;
@@ -23,7 +31,7 @@ interface AuthContextType {
   logout: () => void;
   switchSeedUser: (user: User) => void;
   triggerSimulatedError: (errorState: AuthErrorState) => void;
-  toggleTheme: () => void;
+  setColorTheme: (colorTheme: ColorTheme) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,21 +43,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [errorState, setErrorState] = useState<AuthErrorState | null>(null);
   const [resetTargetEmail, setResetTargetEmail] = useState<string>('');
   const [rememberMe, setRememberMe] = useState<boolean>(true);
-  const [theme, setTheme] = useState<AppTheme>(() => {
-    const saved = localStorage.getItem('geo_theme');
-    return (saved === 'light' || saved === 'dark') ? saved : 'dark';
+  const [colorTheme, setColorTheme] = useState<ColorTheme>(() => {
+    const saved = localStorage.getItem('geo_color_theme') as ColorTheme;
+    const validThemes: ColorTheme[] = ['blue', 'green', 'neutral', 'orange', 'red', 'rose', 'violet', 'yellow'];
+    return validThemes.includes(saved) ? saved : 'blue';
   });
 
   React.useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('geo_theme', theme);
-  }, [theme]);
+    document.documentElement.setAttribute('data-color-theme', colorTheme);
+    localStorage.setItem('geo_color_theme', colorTheme);
+  }, [colorTheme]);
 
   const clearError = () => setErrorState(null);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
 
   const handleLogin = async (email: string, pass: string) => {
     setIsLoading(true);
@@ -199,7 +204,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         errorState,
         resetTargetEmail,
         rememberMe,
-        theme,
+        colorTheme,
         setCurrentView,
         setErrorState,
         setRememberMe,
@@ -211,7 +216,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         logout,
         switchSeedUser,
         triggerSimulatedError,
-        toggleTheme
+        setColorTheme
       }}
     >
       {children}

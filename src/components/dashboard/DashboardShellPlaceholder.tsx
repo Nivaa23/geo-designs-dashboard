@@ -7,7 +7,7 @@ import { ThemeToggle } from '../common/ThemeToggle';
 import { LogOut } from 'lucide-react';
 
 export const DashboardShellPlaceholder: React.FC = () => {
-  const { currentUser, logout, theme } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   return (
     <div
@@ -33,7 +33,7 @@ export const DashboardShellPlaceholder: React.FC = () => {
           transition: 'background-color var(--transition-fast), border-color var(--transition-fast)'
         }}
       >
-        <GeoBrandLogo size="sm" theme={theme} />
+        <GeoBrandLogo size="sm" />
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>

@@ -25,8 +25,8 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         gap: '0.6rem',
         cursor: disabled ? 'not-allowed' : 'pointer',
         userSelect: 'none',
-        fontSize: '0.85rem',
-        color: '#334155',
+        fontSize: '0.78125rem',
+        color: '#475569',
         opacity: disabled ? 0.6 : 1
       }}
     >

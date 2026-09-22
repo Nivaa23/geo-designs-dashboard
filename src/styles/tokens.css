@@ -1,6 +1,5 @@
-:root,
-[data-theme="dark"] {
-  /* Left Panel - Dark Geo Environment */
+:root {
+  /* Left Panel - Dark Geo Environment Baseline */
   --bg-left-panel: #0B101D;
   --bg-left-card: rgba(255, 255, 255, 0.05);
   --border-left-card: rgba(255, 255, 255, 0.12);
@@ -8,18 +7,17 @@
   --text-left-secondary: #94A3B8;
   --text-left-muted: #64748B;
 
-  /* Right Panel - Clean White Surface */
+  /* Right Panel - Clean White Surface Baseline */
   --bg-right-panel: #FFFFFF;
   --bg-input: #FFFFFF;
   --bg-input-hover: #F8FAFC;
   --border-input: #CBD5E1;
   --border-input-hover: #94A3B8;
-  --border-input-focus: #0284C7;
   --text-right-primary: #0F172A;
   --text-right-secondary: #475569;
   --text-right-muted: #64748B;
 
-  /* Global Dashboard Shell Tokens - Dark Mode */
+  /* Global Dashboard Shell Tokens Baseline */
   --bg-page: #0B101D;
   --bg-card: #131B2E;
   --border-default: rgba(255, 255, 255, 0.12);
@@ -27,11 +25,12 @@
   --text-secondary: #94A3B8;
   --text-muted: #64748B;
 
-  /* Accent Color */
+  /* Default Color Theme Accent (Blue) */
   --color-accent-600: #026597;
   --color-accent-500: #0284C7;
   --color-accent-400: #0EA5E9;
   --color-accent-300: #38BDF8;
+  --border-input-focus: #0284C7;
 
   /* Status Colors */
   --color-success: #059669;
@@ -52,33 +51,77 @@
   --transition-fast: 120ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-[data-theme="light"] {
-  /* Left Panel - Refined Light Geo Environment */
-  --bg-left-panel: #F1F5F9;
-  --bg-left-card: #FFFFFF;
-  --border-left-card: #CBD5E1;
-  --text-left-primary: #0F172A;
-  --text-left-secondary: #475569;
-  --text-left-muted: #64748B;
-
-  /* Right Panel - Soft Clean Surface */
-  --bg-right-panel: #FAFAFA;
-  --bg-input: #FFFFFF;
-  --bg-input-hover: #F8FAFC;
-  --border-input: #CBD5E1;
-  --border-input-hover: #94A3B8;
+/* 1. BLUE (Default) */
+[data-color-theme="blue"] {
+  --color-accent-600: #026597;
+  --color-accent-500: #0284C7;
+  --color-accent-400: #0EA5E9;
+  --color-accent-300: #38BDF8;
   --border-input-focus: #0284C7;
-  --text-right-primary: #0F172A;
-  --text-right-secondary: #475569;
-  --text-right-muted: #64748B;
-
-  /* Global Dashboard Shell Tokens - Light Mode */
-  --bg-page: #F8FAFC;
-  --bg-card: #FFFFFF;
-  --border-default: #CBD5E1;
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #64748B;
 }
+
+/* 2. GREEN */
+[data-color-theme="green"] {
+  --color-accent-600: #059669;
+  --color-accent-500: #10B981;
+  --color-accent-400: #34D399;
+  --color-accent-300: #6EE7B7;
+  --border-input-focus: #10B981;
+}
+
+/* 3. NEUTRAL */
+[data-color-theme="neutral"] {
+  --color-accent-600: #475569;
+  --color-accent-500: #64748B;
+  --color-accent-400: #94A3B8;
+  --color-accent-300: #CBD5E1;
+  --border-input-focus: #64748B;
+}
+
+/* 4. ORANGE */
+[data-color-theme="orange"] {
+  --color-accent-600: #EA580C;
+  --color-accent-500: #F97316;
+  --color-accent-400: #FB923C;
+  --color-accent-300: #FDBA74;
+  --border-input-focus: #F97316;
+}
+
+/* 5. RED */
+[data-color-theme="red"] {
+  --color-accent-600: #DC2626;
+  --color-accent-500: #EF4444;
+  --color-accent-400: #F87171;
+  --color-accent-300: #FCA5A5;
+  --border-input-focus: #EF4444;
+}
+
+/* 6. ROSE */
+[data-color-theme="rose"] {
+  --color-accent-600: #E11D48;
+  --color-accent-500: #F43F5E;
+  --color-accent-400: #FB7185;
+  --color-accent-300: #FDA4AF;
+  --border-input-focus: #F43F5E;
+}
+
+/* 7. VIOLET */
+[data-color-theme="violet"] {
+  --color-accent-600: #7C3AED;
+  --color-accent-500: #8B5CF6;
+  --color-accent-400: #A78BFA;
+  --color-accent-300: #C4B5FD;
+  --border-input-focus: #8B5CF6;
+}
+
+/* 8. YELLOW */
+[data-color-theme="yellow"] {
+  --color-accent-600: #CA8A04;
+  --color-accent-500: #EAB308;
+  --color-accent-400: #FACC15;
+  --color-accent-300: #FDE047;
+  --border-input-focus: #EAB308;
+}
+
 
 
