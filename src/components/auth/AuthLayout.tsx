@@ -1,15 +1,33 @@
 import React, { type ReactNode } from 'react';
 import { GeoBrandLogo } from '../common/GeoBrandLogo';
 import { CursorGrid } from '../common/CursorGrid';
+import { ThemeToggle } from '../common/ThemeToggle';
+import { useAuth } from '../../context/AuthContext';
 import { Users, Briefcase, Clock } from 'lucide-react';
 
 interface AuthLayoutProps {
   children: ReactNode;
 }
 
+const DraftingCornerTick: React.FC<{ style: React.CSSProperties }> = ({ style }) => (
+  <svg
+    width="12"
+    height="12"
+    viewBox="0 0 12 12"
+    fill="none"
+    style={{ position: 'absolute', pointerEvents: 'none', opacity: 0.3, zIndex: 1, ...style }}
+    aria-hidden="true"
+  >
+    <path d="M0 6H12M6 0V12" stroke="var(--text-left-secondary)" strokeWidth="1" />
+  </svg>
+);
+
 export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
+  const { theme } = useAuth();
+
   return (
     <div
+      data-theme={theme}
       style={{
         width: '100vw',
         minHeight: '100svh',
@@ -18,8 +36,14 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
       }}
     >
       <div className="geo-auth-grid">
-        {/* LEFT PANEL — Dark Geo Environment (50vw Desktop) */}
+        {/* LEFT PANEL — Dark / Light Geo Environment (50vw Desktop) */}
         <div className="geo-left-panel bg-geo-grid" style={{ position: 'relative', overflow: 'hidden' }}>
+          {/* Subtle 1px Engineering Drafting Corner Tick Marks */}
+          <DraftingCornerTick style={{ top: '24px', left: '24px' }} />
+          <DraftingCornerTick style={{ top: '24px', right: '24px' }} />
+          <DraftingCornerTick style={{ bottom: '24px', left: '24px' }} />
+          <DraftingCornerTick style={{ bottom: '24px', right: '24px' }} />
+
           {/* 0. Interactive Engineering CursorGrid Layer (z-index: 0) */}
           <CursorGrid gridSpacing={32} radius={130} />
 
@@ -27,7 +51,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           <div className="geo-left-content-wrapper" style={{ position: 'relative', zIndex: 1 }}>
             {/* BRAND LOCKUP — Centered on Content Axis */}
             <div className="geo-brand-lockup-wrapper">
-              <GeoBrandLogo size="md" theme="dark" showSubTag={true} />
+              <GeoBrandLogo size="md" theme={theme} showSubTag={true} />
             </div>
 
             {/* MAIN HEADLINE — Centered on Content Axis */}
@@ -81,7 +105,10 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
         </div>
 
         {/* RIGHT PANEL — Authentication Panel (50vw Desktop) */}
-        <main className="geo-right-panel">
+        <main className="geo-right-panel" style={{ position: 'relative' }}>
+          {/* Top-Right Theme Toggle */}
+          <ThemeToggle />
+
           {/* Mobile/Tablet Compact Brand Header */}
           <div className="mobile-brand-wrapper">
             <GeoBrandLogo size="md" theme="light" showSubTag={true} />
@@ -112,9 +139,10 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           flex-direction: column;
           align-items: center;
           justify-content: space-between;
-          border-right: 1px solid rgba(255, 255, 255, 0.06);
+          border-right: 1px solid var(--border-left-card);
           min-height: 100svh;
           box-sizing: border-box;
+          transition: background-color var(--transition-fast), border-color var(--transition-fast);
         }
 
         .geo-left-content-wrapper {
@@ -131,7 +159,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 56px;
+          margin-bottom: 44px;
           width: 100%;
         }
 
@@ -141,10 +169,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           line-height: 1.25;
           font-weight: 700;
           letter-spacing: -0.025em;
-          color: #F8FAFC;
+          color: var(--text-left-primary);
           text-align: center;
           margin-bottom: 20px;
           width: 100%;
+          transition: color var(--transition-fast);
         }
 
         .geo-statement-desc {
@@ -154,15 +183,16 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           color: var(--text-left-secondary);
           text-align: center;
           max-width: 520px;
-          margin: 0 auto 40px auto;
+          margin: 0 auto 32px auto;
           font-weight: 400;
+          transition: color var(--transition-fast);
         }
 
         .geo-cards-stack {
           width: 100%;
           display: flex;
           flex-direction: column;
-          gap: 14px;
+          gap: 12px;
         }
 
         .geo-product-card {
@@ -176,6 +206,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           border-radius: var(--radius-md);
           box-sizing: border-box;
           backdrop-filter: blur(2px);
+          transition: background-color var(--transition-fast), border-color var(--transition-fast);
         }
 
         .geo-card-icon {
@@ -190,17 +221,17 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
 
         .geo-icon-blue {
           background-color: rgba(2, 132, 199, 0.15);
-          color: #38BDF8;
+          color: #0284C7;
         }
 
         .geo-icon-sky {
           background-color: rgba(14, 165, 233, 0.15);
-          color: #38BDF8;
+          color: #0284C7;
         }
 
         .geo-icon-emerald {
           background-color: rgba(16, 185, 129, 0.15);
-          color: #34D399;
+          color: #059669;
         }
 
         .geo-card-content {
@@ -212,10 +243,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
         .geo-card-title {
           font-family: var(--font-sans);
           font-size: 0.88rem;
-          color: #F8FAFC;
+          color: var(--text-left-primary);
           font-weight: 600;
           margin-bottom: 2px;
           text-align: left;
+          transition: color var(--transition-fast);
         }
 
         .geo-card-text {
@@ -224,6 +256,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           color: var(--text-left-secondary);
           font-weight: 400;
           text-align: left;
+          transition: color var(--transition-fast);
         }
 
         .geo-left-footer {
@@ -233,6 +266,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           text-align: center;
           padding-top: 2rem;
           width: 100%;
+          transition: color var(--transition-fast);
         }
 
         .geo-right-panel {
@@ -245,6 +279,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           padding: 32px 48px;
           min-height: 100svh;
           box-sizing: border-box;
+          transition: background-color var(--transition-fast);
         }
 
         .mobile-brand-wrapper {
@@ -308,3 +343,4 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
     </div>
   );
 };
+

@@ -3,10 +3,11 @@ import { useAuth } from '../../context/AuthContext';
 import { GeoBrandLogo } from '../common/GeoBrandLogo';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
+import { ThemeToggle } from '../common/ThemeToggle';
 import { LogOut } from 'lucide-react';
 
 export const DashboardShellPlaceholder: React.FC = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, theme } = useAuth();
 
   return (
     <div
@@ -15,7 +16,8 @@ export const DashboardShellPlaceholder: React.FC = () => {
         backgroundColor: 'var(--bg-page)',
         color: 'var(--text-primary)',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        transition: 'background-color var(--transition-fast), color var(--transition-fast)'
       }}
     >
       {/* Restrained Top Navigation Bar */}
@@ -27,18 +29,24 @@ export const DashboardShellPlaceholder: React.FC = () => {
           padding: '0 1.5rem',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          transition: 'background-color var(--transition-fast), border-color var(--transition-fast)'
         }}
       >
-        <GeoBrandLogo size="sm" />
+        <GeoBrandLogo size="sm" theme={theme} />
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#F8FAFC' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)' }}>
               {currentUser?.name || 'Authenticated Staff'}
             </span>
             {currentUser?.role && <Badge label={currentUser.role} role={currentUser.role} />}
           </div>
+
+          <div style={{ width: '1px', height: '18px', backgroundColor: 'var(--border-default)' }} />
+
+          {/* Theme Switcher */}
+          <ThemeToggle variant="inline" />
 
           <div style={{ width: '1px', height: '18px', backgroundColor: 'var(--border-default)' }} />
 
@@ -62,10 +70,11 @@ export const DashboardShellPlaceholder: React.FC = () => {
               padding: '1.5rem',
               backgroundColor: 'var(--bg-card)',
               border: '1px solid var(--border-default)',
-              borderRadius: 'var(--radius-lg)'
+              borderRadius: 'var(--radius-lg)',
+              transition: 'background-color var(--transition-fast), border-color var(--transition-fast)'
             }}
           >
-            <h1 style={{ fontSize: '1.4rem', color: '#F8FAFC', marginBottom: '0.35rem' }}>
+            <h1 style={{ fontSize: '1.4rem', color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
               Workspace Authenticated
             </h1>
             <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
@@ -82,10 +91,11 @@ export const DashboardShellPlaceholder: React.FC = () => {
               display: 'flex',
               flexDirection: 'column',
               gap: '0.75rem',
-              fontSize: '0.85rem'
+              fontSize: '0.85rem',
+              transition: 'background-color var(--transition-fast), border-color var(--transition-fast)'
             }}
           >
-            <h3 style={{ fontSize: '1rem', color: '#F8FAFC' }}>Phase 1 Scope Completed</h3>
+            <h3 style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Phase 1 Scope Completed</h3>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.5 }}>
               Authentication experience, password change policies, and error handling have been validated. Internal operational modules (Employee Directory, Attendance, Projects, Tasks) will be introduced in subsequent project phases.
             </p>
