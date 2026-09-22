@@ -37,7 +37,7 @@ export const ForgotPasswordForm: React.FC = () => {
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setEmailError('Enter a valid email address');
+      setEmailError('Enter a valid company email address');
       return;
     }
     setEmailError(undefined);
@@ -51,11 +51,11 @@ export const ForgotPasswordForm: React.FC = () => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
         <div>
-          <h1 style={{ fontSize: '1.35rem', color: '#F8FAFC', fontWeight: 600, marginBottom: '0.25rem' }}>
+          <h2 style={{ fontSize: '1.5rem', color: '#0F172A', fontWeight: 800, marginBottom: '0.35rem', letterSpacing: '-0.025em' }}>
             Check your email
-          </h1>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-            Recovery instructions have been sent to <strong>{resetTargetEmail}</strong>.
+          </h2>
+          <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5 }}>
+            Reset instructions have been sent to <strong>{resetTargetEmail}</strong>.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ export const ForgotPasswordForm: React.FC = () => {
           message="The link expires in 15 minutes. Check your spam folder if you do not receive it."
         />
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', marginTop: '0.25rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.25rem' }}>
           <Button
             variant="secondary"
             size="md"
@@ -84,8 +84,9 @@ export const ForgotPasswordForm: React.FC = () => {
             style={{
               background: 'none',
               border: 'none',
-              color: 'var(--text-secondary)',
-              fontSize: '0.82rem',
+              color: '#475569',
+              fontSize: '0.85rem',
+              fontWeight: 500,
               cursor: 'pointer',
               display: 'inline-flex',
               alignItems: 'center',
@@ -94,7 +95,7 @@ export const ForgotPasswordForm: React.FC = () => {
               marginTop: '0.25rem'
             }}
           >
-            <ArrowLeft size={14} /> Back to Sign In
+            <ArrowLeft size={15} /> Back to Sign In
           </button>
         </div>
       </div>
@@ -104,11 +105,11 @@ export const ForgotPasswordForm: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
       <div>
-        <h1 style={{ fontSize: '1.35rem', color: '#F8FAFC', fontWeight: 600, marginBottom: '0.25rem' }}>
+        <h2 style={{ fontSize: '1.5rem', color: '#0F172A', fontWeight: 800, marginBottom: '0.35rem', letterSpacing: '-0.025em' }}>
           Reset your password
-        </h1>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-          Enter your company email to receive reset instructions.
+        </h2>
+        <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5 }}>
+          Enter your company email address to receive password reset instructions.
         </p>
       </div>
 
@@ -122,7 +123,7 @@ export const ForgotPasswordForm: React.FC = () => {
         />
       )}
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }} noValidate>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }} noValidate>
         <Input
           label="Company Email"
           type="email"
@@ -140,7 +141,7 @@ export const ForgotPasswordForm: React.FC = () => {
         <Button
           type="submit"
           variant="primary"
-          size="md"
+          size="lg"
           fullWidth
           isLoading={isLoading}
         >
@@ -158,15 +159,16 @@ export const ForgotPasswordForm: React.FC = () => {
           style={{
             background: 'none',
             border: 'none',
-            color: 'var(--text-secondary)',
-            fontSize: '0.82rem',
+            color: '#475569',
+            fontSize: '0.85rem',
+            fontWeight: 500,
             cursor: 'pointer',
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.4rem'
           }}
         >
-          <ArrowLeft size={14} /> Back to Sign In
+          <ArrowLeft size={15} /> Back to Sign In
         </button>
       </div>
     </div>

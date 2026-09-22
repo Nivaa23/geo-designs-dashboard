@@ -22,11 +22,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: '0.65rem',
+        gap: '0.6rem',
         cursor: disabled ? 'not-allowed' : 'pointer',
         userSelect: 'none',
-        fontSize: '0.88rem',
-        color: 'var(--text-primary)',
+        fontSize: '0.85rem',
+        color: '#334155',
         opacity: disabled ? 0.6 : 1
       }}
     >
@@ -47,18 +47,18 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         />
         <div
           style={{
-            width: '18px',
-            height: '18px',
+            width: '16px',
+            height: '16px',
             borderRadius: '4px',
-            border: `1.5px solid ${checked ? 'var(--color-accent-500)' : 'var(--color-brand-600)'}`,
-            backgroundColor: checked ? 'var(--color-accent-500)' : 'var(--bg-input)',
+            border: `1.5px solid ${checked ? '#0F172A' : '#CBD5E1'}`,
+            backgroundColor: checked ? '#0F172A' : '#FFFFFF',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'all var(--transition-fast)'
           }}
         >
-          {checked && <Check size={13} color="#FFFFFF" strokeWidth={3} />}
+          {checked && <Check size={11} color="#FFFFFF" strokeWidth={3} />}
         </div>
       </div>
       <span>{label}</span>

@@ -7,12 +7,10 @@ import { ForgotPasswordForm } from './components/auth/ForgotPasswordForm';
 import { ResetPasswordForm } from './components/auth/ResetPasswordForm';
 import { AuthErrorStateView } from './components/auth/AuthErrorStateView';
 import { DashboardShellPlaceholder } from './components/dashboard/DashboardShellPlaceholder';
-import { DemoControlsBar } from './components/demo/DemoControlsBar';
 import './styles/globals.css';
 
 const AppContent: React.FC = () => {
   const { currentView } = useAuth();
-  const isDemoEnabled = new URLSearchParams(window.location.search).get('demo') === 'true';
 
   const renderActiveView = () => {
     switch (currentView) {
@@ -36,20 +34,10 @@ const AppContent: React.FC = () => {
   };
 
   if (currentView === 'dashboard') {
-    return (
-      <div>
-        <DashboardShellPlaceholder />
-        {isDemoEnabled && <DemoControlsBar />}
-      </div>
-    );
+    return <DashboardShellPlaceholder />;
   }
 
-  return (
-    <div>
-      <AuthLayout>{renderActiveView()}</AuthLayout>
-      {isDemoEnabled && <DemoControlsBar />}
-    </div>
-  );
+  return <AuthLayout>{renderActiveView()}</AuthLayout>;
 };
 
 export const App: React.FC = () => {

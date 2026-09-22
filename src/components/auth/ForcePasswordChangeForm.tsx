@@ -22,7 +22,7 @@ export const ForcePasswordChangeForm: React.FC = () => {
     const errors: { current?: string; new?: string; confirm?: string } = {};
 
     if (!currentPassword) {
-      errors.current = 'Current temporary password is required';
+      errors.current = 'Temporary password is required';
     }
 
     if (!newPassword) {
@@ -55,10 +55,10 @@ export const ForcePasswordChangeForm: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
       <div>
-        <h1 style={{ fontSize: '1.35rem', color: '#F8FAFC', fontWeight: 600, marginBottom: '0.25rem' }}>
-          Set Your Permanent Password
-        </h1>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+        <h2 style={{ fontSize: '1.5rem', color: '#0F172A', fontWeight: 800, marginBottom: '0.35rem', letterSpacing: '-0.025em' }}>
+          Set your permanent password
+        </h2>
+        <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5 }}>
           Welcome, <strong>{currentUser?.name || 'Employee'}</strong>. Your account was created with a temporary password. Update it before accessing the workspace.
         </p>
       </div>
@@ -78,7 +78,7 @@ export const ForcePasswordChangeForm: React.FC = () => {
         />
       )}
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }} noValidate>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }} noValidate>
         <PasswordInput
           label="Temporary Password"
           placeholder="Enter received temporary password"
@@ -122,10 +122,10 @@ export const ForcePasswordChangeForm: React.FC = () => {
         <Button
           type="submit"
           variant="primary"
-          size="md"
+          size="lg"
           fullWidth
           isLoading={isLoading}
-          style={{ marginTop: '0.25rem' }}
+          style={{ marginTop: '0.35rem' }}
         >
           Update Password &amp; Continue
         </Button>

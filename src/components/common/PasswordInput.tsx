@@ -20,7 +20,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
   return (
     <Input
       type={showPassword ? 'text' : 'password'}
-      prefixIcon={prefixIcon || (showLockIcon ? <Lock size={18} /> : undefined)}
+      prefixIcon={prefixIcon || (showLockIcon ? <Lock size={16} /> : undefined)}
       suffixIcon={
         <button
           type="button"
@@ -30,7 +30,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
           style={{
             background: 'none',
             border: 'none',
-            color: 'var(--text-secondary)',
+            color: '#64748B',
             cursor: 'pointer',
             padding: '4px',
             display: 'flex',
@@ -40,7 +40,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
             transition: 'color var(--transition-fast)'
           }}
         >
-          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
         </button>
       }
       {...props}

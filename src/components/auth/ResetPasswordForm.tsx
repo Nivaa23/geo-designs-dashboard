@@ -55,17 +55,17 @@ export const ResetPasswordForm: React.FC = () => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
         <div>
-          <h1 style={{ fontSize: '1.35rem', color: '#F8FAFC', fontWeight: 600, marginBottom: '0.25rem' }}>
+          <h2 style={{ fontSize: '1.5rem', color: '#0F172A', fontWeight: 800, marginBottom: '0.35rem', letterSpacing: '-0.025em' }}>
             Password updated
-          </h1>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+          </h2>
+          <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5 }}>
             Your account password has been reset. You can now sign in with your new credentials.
           </p>
         </div>
 
         <Button
           variant="primary"
-          size="md"
+          size="lg"
           fullWidth
           onClick={() => {
             clearError();
@@ -81,10 +81,10 @@ export const ResetPasswordForm: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
       <div>
-        <h1 style={{ fontSize: '1.35rem', color: '#F8FAFC', fontWeight: 600, marginBottom: '0.25rem' }}>
+        <h2 style={{ fontSize: '1.5rem', color: '#0F172A', fontWeight: 800, marginBottom: '0.35rem', letterSpacing: '-0.025em' }}>
           Set new password
-        </h1>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+        </h2>
+        <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5 }}>
           Create a new permanent password for your workspace account.
         </p>
       </div>
@@ -99,7 +99,7 @@ export const ResetPasswordForm: React.FC = () => {
         />
       )}
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }} noValidate>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }} noValidate>
         <div>
           <PasswordInput
             label="New Password"
@@ -131,7 +131,7 @@ export const ResetPasswordForm: React.FC = () => {
         <Button
           type="submit"
           variant="primary"
-          size="md"
+          size="lg"
           fullWidth
           isLoading={isLoading}
         >

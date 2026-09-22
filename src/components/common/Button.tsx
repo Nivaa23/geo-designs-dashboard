@@ -27,35 +27,34 @@ export const Button: React.FC<ButtonProps> = ({
     switch (variant) {
       case 'primary':
         return {
-          background: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
+          background: '#0F172A',
           color: '#FFFFFF',
-          border: '1px solid rgba(56, 189, 248, 0.4)',
-          boxShadow: '0 4px 14px rgba(2, 132, 199, 0.3)'
+          border: '1px solid #0F172A',
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
         };
       case 'secondary':
         return {
-          background: 'var(--color-brand-800)',
-          color: 'var(--text-primary)',
-          border: '1px solid var(--border-color-default)'
+          background: '#F1F5F9',
+          color: '#0F172A',
+          border: '1px solid #E2E8F0'
         };
       case 'outline':
         return {
           background: 'transparent',
-          color: 'var(--text-primary)',
-          border: '1px solid var(--color-brand-600)'
+          color: '#0F172A',
+          border: '1px solid #CBD5E1'
         };
       case 'ghost':
         return {
           background: 'transparent',
-          color: 'var(--text-secondary)',
+          color: '#475569',
           border: '1px solid transparent'
         };
       case 'danger':
         return {
-          background: 'linear-gradient(135deg, #E11D48 0%, #BE123C 100%)',
+          background: '#E11D48',
           color: '#FFFFFF',
-          border: '1px solid rgba(244, 63, 94, 0.4)',
-          boxShadow: '0 4px 14px rgba(225, 29, 72, 0.3)'
+          border: '1px solid #BE123C'
         };
       default:
         return {};
@@ -65,12 +64,11 @@ export const Button: React.FC<ButtonProps> = ({
   const getSizeStyles = (): React.CSSProperties => {
     switch (size) {
       case 'sm':
-        return { padding: '0.45rem 0.85rem', fontSize: '0.85rem', borderRadius: 'var(--radius-sm)' };
+        return { height: '38px', padding: '0 0.95rem', fontSize: '0.82rem', borderRadius: 'var(--radius-sm)' };
       case 'lg':
-        return { padding: '0.85rem 1.6rem', fontSize: '1.05rem', borderRadius: 'var(--radius-md)' };
       case 'md':
       default:
-        return { padding: '0.68rem 1.25rem', fontSize: '0.95rem', borderRadius: 'var(--radius-md)' };
+        return { height: '48px', padding: '0 1.5rem', fontSize: '0.95rem', borderRadius: 'var(--radius-md)' };
     }
   };
 
@@ -98,7 +96,7 @@ export const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {isLoading ? (
-        <Loader2 size={18} className="spin-icon" style={{ animation: 'spin 1s linear infinite' }} />
+        <Loader2 size={16} className="spin-icon" style={{ animation: 'spin 1s linear infinite' }} />
       ) : (
         iconLeft
       )}

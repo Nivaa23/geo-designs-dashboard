@@ -1,72 +1,44 @@
 :root {
-  /* Geo Designs Enterprise Palette - Linear / Stripe / Vercel style */
-  --color-brand-950: #080B11;
-  --color-brand-900: #0D111A;
-  --color-brand-850: #121824;
-  --color-brand-800: #172030;
-  --color-brand-700: #232F48;
-  --color-brand-600: #334366;
-  --color-brand-500: #4B5E85;
-  --color-brand-400: #788BAE;
-  --color-brand-300: #A3B3D1;
-  --color-brand-200: #CBD5E5;
-  --color-brand-100: #EBF0F7;
-  --color-brand-50:  #F8FAFC;
+  /* Left Panel - Dark Geo Environment */
+  --bg-left-panel: #0B101D;
+  --bg-left-card: rgba(255, 255, 255, 0.04);
+  --border-left-card: rgba(255, 255, 255, 0.08);
+  --text-left-primary: #F8FAFC;
+  --text-left-secondary: #94A3B8;
+  --text-left-muted: #64748B;
 
-  /* Accent Color - Restrained Sapphire Teal */
+  /* Right Panel - Clean White Surface */
+  --bg-right-panel: #FFFFFF;
+  --bg-input: #FFFFFF;
+  --bg-input-hover: #F8FAFC;
+  --border-input: #CBD5E1;
+  --border-input-hover: #94A3B8;
+  --border-input-focus: #0284C7;
+  --text-right-primary: #0F172A;
+  --text-right-secondary: #475569;
+  --text-right-muted: #64748B;
+
+  /* Accent Color */
   --color-accent-600: #026597;
   --color-accent-500: #0284C7;
-  --color-accent-400: #38BDF8;
-  --color-accent-light: rgba(2, 132, 199, 0.08);
-  --color-accent-border: rgba(56, 189, 248, 0.25);
+  --color-accent-400: #0EA5E9;
+  --color-accent-300: #38BDF8;
 
-  /* Status Tokens */
-  --color-success: #10B981;
-  --color-success-bg: rgba(16, 185, 129, 0.08);
-  --color-success-border: rgba(16, 185, 129, 0.25);
+  /* Status Colors */
+  --color-success: #059669;
+  --color-warning: #D97706;
+  --color-error: #E11D48;
 
-  --color-warning: #F59E0B;
-  --color-warning-bg: rgba(245, 158, 11, 0.08);
-  --color-warning-border: rgba(245, 158, 11, 0.25);
+  /* Typography */
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  --color-error: #F43F5E;
-  --color-error-bg: rgba(244, 63, 94, 0.08);
-  --color-error-border: rgba(244, 63, 94, 0.25);
-
-  --color-info: #38BDF8;
-  --color-info-bg: rgba(56, 189, 248, 0.08);
-  --color-info-border: rgba(56, 189, 248, 0.25);
-
-  /* Elevation Surfaces */
-  --bg-page: var(--color-brand-950);
-  --bg-card: var(--color-brand-900);
-  --bg-input: #090C14;
-  --bg-input-focus: #0D121F;
-
-  /* Border & Divider */
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-default: #1C263B;
-  --border-focus: var(--color-accent-500);
-
-  /* Typography Colors */
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-
-  /* Fonts */
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Inter', system-ui, sans-serif;
-
-  /* Radii & Shadows */
+  /* Dimensions */
+  --input-height-desktop: 48px;
+  --button-height-desktop: 48px;
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
-  --radius-xl: 16px;
-
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-focus: 0 0 0 3px rgba(2, 132, 199, 0.25);
 
   /* Transitions */
   --transition-fast: 120ms cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-normal: 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }

@@ -22,36 +22,36 @@ export const Alert: React.FC<AlertProps> = ({
     switch (type) {
       case 'error':
         return {
-          bg: 'var(--color-error-bg)',
-          border: 'var(--color-error-border)',
-          color: '#FECDD3',
-          iconColor: 'var(--color-error)',
-          icon: <XCircle size={20} />
+          bg: '#FEF2F2',
+          border: '#FCA5A5',
+          color: '#991B1B',
+          iconColor: '#E11D48',
+          icon: <XCircle size={18} />
         };
       case 'warning':
         return {
-          bg: 'var(--color-warning-bg)',
-          border: 'var(--color-warning-border)',
-          color: '#FDE68A',
-          iconColor: 'var(--color-warning)',
-          icon: <AlertTriangle size={20} />
+          bg: '#FFFBEB',
+          border: '#FDE68A',
+          color: '#92400E',
+          iconColor: '#D97706',
+          icon: <AlertTriangle size={18} />
         };
       case 'success':
         return {
-          bg: 'var(--color-success-bg)',
-          border: 'var(--color-success-border)',
-          color: '#A7F3D0',
-          iconColor: 'var(--color-success)',
-          icon: <CheckCircle2 size={20} />
+          bg: '#ECFDF5',
+          border: '#A7F3D0',
+          color: '#065F46',
+          iconColor: '#059669',
+          icon: <CheckCircle2 size={18} />
         };
       case 'info':
       default:
         return {
-          bg: 'var(--color-info-bg)',
-          border: 'var(--color-info-border)',
-          color: '#BAE6FD',
-          iconColor: 'var(--color-info)',
-          icon: <Info size={20} />
+          bg: '#F0F9FF',
+          border: '#BAE6FD',
+          color: '#075985',
+          iconColor: '#0284C7',
+          icon: <Info size={18} />
         };
     }
   };
@@ -65,29 +65,30 @@ export const Alert: React.FC<AlertProps> = ({
       style={{
         display: 'flex',
         alignItems: 'flex-start',
-        gap: '0.85rem',
-        padding: '0.85rem 1rem',
+        gap: '0.75rem',
+        padding: '0.75rem 0.95rem',
         backgroundColor: styleConfig.bg,
         border: `1px solid ${styleConfig.border}`,
         borderRadius: 'var(--radius-md)',
         color: styleConfig.color,
-        fontSize: '0.88rem',
-        width: '100%'
+        fontSize: '0.85rem',
+        width: '100%',
+        boxSizing: 'border-box'
       }}
     >
       <div style={{ color: styleConfig.iconColor, flexShrink: 0, marginTop: '2px' }}>
         {styleConfig.icon}
       </div>
 
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-        {title && <strong style={{ fontWeight: 700, fontSize: '0.92rem' }}>{title}</strong>}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+        {title && <strong style={{ fontWeight: 700, fontSize: '0.88rem' }}>{title}</strong>}
         <div>{message}</div>
         {details && (
-          <div style={{ fontSize: '0.8rem', opacity: 0.85, marginTop: '4px' }}>
+          <div style={{ fontSize: '0.78rem', opacity: 0.85, marginTop: '3px' }}>
             {details}
           </div>
         )}
-        {actionButton && <div style={{ marginTop: '8px' }}>{actionButton}</div>}
+        {actionButton && <div style={{ marginTop: '6px' }}>{actionButton}</div>}
       </div>
 
       {onClose && (
@@ -105,7 +106,7 @@ export const Alert: React.FC<AlertProps> = ({
             opacity: 0.8
           }}
         >
-          <X size={16} />
+          <X size={15} />
         </button>
       )}
     </div>

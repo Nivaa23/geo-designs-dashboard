@@ -28,14 +28,14 @@ export const Input: React.FC<InputProps> = ({
   const errorId = `${inputId}-error`;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', width: '100%' }}>
       {label && (
         <label
           htmlFor={inputId}
           style={{
-            fontSize: '0.88rem',
+            fontSize: '0.85rem',
             fontWeight: 600,
-            color: 'var(--text-primary)',
+            color: '#0F172A',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between'
@@ -60,8 +60,8 @@ export const Input: React.FC<InputProps> = ({
           <div
             style={{
               position: 'absolute',
-              left: '0.85rem',
-              color: error ? 'var(--color-error)' : 'var(--text-secondary)',
+              left: '0.95rem',
+              color: error ? 'var(--color-error)' : '#64748B',
               display: 'flex',
               alignItems: 'center',
               pointerEvents: 'none'
@@ -78,16 +78,17 @@ export const Input: React.FC<InputProps> = ({
           aria-describedby={error ? errorId : helperText ? helperId : undefined}
           style={{
             width: '100%',
-            padding: '0.72rem 0.95rem',
-            paddingLeft: prefixIcon ? '2.5rem' : '0.95rem',
-            paddingRight: suffixIcon ? '2.5rem' : '0.95rem',
+            height: '48px',
+            padding: '0 1rem',
+            paddingLeft: prefixIcon ? '2.6rem' : '1rem',
+            paddingRight: suffixIcon ? '2.6rem' : '1rem',
             backgroundColor: 'var(--bg-input)',
-            color: 'var(--text-primary)',
-            border: `1px solid ${error ? 'var(--color-error)' : 'var(--border-color-default)'}`,
+            color: 'var(--text-right-primary)',
+            border: `1px solid ${error ? 'var(--color-error)' : 'var(--border-input)'}`,
             borderRadius: 'var(--radius-md)',
-            fontSize: '0.95rem',
+            fontSize: '0.92rem',
             outline: 'none',
-            transition: 'border-color var(--transition-fast), box-shadow var(--transition-fast)',
+            transition: 'all var(--transition-fast)',
             boxShadow: error ? '0 0 0 1px var(--color-error)' : 'none',
             opacity: disabled ? 0.6 : 1,
             cursor: disabled ? 'not-allowed' : 'text',
@@ -101,7 +102,7 @@ export const Input: React.FC<InputProps> = ({
           <div
             style={{
               position: 'absolute',
-              right: '0.85rem',
+              right: '0.95rem',
               display: 'flex',
               alignItems: 'center'
             }}
@@ -112,11 +113,11 @@ export const Input: React.FC<InputProps> = ({
       </div>
 
       {error ? (
-        <span id={errorId} style={{ fontSize: '0.8rem', color: 'var(--color-error)', fontWeight: 500 }}>
+        <span id={errorId} style={{ fontSize: '0.78rem', color: 'var(--color-error)', fontWeight: 500 }}>
           {error}
         </span>
       ) : helperText ? (
-        <span id={helperId} style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+        <span id={helperId} style={{ fontSize: '0.78rem', color: 'var(--text-right-muted)' }}>
           {helperText}
         </span>
       ) : null}

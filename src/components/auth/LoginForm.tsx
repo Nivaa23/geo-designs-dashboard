@@ -20,7 +20,7 @@ export const LoginForm: React.FC = () => {
     if (!email.trim()) {
       errors.email = 'Company email address is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      errors.email = 'Enter a valid email address';
+      errors.email = 'Enter a valid company email address';
     }
 
     if (!password) {
@@ -38,18 +38,18 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-      {/* Header */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.6rem', textAlign: 'left' }}>
+      {/* Form Header — LEFT ALIGNED */}
       <div>
-        <h1 style={{ fontSize: '1.35rem', color: '#F8FAFC', fontWeight: 600, marginBottom: '0.25rem' }}>
+        <h2 style={{ fontSize: '1.65rem', color: '#0F172A', fontWeight: 800, marginBottom: '0.35rem', letterSpacing: '-0.025em', lineHeight: 1.2 }}>
           Sign in to your workspace
-        </h1>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+        </h2>
+        <p style={{ fontSize: '0.88rem', color: '#64748B', fontWeight: 400, lineHeight: 1.5 }}>
           Enter your company credentials to continue.
         </p>
       </div>
 
-      {/* Error Alert */}
+      {/* Contextual Error Alert Banner */}
       {errorState && (
         <Alert
           type={
@@ -64,8 +64,9 @@ export const LoginForm: React.FC = () => {
         />
       )}
 
-      {/* Form */}
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }} noValidate>
+      {/* Form Fields */}
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }} noValidate>
+        {/* Field 1: Company Email */}
         <Input
           label="Company Email"
           type="email"
@@ -81,9 +82,10 @@ export const LoginForm: React.FC = () => {
           autoComplete="username"
         />
 
+        {/* Field 2: Password */}
         <PasswordInput
           label="Password"
-          placeholder="Enter password"
+          placeholder="Enter your password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
@@ -94,12 +96,13 @@ export const LoginForm: React.FC = () => {
           autoComplete="current-password"
         />
 
+        {/* Action Row — Same Horizontal Row */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            fontSize: '0.82rem'
+            fontSize: '0.85rem'
           }}
         >
           <Checkbox
@@ -117,9 +120,9 @@ export const LoginForm: React.FC = () => {
             style={{
               background: 'none',
               border: 'none',
-              color: 'var(--color-accent-400)',
-              fontSize: '0.82rem',
-              fontWeight: 500,
+              color: '#0284C7',
+              fontSize: '0.85rem',
+              fontWeight: 600,
               cursor: 'pointer',
               padding: 0
             }}
@@ -128,13 +131,14 @@ export const LoginForm: React.FC = () => {
           </button>
         </div>
 
+        {/* Primary Full-Width Button */}
         <Button
           type="submit"
           variant="primary"
-          size="md"
+          size="lg"
           fullWidth
           isLoading={isLoading}
-          style={{ marginTop: '0.25rem' }}
+          style={{ marginTop: '0.35rem' }}
         >
           Sign In
         </Button>
