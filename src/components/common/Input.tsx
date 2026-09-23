@@ -33,7 +33,7 @@ export const Input: React.FC<InputProps> = ({
         <label
           htmlFor={inputId}
           style={{
-            fontSize: '0.72rem',
+            fontSize: '12px',
             fontWeight: 600,
             letterSpacing: '0.04em',
             color: '#334155',

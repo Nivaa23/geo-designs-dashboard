@@ -17,12 +17,15 @@
   --text-right-secondary: #475569;
   --text-right-muted: #64748B;
 
-  /* Global Dashboard Shell Tokens Baseline */
-  --bg-page: #0B101D;
-  --bg-card: #131B2E;
-  --border-default: rgba(255, 255, 255, 0.12);
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
+  /* Global Dashboard Shell Tokens Baseline — LIGHT THEME DEFAULT */
+  --bg-page: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-header: #FFFFFF;
+  --bg-sidebar: #FFFFFF;
+  --border-default: #E2E8F0;
+  --border-subtle: #F1F5F9;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
   --text-muted: #64748B;
 
   /* Default Color Theme Accent (Blue) */

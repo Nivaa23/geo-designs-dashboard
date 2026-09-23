@@ -6,7 +6,7 @@ import { ForcePasswordChangeForm } from './components/auth/ForcePasswordChangeFo
 import { ForgotPasswordForm } from './components/auth/ForgotPasswordForm';
 import { ResetPasswordForm } from './components/auth/ResetPasswordForm';
 import { AuthErrorStateView } from './components/auth/AuthErrorStateView';
-import { DashboardShellPlaceholder } from './components/dashboard/DashboardShellPlaceholder';
+import { AppShell } from './components/dashboard/AppShell';
 import './styles/globals.css';
 
 const AppContent: React.FC = () => {
@@ -27,14 +27,14 @@ const AppContent: React.FC = () => {
       case 'error-state-showcase':
         return <AuthErrorStateView />;
       case 'dashboard':
-        return <DashboardShellPlaceholder />;
+        return <AppShell />;
       default:
         return <LoginForm />;
     }
   };
 
   if (currentView === 'dashboard') {
-    return <DashboardShellPlaceholder />;
+    return <AppShell />;
   }
 
   return <AuthLayout>{renderActiveView()}</AuthLayout>;

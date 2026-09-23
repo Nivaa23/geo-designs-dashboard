@@ -72,32 +72,29 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ variant = 'absolute' }
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: '38px',
-          height: '38px',
+          width: '36px',
+          height: '36px',
           borderRadius: 'var(--radius-md)',
-          backgroundColor: '#0B101D',
-          border: `1px solid ${isOpen ? activeOption.color : 'rgba(255, 255, 255, 0.16)'}`,
+          backgroundColor: '#F8FAFC',
+          border: `1px solid ${isOpen ? activeOption.color : '#E2E8F0'}`,
           color: activeOption.color,
           cursor: 'pointer',
-          boxShadow: isOpen
-            ? `0 0 14px ${activeOption.color}40, 0 2px 8px rgba(0, 0, 0, 0.5)`
-            : '0 2px 8px rgba(0, 0, 0, 0.4)',
           transition: 'all var(--transition-fast)',
           flexShrink: 0
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = '#151D2F';
+          e.currentTarget.style.backgroundColor = '#FFFFFF';
           e.currentTarget.style.borderColor = activeOption.color;
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = '#0B101D';
-          e.currentTarget.style.borderColor = isOpen ? activeOption.color : 'rgba(255, 255, 255, 0.16)';
+          e.currentTarget.style.backgroundColor = '#F8FAFC';
+          e.currentTarget.style.borderColor = isOpen ? activeOption.color : '#E2E8F0';
         }}
       >
-        <Palette size={18} />
+        <Palette size={16} />
       </button>
 
-      {/* Structured Engineering Popover Surface */}
+      {/* Light Theme Popover Surface */}
       {isOpen && (
         <div
           role="menu"
@@ -107,11 +104,11 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ variant = 'absolute' }
             position: 'absolute',
             top: 'calc(100% + 8px)',
             right: 0,
-            width: '260px',
-            backgroundColor: '#0B101D',
-            border: '1px solid rgba(255, 255, 255, 0.14)',
-            borderRadius: '10px',
-            boxShadow: '0 16px 36px -4px rgba(0, 0, 0, 0.75), 0 4px 12px -2px rgba(0, 0, 0, 0.5)',
+            width: '250px',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid #E2E8F0',
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: '0 10px 30px rgba(15, 23, 42, 0.1)',
             padding: '12px 14px',
             display: 'flex',
             flexDirection: 'column',
@@ -132,23 +129,23 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ variant = 'absolute' }
               <Sliders size={13} style={{ color: activeOption.color }} />
               <span
                 style={{
-                  fontSize: '0.68rem',
+                  fontSize: '11px',
                   fontWeight: 700,
                   textTransform: 'uppercase',
-                  letterSpacing: '0.1em',
-                  color: '#F8FAFC',
+                  letterSpacing: '0.08em',
+                  color: '#0F172A',
                   fontFamily: 'var(--font-sans)'
                 }}
               >
-                COLOR THEME
+                COLOR ACCENT
               </span>
             </div>
             <span
               style={{
-                fontSize: '0.62rem',
-                fontWeight: 600,
+                fontSize: '11px',
+                fontWeight: 650,
                 color: activeOption.color,
-                letterSpacing: '0.05em',
+                letterSpacing: '0.04em',
                 textTransform: 'uppercase'
               }}
             >
@@ -158,24 +155,24 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ variant = 'absolute' }
 
           <p
             style={{
-              fontSize: '0.72rem',
-              color: '#94A3B8',
+              fontSize: '12px',
+              color: '#64748B',
               fontFamily: 'var(--font-sans)',
-              marginBottom: '10px'
+              marginBottom: '8px'
             }}
           >
-            Select workspace accent palette
+            Select workspace accent theme
           </p>
 
           <div
             style={{
               height: '1px',
-              backgroundColor: 'rgba(255, 255, 255, 0.08)',
-              marginBottom: '10px'
+              backgroundColor: '#F1F5F9',
+              marginBottom: '8px'
             }}
           />
 
-          {/* 2-Column Grid of Micro Theme Swatch Cards */}
+          {/* 2-Column Grid of Swatch Cards */}
           <div
             style={{
               display: 'grid',
@@ -195,52 +192,50 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ variant = 'absolute' }
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    height: '34px',
+                    height: '32px',
                     padding: '0 8px',
                     borderRadius: '6px',
                     border: isSelected
                       ? `1px solid ${item.color}`
-                      : '1px solid rgba(255, 255, 255, 0.08)',
+                      : '1px solid #E2E8F0',
                     backgroundColor: isSelected
-                      ? 'rgba(255, 255, 255, 0.08)'
-                      : 'rgba(255, 255, 255, 0.02)',
-                    color: isSelected ? '#F8FAFC' : '#94A3B8',
-                    fontSize: '0.78rem',
+                      ? '#F0F9FF'
+                      : '#F8FAFC',
+                    color: isSelected ? '#0F172A' : '#475569',
+                    fontSize: '12px',
                     fontFamily: 'var(--font-sans)',
-                    fontWeight: isSelected ? 600 : 400,
+                    fontWeight: isSelected ? 650 : 500,
                     cursor: 'pointer',
-                    boxShadow: isSelected ? `0 0 8px ${item.color}25` : 'none',
                     transition: 'all var(--transition-fast)'
                   }}
                   onMouseEnter={(e) => {
                     if (!isSelected) {
-                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                      e.currentTarget.style.color = '#F8FAFC';
+                      e.currentTarget.style.backgroundColor = '#FFFFFF';
+                      e.currentTarget.style.borderColor = '#CBD5E1';
+                      e.currentTarget.style.color = '#0F172A';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isSelected) {
-                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.02)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                      e.currentTarget.style.color = '#94A3B8';
+                      e.currentTarget.style.backgroundColor = '#F8FAFC';
+                      e.currentTarget.style.borderColor = '#E2E8F0';
+                      e.currentTarget.style.color = '#475569';
                     }
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span
                       style={{
                         width: '10px',
                         height: '10px',
                         borderRadius: '3px',
                         backgroundColor: item.color,
-                        flexShrink: 0,
-                        boxShadow: isSelected ? `0 0 6px ${item.color}` : 'none'
+                        flexShrink: 0
                       }}
                     />
                     <span>{item.name}</span>
                   </div>
-                  {isSelected && <Check size={13} style={{ color: item.color }} />}
+                  {isSelected && <Check size={12} style={{ color: item.color }} />}
                 </button>
               );
             })}
@@ -249,24 +244,22 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ variant = 'absolute' }
           {/* Footer Status Bar */}
           <div
             style={{
-              marginTop: '10px',
-              paddingTop: '8px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+              marginTop: '8px',
+              paddingTop: '6px',
+              borderTop: '1px solid #F1F5F9',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              fontSize: '0.66rem',
+              fontSize: '11px',
               color: '#64748B',
               fontFamily: 'var(--font-sans)'
             }}
           >
-            <span>Geo Design System</span>
-            <span style={{ color: activeOption.color, fontWeight: 600 }}>{activeOption.description}</span>
+            <span>Geo Theme Engine</span>
+            <span style={{ color: activeOption.color, fontWeight: 650 }}>{activeOption.description}</span>
           </div>
         </div>
       )}
     </div>
   );
 };
-
-
