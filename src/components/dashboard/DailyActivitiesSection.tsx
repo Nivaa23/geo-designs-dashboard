@@ -17,13 +17,35 @@ export const DailyActivitiesSection: React.FC = () => {
       }}
     >
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div>
-          <h3 style={{ fontSize: '0.95rem', color: '#0F172A', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <CheckSquare size={16} style={{ color: 'var(--color-accent-500)' }} />
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+        <div style={{ textAlign: 'left' }}>
+          <h3
+            style={{
+              fontSize: '18px',
+              fontWeight: 600,
+              color: '#0F172A',
+              lineHeight: 1.25,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              margin: 0,
+              textAlign: 'left'
+            }}
+          >
+            <CheckSquare size={18} style={{ color: 'var(--color-accent-500)' }} />
             Today's Critical Activities
           </h3>
-          <p style={{ fontSize: '0.73rem', color: '#64748B', marginTop: '2px' }}>
+          <p
+            style={{
+              fontSize: '13px',
+              fontWeight: 400,
+              color: '#64748B',
+              lineHeight: 1.4,
+              marginTop: '4px',
+              margin: '4px 0 0 0',
+              textAlign: 'left'
+            }}
+          >
             Time-sensitive engineering, laboratory, and operational tasks for immediate action.
           </p>
         </div>
@@ -33,12 +55,15 @@ export const DailyActivitiesSection: React.FC = () => {
             background: 'none',
             border: 'none',
             color: 'var(--color-accent-500)',
-            fontSize: '0.78rem',
-            fontWeight: 650,
+            fontSize: '13px',
+            fontWeight: 600,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '3px'
+            gap: '3px',
+            padding: 0,
+            flexShrink: 0,
+            marginTop: '2px'
           }}
         >
           Manage All
@@ -74,23 +99,22 @@ export const DailyActivitiesSection: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                gap: '0.75rem'
+                gap: '0.85rem'
               }}
             >
-              {/* Task Title & Code */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem' }}>
+              {/* Column 1: Priority Badge */}
+              <div style={{ flexShrink: 0 }}>
                 <span
                   style={{
-                    padding: '2px 6px',
+                    padding: '3px 7px',
                     borderRadius: 'var(--radius-sm)',
                     backgroundColor: priorityBg,
                     border: `1px solid ${priorityBorder}`,
                     color: priorityColor,
-                    fontSize: '0.64rem',
-                    fontWeight: 700,
+                    fontSize: '11px',
+                    fontWeight: 600,
                     textTransform: 'uppercase',
                     whiteSpace: 'nowrap',
-                    marginTop: '2px',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '3px'
@@ -99,48 +123,77 @@ export const DailyActivitiesSection: React.FC = () => {
                   {act.priority === 'Critical' && <AlertTriangle size={11} />}
                   {act.priority}
                 </span>
+              </div>
 
-                <div>
-                  <div style={{ fontSize: '0.8125rem', fontWeight: 650, color: '#0F172A', lineHeight: 1.3 }}>
-                    {act.title}
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: '#64748B', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <span>{act.code}</span>
-                    <span>&bull;</span>
-                    <span>{act.category}</span>
-                  </div>
+              {/* Column 2: Activity Information */}
+              <div style={{ flex: 1, minWidth: 0, textAlign: 'left' }}>
+                <h4
+                  style={{
+                    fontSize: '15px',
+                    fontWeight: 600,
+                    color: '#0F172A',
+                    lineHeight: 1.3,
+                    margin: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  {act.title}
+                </h4>
+                <div
+                  style={{
+                    fontSize: '12px',
+                    fontWeight: 400,
+                    color: '#64748B',
+                    lineHeight: 1.3,
+                    marginTop: '2px',
+                    textAlign: 'left'
+                  }}
+                >
+                  {act.code} &bull; {act.category}
                 </div>
               </div>
 
-              {/* Responsible Person + Target Time */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexShrink: 0 }}>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '0.73rem', fontWeight: 650, color: '#334155', display: 'flex', alignItems: 'center', gap: '3px', justifyContent: 'flex-end' }}>
-                    <UserCheck size={12} style={{ color: 'var(--color-accent-500)' }} />
-                    {act.assignedTo}
-                  </div>
-                  <div style={{ fontSize: '0.66rem', color: '#64748B' }}>
-                    {act.department}
-                  </div>
-                </div>
-
+              {/* Column 3: Assignee */}
+              <div style={{ textAlign: 'right', flexShrink: 0 }}>
                 <div
                   style={{
-                    padding: '3px 7px',
-                    borderRadius: 'var(--radius-sm)',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E2E8F0',
-                    fontSize: '0.7rem',
-                    fontWeight: 650,
+                    fontSize: '13px',
+                    fontWeight: 600,
                     color: '#0F172A',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '4px'
+                    gap: '4px',
+                    justifyContent: 'flex-end',
+                    lineHeight: 1.2
                   }}
                 >
-                  <Clock size={11} style={{ color: '#B45309' }} />
-                  {act.targetTime}
+                  <UserCheck size={13} style={{ color: 'var(--color-accent-500)' }} />
+                  {act.assignedTo}
                 </div>
+                <div style={{ fontSize: '12px', fontWeight: 400, color: '#64748B', marginTop: '2px', lineHeight: 1.2 }}>
+                  {act.department}
+                </div>
+              </div>
+
+              {/* Column 4: Time Badge */}
+              <div
+                style={{
+                  padding: '3px 8px',
+                  borderRadius: 'var(--radius-sm)',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#0F172A',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  flexShrink: 0,
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                <Clock size={11} style={{ color: '#B45309' }} />
+                {act.targetTime}
               </div>
             </div>
           );

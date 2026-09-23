@@ -13,11 +13,11 @@ export const AppShell: React.FC = () => {
     <div
       style={{
         display: 'flex',
-        minHeight: '100vh',
+        height: '100vh',
         width: '100vw',
         backgroundColor: '#F8FAFC',
         color: '#0F172A',
-        overflowX: 'hidden'
+        overflow: 'hidden'
       }}
     >
       {/* Left Navigation Sidebar */}
@@ -28,13 +28,15 @@ export const AppShell: React.FC = () => {
         onCloseMobile={() => setIsMobileSidebarOpen(false)}
       />
 
-      {/* Main Content Area */}
+      {/* Main Content Area — Independently Scrollable Right Pane */}
       <div
         style={{
           flex: 1,
+          height: '100vh',
           display: 'flex',
           flexDirection: 'column',
           minWidth: 0, // Prevents flex child overflow
+          overflowY: 'auto',
           overflowX: 'hidden'
         }}
       >

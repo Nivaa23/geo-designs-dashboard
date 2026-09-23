@@ -251,80 +251,101 @@ export const WorkSessionOverviewBar: React.FC = () => {
               Leave Balances
             </div>
 
-            {/* Individual Leave Boxes Grid */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '4px'
-              }}
-            >
+            {/* Centered Group of 4 Leave Boxes */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
               <div
                 style={{
-                  backgroundColor: '#F8FAFC',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '6px',
-                  padding: '0.35rem 0.2rem',
-                  textAlign: 'center'
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '6px',
+                  width: '100%',
+                  maxWidth: '220px'
                 }}
               >
-                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.1 }}>
-                  {leave.casual}
+                {/* Box 1: Casual */}
+                <div
+                  style={{
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '6px',
+                    padding: '0.35rem 0.2rem',
+                    textAlign: 'center'
+                  }}
+                >
+                  <div style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.1 }}>
+                    {leave.casual}
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600, marginTop: '2px' }}>
+                    Casual
+                  </div>
                 </div>
-                <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600, marginTop: '2px' }}>
-                  Casual
+
+                {/* Box 2: Medical */}
+                <div
+                  style={{
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '6px',
+                    padding: '0.35rem 0.2rem',
+                    textAlign: 'center'
+                  }}
+                >
+                  <div style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.1 }}>
+                    {leave.medical}
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600, marginTop: '2px' }}>
+                    Medical
+                  </div>
+                </div>
+
+                {/* Box 3: Earned */}
+                <div
+                  style={{
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '6px',
+                    padding: '0.35rem 0.2rem',
+                    textAlign: 'center'
+                  }}
+                >
+                  <div style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.1 }}>
+                    {leave.earned}
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600, marginTop: '2px' }}>
+                    Earned
+                  </div>
+                </div>
+
+                {/* Box 4: Pending */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFBEB',
+                    border: '1px solid #FDE68A',
+                    borderRadius: '6px',
+                    padding: '0.35rem 0.2rem',
+                    textAlign: 'center'
+                  }}
+                >
+                  <div style={{ fontSize: '1rem', fontWeight: 700, color: '#B45309', lineHeight: 1.1 }}>
+                    {leave.pendingApproval}
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#B45309', fontWeight: 600, marginTop: '2px' }}>
+                    Pending
+                  </div>
                 </div>
               </div>
 
+              {/* Supporting Line — Dynamic Total Annual Allocation */}
               <div
                 style={{
-                  backgroundColor: '#F8FAFC',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '6px',
-                  padding: '0.35rem 0.2rem',
+                  fontSize: '11px',
+                  color: '#64748B',
+                  fontWeight: 500,
+                  marginTop: '6px',
                   textAlign: 'center'
                 }}
               >
-                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.1 }}>
-                  {leave.medical}
-                </div>
-                <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600, marginTop: '2px' }}>
-                  Medical
-                </div>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: '#F8FAFC',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '6px',
-                  padding: '0.35rem 0.2rem',
-                  textAlign: 'center'
-                }}
-              >
-                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', lineHeight: 1.1 }}>
-                  {leave.earned}
-                </div>
-                <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600, marginTop: '2px' }}>
-                  Earned
-                </div>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: '#FFFBEB',
-                  border: '1px solid #FDE68A',
-                  borderRadius: '6px',
-                  padding: '0.35rem 0.2rem',
-                  textAlign: 'center'
-                }}
-              >
-                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#B45309', lineHeight: 1.1 }}>
-                  {leave.pendingApproval}
-                </div>
-                <div style={{ fontSize: '10px', color: '#B45309', fontWeight: 600, marginTop: '2px' }}>
-                  Pending
-                </div>
+                {leave.totalAnnualAllocation || 25} Total Annual Allocation
               </div>
             </div>
           </div>

@@ -32,6 +32,7 @@ export interface LeaveBalance {
   earned: number;
   earnedTotal: number;
   pendingApproval: number;
+  totalAnnualAllocation: number;
 }
 
 export interface KpiCardItem {

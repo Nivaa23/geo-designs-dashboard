@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Badge } from '../common/Badge';
 import { ThemeToggle } from '../common/ThemeToggle';
 import { NAV_ITEMS } from '../../data/mockDashboardData';
 import type { NavModuleId } from '../../types/dashboard';
@@ -29,7 +28,8 @@ export const Header: React.FC<HeaderProps> = ({ activeModule, onToggleMobileSide
   return (
     <header
       style={{
-        height: '64px',
+        height: '72px',
+        minHeight: '72px',
         backgroundColor: '#FFFFFF',
         borderBottom: '1px solid #E2E8F0',
         padding: '0 1.5rem',
@@ -43,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({ activeModule, onToggleMobileSide
         transition: 'background-color var(--transition-fast), border-color var(--transition-fast)'
       }}
     >
-      {/* Left Title & Subtitle Area (Change 7) */}
+      {/* Left Title Area */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <button
           type="button"
@@ -62,30 +62,18 @@ export const Header: React.FC<HeaderProps> = ({ activeModule, onToggleMobileSide
           <Menu size={22} />
         </button>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <h1
-            style={{
-              fontSize: '1.1rem',
-              fontWeight: 700,
-              color: '#0F172A',
-              lineHeight: 1.2,
-              letterSpacing: '-0.015em'
-            }}
-          >
-            {activeNavItem.label}
-          </h1>
-          {/* Subtitle directly below title, MAXIMUM 12px font size */}
-          <p
-            style={{
-              fontSize: '12px',
-              color: '#64748B',
-              lineHeight: 1.25,
-              marginTop: '2px'
-            }}
-          >
-            {activeNavItem.description}
-          </p>
-        </div>
+        <h1
+          style={{
+            fontSize: '1.1rem',
+            fontWeight: 700,
+            color: '#0F172A',
+            lineHeight: 1.2,
+            letterSpacing: '-0.015em',
+            margin: 0
+          }}
+        >
+          {activeNavItem.label}
+        </h1>
       </div>
 
       {/* Right Controls Area */}
@@ -237,8 +225,8 @@ export const Header: React.FC<HeaderProps> = ({ activeModule, onToggleMobileSide
               style={{
                 position: 'absolute',
                 right: 0,
-                top: '46px',
-                width: '250px',
+                top: '44px',
+                width: '270px',
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #E2E8F0',
                 borderRadius: 'var(--radius-lg)',
@@ -246,60 +234,93 @@ export const Header: React.FC<HeaderProps> = ({ activeModule, onToggleMobileSide
                 boxShadow: '0 10px 30px rgba(15, 23, 42, 0.1)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.6rem',
-                zIndex: 60
+                gap: '0.5rem',
+                zIndex: 60,
+                textAlign: 'left'
               }}
             >
+              {/* Identity Section */}
               <div
                 style={{
-                  paddingBottom: '0.6rem',
-                  borderBottom: '1px solid #F1F5F9'
+                  paddingBottom: '0.55rem',
+                  borderBottom: '1px solid #F1F5F9',
+                  textAlign: 'left'
                 }}
               >
-                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#0F172A' }}>
-                  {currentUser?.name || 'Dr. Vikram Raman'}
+                <div style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A', lineHeight: 1.2, textAlign: 'left' }}>
+                  {currentUser?.name || 'Sarah Jenkins'}
                 </div>
-                <div style={{ fontSize: '0.72rem', color: '#64748B', marginTop: '2px' }}>
-                  {currentUser?.email || 'v.raman@geodesigns.com'}
+                <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px', lineHeight: 1.2, textAlign: 'left' }}>
+                  {currentUser?.email || 's.jenkins@geodesigns.com'}
                 </div>
-                <div style={{ marginTop: '6px', display: 'flex', gap: '4px' }}>
-                  {currentUser?.role && <Badge label={currentUser.role} role={currentUser.role} />}
+                <div style={{ marginTop: '4px', textAlign: 'left' }}>
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      padding: '1px 6px',
+                      borderRadius: '4px',
+                      backgroundColor: '#ECFDF5',
+                      border: '1px solid #A7F3D0',
+                      color: '#047857',
+                      fontSize: '11px',
+                      fontWeight: 600
+                    }}
+                  >
+                    Employee
+                  </span>
                 </div>
               </div>
 
-              <div style={{ fontSize: '0.72rem', color: '#475569', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Building2 size={13} style={{ color: 'var(--color-accent-500)' }} />
-                Dept: {currentUser?.department || 'Research & Engineering Ops'}
+              {/* Work Information Section */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', padding: '0.2rem 0' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', textAlign: 'left' }}>
+                  <Building2 size={14} style={{ color: 'var(--color-accent-500)', flexShrink: 0, marginTop: '2px' }} />
+                  <span style={{ fontSize: '12px', fontWeight: 400, color: '#475569', lineHeight: 1.35, textAlign: 'left' }}>
+                    Dept: {currentUser?.department || 'Research & Engineering Ops'}
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', textAlign: 'left' }}>
+                  <Clock size={14} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
+                  <span style={{ fontSize: '12px', fontWeight: 400, color: '#475569', lineHeight: 1.35, textAlign: 'left' }}>
+                    Shift: 09:00 - 18:00 (Check-in 09:00 AM)
+                  </span>
+                </div>
               </div>
 
-              <div style={{ fontSize: '0.72rem', color: '#475569', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Clock size={13} style={{ color: '#059669' }} />
-                Shift: 09:00 - 18:00 (Check-in 09:00 AM)
-              </div>
-
+              {/* Sign-Out Action */}
               <button
                 type="button"
-                onClick={logout}
+                onClick={() => {
+                  setShowUserMenu(false);
+                  logout();
+                }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '0.5rem',
                   width: '100%',
-                  padding: '0.5rem',
+                  padding: '0.45rem 0.75rem',
                   borderRadius: 'var(--radius-md)',
                   backgroundColor: '#FEF2F2',
                   border: '1px solid #FCA5A5',
                   color: '#DC2626',
-                  fontSize: '0.78rem',
-                  fontWeight: 650,
+                  fontSize: '12px',
+                  fontWeight: 600,
                   cursor: 'pointer',
                   marginTop: '0.25rem',
                   transition: 'all var(--transition-fast)'
                 }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#FEE2E2';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#FEF2F2';
+                }}
               >
                 <LogOut size={14} />
-                Sign Out of Workspace
+                Sign Out
               </button>
             </div>
           )}

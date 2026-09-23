@@ -17,13 +17,35 @@ export const FinancialRecoverySection: React.FC = () => {
       }}
     >
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div>
-          <h3 style={{ fontSize: '0.95rem', color: '#0F172A', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <DollarSign size={16} style={{ color: 'var(--color-accent-500)' }} />
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+        <div style={{ textAlign: 'left' }}>
+          <h3
+            style={{
+              fontSize: '18px',
+              fontWeight: 600,
+              color: '#0F172A',
+              lineHeight: 1.25,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              margin: 0,
+              textAlign: 'left'
+            }}
+          >
+            <DollarSign size={18} style={{ color: 'var(--color-accent-500)' }} />
             Financial Commitments & Recovery Tracking
           </h3>
-          <p style={{ fontSize: '0.73rem', color: '#64748B', marginTop: '2px' }}>
+          <p
+            style={{
+              fontSize: '13px',
+              fontWeight: 400,
+              color: '#64748B',
+              lineHeight: 1.4,
+              marginTop: '4px',
+              margin: '4px 0 0 0',
+              textAlign: 'left'
+            }}
+          >
             Operational commitments, client receivables clearance, and invoice recovery status.
           </p>
         </div>
@@ -33,12 +55,15 @@ export const FinancialRecoverySection: React.FC = () => {
             background: 'none',
             border: 'none',
             color: 'var(--color-accent-500)',
-            fontSize: '0.78rem',
-            fontWeight: 650,
+            fontSize: '13px',
+            fontWeight: 600,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '3px'
+            gap: '3px',
+            padding: 0,
+            flexShrink: 0,
+            marginTop: '2px'
           }}
         >
           Full Summary
@@ -46,8 +71,15 @@ export const FinancialRecoverySection: React.FC = () => {
         </button>
       </div>
 
-      {/* Financial Category Breakdown Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '0.75rem' }}>
+      {/* Financial Category Breakdown Grid — Two Equal Width Cards */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '0.85rem'
+        }}
+        className="geo-dashboard-grid-2col"
+      >
         {FINANCIAL_RECOVERY_DATA.map((item) => {
           let statusBg = '#ECFDF5';
           let statusColor = '#047857';
@@ -69,13 +101,23 @@ export const FinancialRecoverySection: React.FC = () => {
                 padding: '0.85rem 1rem',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.65rem'
+                gap: '0.75rem'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#0F172A' }}>
+              {/* Card Header */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
+                <h4
+                  style={{
+                    fontSize: '15px',
+                    fontWeight: 600,
+                    color: '#0F172A',
+                    lineHeight: 1.3,
+                    margin: 0,
+                    textAlign: 'left'
+                  }}
+                >
                   {item.category}
-                </span>
+                </h4>
                 <span
                   style={{
                     padding: '2px 7px',
@@ -83,28 +125,41 @@ export const FinancialRecoverySection: React.FC = () => {
                     backgroundColor: statusBg,
                     border: `1px solid ${statusBorder}`,
                     color: statusColor,
-                    fontSize: '0.65rem',
-                    fontWeight: 650
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    flexShrink: 0,
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   {item.status}
                 </span>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', backgroundColor: '#FFFFFF', padding: '0.55rem 0.65rem', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0' }}>
-                <div>
-                  <div style={{ fontSize: '0.64rem', color: '#94A3B8', textTransform: 'uppercase', fontWeight: 600 }}>
+              {/* Metric Box */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '0.75rem',
+                  backgroundColor: '#FFFFFF',
+                  padding: '0.65rem 0.85rem',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid #E2E8F0'
+                }}
+              >
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '11px', color: '#64748B', textTransform: 'uppercase', fontWeight: 600 }}>
                     COMMITTED EXPENSES
                   </div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#0F172A', marginTop: '1px' }}>
+                  <div style={{ fontSize: '14px', fontWeight: 600, color: '#0F172A', marginTop: '2px' }}>
                     {item.committedExpenses}
                   </div>
                 </div>
-                <div>
-                  <div style={{ fontSize: '0.64rem', color: '#94A3B8', textTransform: 'uppercase', fontWeight: 600 }}>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '11px', color: '#64748B', textTransform: 'uppercase', fontWeight: 600 }}>
                     OUTSTANDING RECOVERY
                   </div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#B45309', marginTop: '1px' }}>
+                  <div style={{ fontSize: '14px', fontWeight: 600, color: '#B45309', marginTop: '2px' }}>
                     {item.outstandingRecovery}
                   </div>
                 </div>
@@ -112,9 +167,17 @@ export const FinancialRecoverySection: React.FC = () => {
 
               {/* Progress meter */}
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.68rem', color: '#64748B', marginBottom: '3px' }}>
-                  <span>Cleared: {item.recoveredAmount}</span>
-                  <span style={{ fontWeight: 700, color: '#047857' }}>{item.recoveryRate}% Collection Rate</span>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    fontSize: '12px',
+                    marginBottom: '4px'
+                  }}
+                >
+                  <span style={{ fontWeight: 400, color: '#64748B' }}>Cleared: {item.recoveredAmount}</span>
+                  <span style={{ fontWeight: 600, color: '#047857' }}>{item.recoveryRate}% Collection Rate</span>
                 </div>
                 <div
                   style={{

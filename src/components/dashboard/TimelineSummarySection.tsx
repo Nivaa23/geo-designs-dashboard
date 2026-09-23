@@ -17,17 +17,39 @@ export const TimelineSummarySection: React.FC = () => {
       }}
     >
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div>
-          <h3 style={{ fontSize: '0.95rem', color: '#0F172A', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Layers size={16} style={{ color: 'var(--color-accent-500)' }} />
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+        <div style={{ textAlign: 'left' }}>
+          <h3
+            style={{
+              fontSize: '18px',
+              fontWeight: 600,
+              color: '#0F172A',
+              lineHeight: 1.25,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              margin: 0,
+              textAlign: 'left'
+            }}
+          >
+            <Layers size={18} style={{ color: 'var(--color-accent-500)' }} />
             Major Projects & Timelines
           </h3>
-          <p style={{ fontSize: '0.73rem', color: '#64748B', marginTop: '2px' }}>
+          <p
+            style={{
+              fontSize: '13px',
+              fontWeight: 400,
+              color: '#64748B',
+              lineHeight: 1.4,
+              marginTop: '4px',
+              margin: '4px 0 0 0',
+              textAlign: 'left'
+            }}
+          >
             Weekly phase tracking for infrastructure & mega-development contracts.
           </p>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0, marginTop: '2px' }}>
           <span
             style={{
               padding: '2px 7px',
@@ -35,8 +57,8 @@ export const TimelineSummarySection: React.FC = () => {
               backgroundColor: '#F8FAFC',
               border: '1px solid #E2E8F0',
               color: '#0F172A',
-              fontSize: '0.7rem',
-              fontWeight: 650,
+              fontSize: '11px',
+              fontWeight: 600,
               display: 'flex',
               alignItems: 'center',
               gap: '4px'
@@ -65,13 +87,34 @@ export const TimelineSummarySection: React.FC = () => {
               }}
             >
               {/* Project Title + Current Milestone */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <div>
-                  <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#0F172A' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+                <div style={{ textAlign: 'left' }}>
+                  <h4
+                    style={{
+                      fontSize: '15px',
+                      fontWeight: 600,
+                      color: '#0F172A',
+                      lineHeight: 1.3,
+                      margin: 0,
+                      textAlign: 'left'
+                    }}
+                  >
                     {mp.name}
                   </h4>
-                  <div style={{ fontSize: '0.7rem', color: '#64748B', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <MapPin size={11} /> {mp.location} &bull; <span style={{ color: 'var(--color-accent-600)', fontWeight: 650 }}>{mp.phase}</span>
+                  <div
+                    style={{
+                      fontSize: '12px',
+                      fontWeight: 400,
+                      color: '#64748B',
+                      marginTop: '2px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      textAlign: 'left'
+                    }}
+                  >
+                    <MapPin size={12} style={{ color: '#64748B' }} /> {mp.location} &bull;{' '}
+                    <span style={{ color: 'var(--color-accent-600)', fontWeight: 500 }}>{mp.phase}</span>
                   </div>
                 </div>
                 <span
@@ -81,8 +124,10 @@ export const TimelineSummarySection: React.FC = () => {
                     backgroundColor: '#ECFDF5',
                     border: '1px solid #A7F3D0',
                     color: '#047857',
-                    fontSize: '0.68rem',
-                    fontWeight: 700
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    flexShrink: 0,
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   {mp.completionEst} COMPLETE
@@ -114,12 +159,27 @@ export const TimelineSummarySection: React.FC = () => {
                   }
 
                   return (
-                    <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.66rem', fontWeight: 700, color: stepColor }}>
+                    <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '2px', textAlign: 'left' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '3px',
+                          fontSize: '11px',
+                          fontWeight: 600,
+                          color: stepColor
+                        }}
+                      >
                         {icon}
                         {wp.week}
                       </div>
-                      <div style={{ fontSize: '0.7rem', color: wp.status === 'in-progress' ? '#0F172A' : '#64748B', fontWeight: wp.status === 'in-progress' ? 650 : 400 }}>
+                      <div
+                        style={{
+                          fontSize: '12px',
+                          color: wp.status === 'in-progress' ? '#0F172A' : '#64748B',
+                          fontWeight: wp.status === 'in-progress' ? 600 : 400
+                        }}
+                      >
                         {wp.label}
                       </div>
                     </div>

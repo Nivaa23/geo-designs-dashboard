@@ -73,8 +73,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       <aside
         style={{
-          width: '220px',
-          minWidth: '220px',
+          width: '260px',
+          minWidth: '260px',
+          flexShrink: 0,
           height: '100vh',
           position: 'sticky',
           top: 0,
@@ -91,7 +92,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Top Header — LEFT ALIGNED BRANDING (Change 2, 3, 4) */}
         <div
           style={{
-            padding: '1.1rem 1rem 0.9rem 1rem',
+            padding: '1.1rem 1.25rem 0.9rem 1rem',
             borderBottom: '1px solid #E2E8F0',
             display: 'flex',
             flexDirection: 'column',
@@ -123,15 +124,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <div
               style={{
                 fontFamily: 'var(--font-sans)',
-                fontSize: '0.88rem',
-                fontWeight: 700,
+                fontSize: '16px',
+                fontWeight: 600,
                 color: '#0F172A',
-                lineHeight: 1.15,
-                letterSpacing: '-0.02em',
+                lineHeight: 1.2,
+                letterSpacing: '-0.01em',
                 textAlign: 'left'
               }}
             >
-              Geo Designs <span style={{ fontWeight: 400, color: '#64748B' }}>&amp; Research</span>
+              Geo Designs &amp; Research
             </div>
           </div>
 
@@ -141,13 +142,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
               fontFamily: 'var(--font-sans)',
               fontSize: '0.6rem',
               fontWeight: 650,
-              letterSpacing: '0.06em',
+              letterSpacing: '0.03em',
               color: '#64748B',
               textTransform: 'uppercase',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              textAlign: 'left'
+              textAlign: 'left',
+              paddingRight: '0.5rem'
             }}
           >
             ENGINEERING • SURVEYING • RESEARCH

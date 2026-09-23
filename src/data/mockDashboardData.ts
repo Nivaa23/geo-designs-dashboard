@@ -25,7 +25,8 @@ export const LEAVE_BALANCE_DATA: LeaveBalance = {
   medicalTotal: 15,
   earned: 14,
   earnedTotal: 20,
-  pendingApproval: 1
+  pendingApproval: 1,
+  totalAnnualAllocation: 25
 };
 
 export const NAV_ITEMS: NavItemConfig[] = [

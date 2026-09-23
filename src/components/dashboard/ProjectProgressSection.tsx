@@ -16,14 +16,35 @@ export const ProjectProgressSection: React.FC = () => {
         boxShadow: '0 1px 3px rgba(15, 23, 42, 0.03)'
       }}
     >
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      {/* Section Header */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
         <div>
-          <h3 style={{ fontSize: '0.95rem', color: '#0F172A', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Briefcase size={16} style={{ color: 'var(--color-accent-500)' }} />
+          <h3
+            style={{
+              fontSize: '18px',
+              fontWeight: 600,
+              color: '#0F172A',
+              lineHeight: 1.25,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              margin: 0
+            }}
+          >
+            <Briefcase size={18} style={{ color: 'var(--color-accent-500)' }} />
             Active Project Execution
           </h3>
-          <p style={{ fontSize: '0.73rem', color: '#64748B', marginTop: '2px' }}>
+          <p
+            style={{
+              fontSize: '13px',
+              fontWeight: 400,
+              color: '#64748B',
+              lineHeight: 1.4,
+              marginTop: '4px',
+              margin: '4px 0 0 0',
+              textAlign: 'left'
+            }}
+          >
             Real-time milestone progress across survey, geotechnical, and structural contracts.
           </p>
         </div>
@@ -33,12 +54,15 @@ export const ProjectProgressSection: React.FC = () => {
             background: 'none',
             border: 'none',
             color: 'var(--color-accent-500)',
-            fontSize: '0.78rem',
-            fontWeight: 650,
+            fontSize: '13px',
+            fontWeight: 600,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '3px'
+            gap: '3px',
+            padding: 0,
+            flexShrink: 0,
+            marginTop: '2px'
           }}
         >
           View All
@@ -82,17 +106,24 @@ export const ProjectProgressSection: React.FC = () => {
             >
               {/* Top row */}
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2px' }}>
-                    <span style={{ fontSize: '0.66rem', fontFamily: 'monospace', color: '#64748B', fontWeight: 650 }}>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '3px' }}>
+                    <span
+                      style={{
+                        fontSize: '11px',
+                        fontFamily: 'monospace',
+                        color: '#64748B',
+                        fontWeight: 400
+                      }}
+                    >
                       {proj.code}
                     </span>
                     <span
                       style={{
                         padding: '1px 6px',
                         borderRadius: '4px',
-                        fontSize: '0.64rem',
-                        fontWeight: 650,
+                        fontSize: '11px',
+                        fontWeight: 500,
                         backgroundColor: '#E2E8F0',
                         color: '#334155'
                       }}
@@ -100,7 +131,16 @@ export const ProjectProgressSection: React.FC = () => {
                       {proj.sector}
                     </span>
                   </div>
-                  <h4 style={{ fontSize: '0.85rem', fontWeight: 650, color: '#0F172A', lineHeight: 1.3 }}>
+                  <h4
+                    style={{
+                      fontSize: '15px',
+                      fontWeight: 600,
+                      color: '#0F172A',
+                      lineHeight: 1.3,
+                      margin: 0,
+                      textAlign: 'left'
+                    }}
+                  >
                     {proj.name}
                   </h4>
                 </div>
@@ -113,14 +153,21 @@ export const ProjectProgressSection: React.FC = () => {
                       backgroundColor: statusBg,
                       border: `1px solid ${statusBorder}`,
                       color: statusColor,
-                      fontSize: '0.66rem',
-                      fontWeight: 650,
+                      fontSize: '11px',
+                      fontWeight: 600,
                       display: 'inline-block'
                     }}
                   >
                     {proj.status}
                   </span>
-                  <div style={{ fontSize: '0.72rem', color: '#0F172A', marginTop: '3px', fontWeight: 700 }}>
+                  <div
+                    style={{
+                      fontSize: '14px',
+                      fontWeight: 600,
+                      color: '#0F172A',
+                      marginTop: '4px'
+                    }}
+                  >
                     {proj.totalValuation}
                   </div>
                 </div>
@@ -128,11 +175,24 @@ export const ProjectProgressSection: React.FC = () => {
 
               {/* Progress bar line */}
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', color: '#64748B', marginBottom: '3px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    fontSize: '12px',
+                    color: '#64748B',
+                    fontWeight: 400,
+                    marginBottom: '4px'
+                  }}
+                >
                   <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <Building size={12} /> {proj.client} &bull; <Clock size={12} /> Target: {proj.deadline}
+                    <Building size={13} style={{ color: '#64748B' }} /> {proj.client} &bull;{' '}
+                    <Clock size={13} style={{ color: '#64748B' }} /> Target: {proj.deadline}
                   </span>
-                  <span style={{ fontWeight: 700, color: '#0F172A' }}>{proj.progressPercentage}%</span>
+                  <span style={{ fontSize: '12px', fontWeight: 600, color: '#0F172A' }}>
+                    {proj.progressPercentage}%
+                  </span>
                 </div>
                 <div
                   style={{
