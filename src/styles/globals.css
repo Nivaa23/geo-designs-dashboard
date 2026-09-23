@@ -109,6 +109,20 @@ a:hover {
   .geo-header-search-container input {
     width: 160px !important;
   }
+
+  .geo-todays-overview-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .geo-todays-overview-grid > div {
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-bottom: 1px solid #F1F5F9;
+    padding-bottom: 0.75rem;
+  }
 }
 
 @media (max-width: 640px) {
