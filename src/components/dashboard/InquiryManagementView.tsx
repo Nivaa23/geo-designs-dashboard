@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { DETAILED_INQUIRIES_LIST } from '../../data/mockInquiryData';
 import type { InquiryChannel, InquiryStatus, DetailedInquiryItem } from '../../types/inquiry';
 import {
@@ -40,6 +41,39 @@ export const InquiryManagementView: React.FC<InquiryManagementViewProps> = () =>
   const [isLoading, setIsLoading] = useState(false);
   const [showErrorState, setShowErrorState] = useState(false);
   const [copiedCode, setCopiedCode] = useState(false);
+
+  // Scroll locking when modal is active
+  React.useEffect(() => {
+    if (activeDetailItem) {
+      const origBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+
+      // Find and lock all scrollable containers in the dashboard shell
+      const scrollableElements = Array.from(document.querySelectorAll<HTMLElement>('*')).filter((el) => {
+        const style = window.getComputedStyle(el);
+        return (
+          (style.overflowY === 'auto' || style.overflowY === 'scroll') &&
+          el.scrollHeight >= el.clientHeight
+        );
+      });
+
+      const savedContainerStates = scrollableElements.map((el) => ({
+        el,
+        overflowY: el.style.overflowY
+      }));
+
+      scrollableElements.forEach((el) => {
+        el.style.overflowY = 'hidden';
+      });
+
+      return () => {
+        document.body.style.overflow = origBodyOverflow;
+        savedContainerStates.forEach(({ el, overflowY }) => {
+          el.style.overflowY = overflowY;
+        });
+      };
+    }
+  }, [activeDetailItem]);
 
   // Filtered & Sorted Inquiries computation
   const filteredInquiries = useMemo(() => {
@@ -835,202 +869,214 @@ export const InquiryManagementView: React.FC<InquiryManagementViewProps> = () =>
       </div>
 
       {/* SECTION 5: INQUIRY DETAILS & QUOTATION INFO MODAL / DRAWER */}
-      {activeDetailItem && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(15, 23, 42, 0.45)',
-            backdropFilter: 'blur(2px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '1.5rem',
-            zIndex: 9999,
-            textAlign: 'left'
-          }}
-          onClick={() => setActiveDetailItem(null)}
-        >
+      {activeDetailItem &&
+        createPortal(
           <div
             style={{
-              backgroundColor: '#FFFFFF',
-              border: '1px solid #CBD5E1',
-              borderRadius: '10px',
-              width: '100%',
-              maxWidth: '680px',
-              maxHeight: 'calc(100vh - 3rem)',
-              overflowY: 'auto',
-              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.15)',
-              padding: '1.5rem',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              backgroundColor: 'rgba(15, 23, 42, 0.45)',
+              backdropFilter: 'blur(2px)',
               display: 'flex',
-              flexDirection: 'column',
-              gap: '1.25rem',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '1.5rem',
+              zIndex: 999999,
+              overflow: 'hidden',
               boxSizing: 'border-box',
               textAlign: 'left'
             }}
-            onClick={(e) => e.stopPropagation()}
+            onClick={() => setActiveDetailItem(null)}
+            onWheel={(e) => {
+              if (e.target === e.currentTarget) {
+                e.preventDefault();
+                e.stopPropagation();
+              }
+            }}
           >
-            {/* Modal Header */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', paddingBottom: '1rem', textAlign: 'left' }}>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-accent-600)', backgroundColor: '#F5F3FF', padding: '2px 8px', borderRadius: '4px', border: '1px solid #DDD6FE' }}>
-                    {activeDetailItem.code}
-                  </span>
-                  <span
-                    style={{
-                      padding: '2px 8px',
-                      borderRadius: '12px',
-                      fontSize: '11px',
-                      fontWeight: 600,
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      border: `1px solid ${getChannelBadgeStyle(activeDetailItem.channel).borderColor}`,
-                      backgroundColor: getChannelBadgeStyle(activeDetailItem.channel).backgroundColor,
-                      color: getChannelBadgeStyle(activeDetailItem.channel).color
-                    }}
-                  >
-                    {getChannelIcon(activeDetailItem.channel)}
-                    {activeDetailItem.channel}
-                  </span>
-                  <span
-                    style={{
-                      padding: '2px 8px',
-                      borderRadius: '12px',
-                      fontSize: '11px',
-                      fontWeight: 650,
-                      border: `1px solid ${getStatusBadgeStyle(activeDetailItem.status).borderColor}`,
-                      backgroundColor: getStatusBadgeStyle(activeDetailItem.status).backgroundColor,
-                      color: getStatusBadgeStyle(activeDetailItem.status).color
-                    }}
-                  >
-                    {activeDetailItem.status}
-                  </span>
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #CBD5E1',
+                borderRadius: '10px',
+                width: '100%',
+                maxWidth: '680px',
+                maxHeight: 'min(85vh, calc(100vh - 3rem))',
+                overflowY: 'auto',
+                overscrollBehavior: 'contain',
+                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.15)',
+                padding: '1.5rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.25rem',
+                boxSizing: 'border-box',
+                margin: 'auto',
+                textAlign: 'left'
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', paddingBottom: '1rem', textAlign: 'left' }}>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-accent-600)', backgroundColor: '#F5F3FF', padding: '2px 8px', borderRadius: '4px', border: '1px solid #DDD6FE' }}>
+                      {activeDetailItem.code}
+                    </span>
+                    <span
+                      style={{
+                        padding: '2px 8px',
+                        borderRadius: '12px',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        border: `1px solid ${getChannelBadgeStyle(activeDetailItem.channel).borderColor}`,
+                        backgroundColor: getChannelBadgeStyle(activeDetailItem.channel).backgroundColor,
+                        color: getChannelBadgeStyle(activeDetailItem.channel).color
+                      }}
+                    >
+                      {getChannelIcon(activeDetailItem.channel)}
+                      {activeDetailItem.channel}
+                    </span>
+                    <span
+                      style={{
+                        padding: '2px 8px',
+                        borderRadius: '12px',
+                        fontSize: '11px',
+                        fontWeight: 650,
+                        border: `1px solid ${getStatusBadgeStyle(activeDetailItem.status).borderColor}`,
+                        backgroundColor: getStatusBadgeStyle(activeDetailItem.status).backgroundColor,
+                        color: getStatusBadgeStyle(activeDetailItem.status).color
+                      }}
+                    >
+                      {activeDetailItem.status}
+                    </span>
+                  </div>
+                  <h3 style={{ fontSize: '1.15rem', color: '#0F172A', fontWeight: 700, marginTop: '8px', lineHeight: 1.3, textAlign: 'left' }}>
+                    {activeDetailItem.title}
+                  </h3>
                 </div>
-                <h3 style={{ fontSize: '1.15rem', color: '#0F172A', fontWeight: 700, marginTop: '8px', lineHeight: 1.3, textAlign: 'left' }}>
-                  {activeDetailItem.title}
-                </h3>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveDetailItem(null)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#64748B',
+                    cursor: 'pointer',
+                    padding: '4px'
+                  }}
+                >
+                  <X size={18} />
+                </button>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setActiveDetailItem(null)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: '#64748B',
-                  cursor: 'pointer',
-                  padding: '4px'
-                }}
-              >
-                <X size={18} />
-              </button>
-            </div>
+              {/* Modal Content Details */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', textAlign: 'left' }}>
+                {/* Row 1: Key Metadata Cards */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
+                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
+                    <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textAlign: 'left' }}>CLIENT / ORG</div>
+                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginTop: '2px', textAlign: 'left' }}>{activeDetailItem.clientName}</div>
+                  </div>
 
-            {/* Modal Content Details */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', textAlign: 'left' }}>
-              {/* Row 1: Key Metadata Cards */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
-                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
-                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textAlign: 'left' }}>CLIENT / ORG</div>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginTop: '2px', textAlign: 'left' }}>{activeDetailItem.clientName}</div>
-                </div>
+                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
+                    <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textAlign: 'left' }}>ESTIMATED VALUATION</div>
+                    <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-accent-600)', marginTop: '2px', textAlign: 'left' }}>{activeDetailItem.estimatedValue}</div>
+                  </div>
 
-                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
-                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textAlign: 'left' }}>ESTIMATED VALUATION</div>
-                  <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-accent-600)', marginTop: '2px', textAlign: 'left' }}>{activeDetailItem.estimatedValue}</div>
-                </div>
-
-                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
-                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textAlign: 'left' }}>QUOTATION REF</div>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginTop: '2px', textAlign: 'left' }}>
-                    {activeDetailItem.quotationRef || 'N/A'}
+                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
+                    <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textAlign: 'left' }}>QUOTATION REF</div>
+                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginTop: '2px', textAlign: 'left' }}>
+                      {activeDetailItem.quotationRef || 'N/A'}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Row 2: Contact Information */}
-              <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.85rem 1rem', textAlign: 'left' }}>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginBottom: '6px', textAlign: 'left' }}>
-                  Contact Information
+                {/* Row 2: Contact Information */}
+                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.85rem 1rem', textAlign: 'left' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginBottom: '6px', textAlign: 'left' }}>
+                    Contact Information
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem', fontSize: '12px', color: '#334155', textAlign: 'left' }}>
+                    <div><strong>Person:</strong> {activeDetailItem.contactPerson}</div>
+                    <div><strong>Email:</strong> {activeDetailItem.contactEmail}</div>
+                    <div><strong>Phone:</strong> {activeDetailItem.contactPhone}</div>
+                  </div>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem', fontSize: '12px', color: '#334155', textAlign: 'left' }}>
-                  <div><strong>Person:</strong> {activeDetailItem.contactPerson}</div>
-                  <div><strong>Email:</strong> {activeDetailItem.contactEmail}</div>
-                  <div><strong>Phone:</strong> {activeDetailItem.contactPhone}</div>
-                </div>
-              </div>
 
-              {/* Row 3: Technical Scope Description */}
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginBottom: '4px', textAlign: 'left' }}>
-                  Technical Scope of Work
-                </div>
-                <div style={{ fontSize: '13px', color: '#475569', lineHeight: 1.5, backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.75rem 0.85rem', textAlign: 'left' }}>
-                  {activeDetailItem.scopeDescription}
-                </div>
-              </div>
-
-              {/* Row 4: Status Remarks / Notes */}
-              {activeDetailItem.remarks && (
+                {/* Row 3: Technical Scope Description */}
                 <div style={{ textAlign: 'left' }}>
                   <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginBottom: '4px', textAlign: 'left' }}>
-                    Status Notes & Remarks
+                    Technical Scope of Work
                   </div>
-                  <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.4, backgroundColor: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
-                    {activeDetailItem.remarks}
+                  <div style={{ fontSize: '13px', color: '#475569', lineHeight: 1.5, backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.75rem 0.85rem', textAlign: 'left' }}>
+                    {activeDetailItem.scopeDescription}
                   </div>
                 </div>
-              )}
-            </div>
 
-            {/* Modal Footer Actions */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '1rem', marginTop: '0.5rem', textAlign: 'left' }}>
-              <button
-                type="button"
-                onClick={() => handleCopyCode(activeDetailItem.code)}
-                style={{
-                  padding: '0.45rem 0.75rem',
-                  borderRadius: '6px',
-                  backgroundColor: '#F8FAFC',
-                  border: '1px solid #CBD5E1',
-                  color: '#0F172A',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px'
-                }}
-              >
-                {copiedCode ? <Check size={13} style={{ color: '#059669' }} /> : <Copy size={13} />}
-                {copiedCode ? 'Code Copied!' : 'Copy Reference Code'}
-              </button>
+                {/* Row 4: Status Remarks / Notes */}
+                {activeDetailItem.remarks && (
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginBottom: '4px', textAlign: 'left' }}>
+                      Status Notes & Remarks
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.4, backgroundColor: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
+                      {activeDetailItem.remarks}
+                    </div>
+                  </div>
+                )}
+              </div>
 
-              <button
-                type="button"
-                onClick={() => setActiveDetailItem(null)}
-                style={{
-                  padding: '0.45rem 1rem',
-                  borderRadius: '6px',
-                  backgroundColor: '#0F172A',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  fontSize: '12px',
-                  fontWeight: 650,
-                  cursor: 'pointer'
-                }}
-              >
-                Close Details
-              </button>
+              {/* Modal Footer Actions */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '1rem', marginTop: '0.5rem', textAlign: 'left' }}>
+                <button
+                  type="button"
+                  onClick={() => handleCopyCode(activeDetailItem.code)}
+                  style={{
+                    padding: '0.45rem 0.75rem',
+                    borderRadius: '6px',
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #CBD5E1',
+                    color: '#0F172A',
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}
+                >
+                  {copiedCode ? <Check size={13} style={{ color: '#059669' }} /> : <Copy size={13} />}
+                  {copiedCode ? 'Code Copied!' : 'Copy Reference Code'}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveDetailItem(null)}
+                  style={{
+                    padding: '0.45rem 1rem',
+                    borderRadius: '6px',
+                    backgroundColor: '#0F172A',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    fontSize: '12px',
+                    fontWeight: 650,
+                    cursor: 'pointer'
+                  }}
+                >
+                  Close Details
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };
