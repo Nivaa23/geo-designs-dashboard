@@ -373,92 +373,92 @@ export const WorkSessionOverviewBar: React.FC = () => {
                 type="button"
                 style={{
                   height: '32px',
-                  padding: '0 4px',
+                  padding: '0 8px',
                   borderRadius: '6px',
                   backgroundColor: '#F8FAFC',
                   border: '1px solid #E2E8F0',
                   color: '#0F172A',
-                  fontSize: '11px',
+                  fontSize: '12px',
                   fontWeight: 600,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '3px',
+                  justifyContent: 'flex-start',
+                  gap: '6px',
                   transition: 'all var(--transition-fast)'
                 }}
               >
-                <CalendarCheck size={12} style={{ color: 'var(--color-accent-500)' }} />
-                Apply Leave
+                <CalendarCheck size={13} style={{ color: 'var(--color-accent-500)', flexShrink: 0 }} />
+                <span>Apply Leave</span>
               </button>
 
               <button
                 type="button"
                 style={{
                   height: '32px',
-                  padding: '0 4px',
+                  padding: '0 8px',
                   borderRadius: '6px',
                   backgroundColor: '#F8FAFC',
                   border: '1px solid #E2E8F0',
                   color: '#0F172A',
-                  fontSize: '11px',
+                  fontSize: '12px',
                   fontWeight: 600,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '3px',
+                  justifyContent: 'flex-start',
+                  gap: '6px',
                   transition: 'all var(--transition-fast)'
                 }}
               >
-                <CheckSquare size={12} style={{ color: 'var(--color-accent-500)' }} />
-                Tasks
+                <CheckSquare size={13} style={{ color: 'var(--color-accent-500)', flexShrink: 0 }} />
+                <span>Tasks</span>
               </button>
 
               <button
                 type="button"
                 style={{
                   height: '32px',
-                  padding: '0 4px',
+                  padding: '0 8px',
                   borderRadius: '6px',
                   backgroundColor: '#F8FAFC',
                   border: '1px solid #E2E8F0',
                   color: '#0F172A',
-                  fontSize: '11px',
+                  fontSize: '12px',
                   fontWeight: 600,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '3px',
+                  justifyContent: 'flex-start',
+                  gap: '6px',
                   transition: 'all var(--transition-fast)'
                 }}
               >
-                <Calendar size={12} style={{ color: 'var(--color-accent-500)' }} />
-                Calendar
+                <Calendar size={13} style={{ color: 'var(--color-accent-500)', flexShrink: 0 }} />
+                <span>Calendar</span>
               </button>
 
               <button
                 type="button"
                 style={{
                   height: '32px',
-                  padding: '0 4px',
+                  padding: '0 8px',
                   borderRadius: '6px',
                   backgroundColor: '#F8FAFC',
                   border: '1px solid #E2E8F0',
                   color: '#0F172A',
-                  fontSize: '11px',
+                  fontSize: '12px',
                   fontWeight: 600,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '3px',
+                  justifyContent: 'flex-start',
+                  gap: '6px',
                   transition: 'all var(--transition-fast)'
                 }}
               >
-                <UserCheck size={12} style={{ color: 'var(--color-accent-500)' }} />
-                Attendance
+                <UserCheck size={13} style={{ color: 'var(--color-accent-500)', flexShrink: 0 }} />
+                <span>Attendance</span>
               </button>
             </div>
           </div>
