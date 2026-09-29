@@ -237,6 +237,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
 
       {/* SECTION 1: PAGE HEADER */}
       <div
+        className="geo-project-header"
         style={{
           backgroundColor: '#FFFFFF',
           border: '1px solid #E2E8F0',
@@ -250,7 +251,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
           textAlign: 'left'
         }}
       >
-        <div style={{ textAlign: 'left', flex: 1, minWidth: 0 }}>
+        <div className="geo-project-header-title-area" style={{ textAlign: 'left', flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <div
               style={{
@@ -281,7 +282,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
         </div>
 
         {/* Header Action Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0, whiteSpace: 'nowrap' }}>
+        <div className="geo-project-header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0, whiteSpace: 'nowrap' }}>
           <button
             type="button"
             onClick={() => setIsAllocateModalOpen(true)}
@@ -348,6 +349,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
 
       {/* SECTION 2: SECTOR SUMMARY CARDS */}
       <div
+        className="geo-project-categories-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
@@ -410,6 +412,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
 
       {/* SECTION 3: SEARCH & FILTER TOOLBAR */}
       <div
+        className="geo-project-toolbar"
         style={{
           backgroundColor: '#FFFFFF',
           border: '1px solid #E2E8F0',
@@ -425,7 +428,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
         }}
       >
         {/* Search Input */}
-        <div style={{ position: 'relative', flex: '1 1 300px', minWidth: '240px' }}>
+        <div className="geo-project-search-wrapper" style={{ position: 'relative', flex: '1 1 300px', minWidth: '240px' }}>
           <Search
             size={14}
             style={{
@@ -475,7 +478,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
         </div>
 
         {/* Filters */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+        <div className="geo-project-filter-group" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
           {/* Sector Select */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
             <Filter size={13} style={{ color: '#64748B' }} />
@@ -680,6 +683,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
               return (
                 <div
                   key={item.id}
+                  className="geo-project-card"
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
@@ -696,8 +700,8 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
                   onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#E2E8F0')}
                 >
                   {/* Row 1: Code, Sector, Allocation Division & Status */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap', textAlign: 'left' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
+                  <div className="geo-project-card-row1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap', textAlign: 'left' }}>
+                    <div className="geo-project-card-tags" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
                       <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-accent-600)', backgroundColor: '#F5F3FF', padding: '2px 7px', borderRadius: '4px', border: '1px solid #DDD6FE' }}>
                         {item.code}
                       </span>
@@ -710,6 +714,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
                     </div>
 
                     <span
+                      className="geo-project-card-status"
                       style={{
                         padding: '3px 8px',
                         borderRadius: '12px',
@@ -725,8 +730,9 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
                   </div>
 
                   {/* Row 2: Title & Client */}
-                  <div style={{ textAlign: 'left' }}>
+                  <div className="geo-project-card-content" style={{ textAlign: 'left' }}>
                     <h4
+                      className="geo-project-card-title"
                       onClick={() => {
                         setActiveProject(item);
                         setActiveTabInModal('overview');
@@ -735,15 +741,15 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
                     >
                       {item.name}
                     </h4>
-                    <div style={{ fontSize: '12px', color: '#64748B', marginTop: '3px', fontWeight: 500, textAlign: 'left' }}>
+                    <div className="geo-project-card-client" style={{ fontSize: '12px', color: '#64748B', marginTop: '3px', fontWeight: 500, textAlign: 'left' }}>
                       Client: <strong>{item.client}</strong>
                     </div>
                   </div>
 
                   {/* Row 3: Progress Bar & Key Financial Metrics */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 1fr 1fr', gap: '1rem', alignItems: 'center', textAlign: 'left', backgroundColor: '#F8FAFC', padding: '0.65rem 0.85rem', borderRadius: '6px', border: '1px solid #F1F5F9' }}>
+                  <div className="geo-project-card-metrics" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 1fr 1fr', gap: '1rem', alignItems: 'center', textAlign: 'left', backgroundColor: '#F8FAFC', padding: '0.65rem 0.85rem', borderRadius: '6px', border: '1px solid #F1F5F9' }}>
                     {/* Progress Bar */}
-                    <div style={{ textAlign: 'left' }}>
+                    <div className="geo-project-metric-progress" style={{ textAlign: 'left' }}>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11px', color: '#475569', fontWeight: 600, marginBottom: '3px' }}>
                         <span>Progress: {item.progressPercentage}%</span>
                         <span>Deadline: {item.deadline}</span>
@@ -754,27 +760,27 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
                     </div>
 
                     {/* Valuation */}
-                    <div style={{ textAlign: 'left' }}>
+                    <div className="geo-project-metric-box" style={{ textAlign: 'left' }}>
                       <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase' }}>CONTRACT VALUATION</div>
                       <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A', marginTop: '1px' }}>{item.totalValuation}</div>
                     </div>
 
                     {/* Billed */}
-                    <div style={{ textAlign: 'left' }}>
+                    <div className="geo-project-metric-box" style={{ textAlign: 'left' }}>
                       <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase' }}>BILLED AMOUNT</div>
                       <div style={{ fontSize: '12px', fontWeight: 650, color: '#0284C7', marginTop: '1px' }}>{item.financeInfo.billedAmount}</div>
                     </div>
 
                     {/* Pending */}
-                    <div style={{ textAlign: 'left' }}>
+                    <div className="geo-project-metric-box" style={{ textAlign: 'left' }}>
                       <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase' }}>PENDING VALUATION</div>
                       <div style={{ fontSize: '12px', fontWeight: 650, color: '#D97706', marginTop: '1px' }}>{item.financeInfo.pendingValuation}</div>
                     </div>
                   </div>
 
                   {/* Row 4: Team & Actions */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F1F5F9', paddingTop: '0.5rem', marginTop: '0.2rem', textAlign: 'left' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '11px', color: '#64748B', textAlign: 'left' }}>
+                  <div className="geo-project-card-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F1F5F9', paddingTop: '0.5rem', marginTop: '0.2rem', textAlign: 'left' }}>
+                    <div className="geo-project-card-team" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '11px', color: '#64748B', textAlign: 'left' }}>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontWeight: 600, color: '#334155' }}>
                         <Users size={12} />
                         Team: {item.assignedTeam.map((t) => t.name.split(' ')[0]).join(', ')} ({item.assignedTeam.length} members)
@@ -783,6 +789,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
 
                     <button
                       type="button"
+                      className="geo-project-card-action-btn"
                       onClick={() => {
                         setActiveProject(item);
                         setActiveTabInModal('overview');
@@ -842,6 +849,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
             }}
           >
             <div
+              className="geo-project-modal-content"
               style={{
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #CBD5E1',
@@ -934,7 +942,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
                 {/* TAB 1: OVERVIEW & ALLOCATION */}
                 {activeTabInModal === 'overview' && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', textAlign: 'left' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
+                    <div className="geo-project-modal-grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
                       <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
                         <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textAlign: 'left' }}>ALLOCATION DIVISION</div>
                         <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginTop: '2px', textAlign: 'left' }}>{activeProject.allocationDivision}</div>
@@ -1037,7 +1045,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
                 {/* TAB 6: PROJECT FINANCE INFORMATION */}
                 {activeTabInModal === 'finance' && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', textAlign: 'left' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.65rem', textAlign: 'left' }}>
+                    <div className="geo-project-modal-grid-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.65rem', textAlign: 'left' }}>
                       <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.65rem', textAlign: 'left' }}>
                         <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600 }}>TOTAL CONTRACT</div>
                         <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>{activeProject.financeInfo.totalValuation}</div>
@@ -1104,6 +1112,7 @@ export const ProjectTrackingView: React.FC<ProjectTrackingViewProps> = () => {
             }}
           >
             <div
+              className="geo-project-modal-content"
               style={{
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #CBD5E1',
