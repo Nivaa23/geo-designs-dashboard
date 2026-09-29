@@ -287,6 +287,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
 
       {/* SECTION 1: HEADER & PAGE TITLE BAR */}
       <div
+        className="geo-todo-header"
         style={{
           backgroundColor: '#FFFFFF',
           border: '1px solid #E2E8F0',
@@ -300,7 +301,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
           textAlign: 'left'
         }}
       >
-        <div style={{ textAlign: 'left', flex: 1, minWidth: 0 }}>
+        <div className="geo-todo-header-title-area" style={{ textAlign: 'left', flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <div
               style={{
@@ -434,6 +435,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
 
       {/* SECTION 2: 5 CONFIRMED CATEGORIES QUICK FILTER CARDS */}
       <div
+        className="geo-todo-categories-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(5, 1fr)',
@@ -496,11 +498,12 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
       </div>
 
       {/* MAIN TWO-COLUMN WORKSPACE: LEFT = TASKS WORKSPACE, RIGHT = OPTIONAL CHAT PANEL */}
-      <div style={{ display: 'flex', gap: '1.25rem', width: '100%', boxSizing: 'border-box' }}>
+      <div className="geo-todo-main-layout" style={{ display: 'flex', gap: '1.25rem', width: '100%', boxSizing: 'border-box' }}>
         {/* LEFT COLUMN: CONTROLS & TASK LIST TABLE */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: 0 }}>
           {/* SEARCH, FILTER, AND SORT CONTROLS TOOLBAR */}
           <div
+            className="geo-todo-toolbar"
             style={{
               backgroundColor: '#FFFFFF',
               border: '1px solid #E2E8F0',
@@ -516,7 +519,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
             }}
           >
             {/* Search Input Box */}
-            <div style={{ position: 'relative', flex: '1 1 260px', minWidth: '220px' }}>
+            <div className="geo-todo-search-wrapper" style={{ position: 'relative', flex: '1 1 260px', minWidth: '220px' }}>
               <Search
                 size={14}
                 style={{
@@ -566,7 +569,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
             </div>
 
             {/* Filters & Sorting Dropdowns */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+            <div className="geo-todo-filter-group" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
               {/* Category Filter */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                 <Filter size={13} style={{ color: '#64748B' }} />
@@ -821,6 +824,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
                   return (
                     <div
                       key={item.id}
+                      className="geo-todo-card"
                       style={{
                         backgroundColor: '#FFFFFF',
                         border: '1px solid #E2E8F0',
@@ -837,13 +841,14 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
                       onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#E2E8F0')}
                     >
                       {/* Row 1: Code, Category, Priority, Timeline & Status */}
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap', textAlign: 'left' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
-                          <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-accent-600)', backgroundColor: '#F5F3FF', padding: '2px 7px', borderRadius: '4px', border: '1px solid #DDD6FE' }}>
+                      <div className="geo-todo-card-row1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap', textAlign: 'left' }}>
+                        <div className="geo-todo-card-tags" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
+                          <span className="geo-todo-code" style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-accent-600)', backgroundColor: '#F5F3FF', padding: '2px 7px', borderRadius: '4px', border: '1px solid #DDD6FE' }}>
                             {item.code}
                           </span>
 
                           <span
+                            className="geo-todo-category-badge"
                             style={{
                               fontSize: '11px',
                               fontWeight: 600,
@@ -862,6 +867,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
                           </span>
 
                           <span
+                            className="geo-todo-priority-badge"
                             style={{
                               fontSize: '11px',
                               fontWeight: 650,
@@ -877,13 +883,14 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
                         </div>
 
                         {/* Status Switcher Dropdown */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
-                          <span style={{ fontSize: '11px', color: '#64748B', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                        <div className="geo-todo-card-status-group" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
+                          <span className="geo-todo-target-time" style={{ fontSize: '11px', color: '#64748B', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                             <Clock size={12} />
                             {item.targetTime}
                           </span>
 
                           <select
+                            className="geo-todo-status-select"
                             value={item.status}
                             onChange={(e) => handleUpdateTaskStatus(item.id, e.target.value as ToDoStatus)}
                             style={{
@@ -907,8 +914,9 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
                       </div>
 
                       {/* Row 2: Title & Description */}
-                      <div style={{ textAlign: 'left' }}>
+                      <div className="geo-todo-card-content" style={{ textAlign: 'left' }}>
                         <h4
+                          className="geo-todo-card-title"
                           onClick={() => setActiveDetailItem(item)}
                           style={{
                             fontSize: '14px',
@@ -922,26 +930,26 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
                         >
                           {item.title}
                         </h4>
-                        <p style={{ fontSize: '12px', color: '#475569', marginTop: '4px', marginBottom: 0, lineHeight: 1.4, textAlign: 'left' }}>
+                        <p className="geo-todo-card-desc" style={{ fontSize: '12px', color: '#475569', marginTop: '4px', marginBottom: 0, lineHeight: 1.4, textAlign: 'left' }}>
                           {item.description}
                         </p>
                       </div>
 
                       {/* Row 3: Special Category Note if present */}
                       {item.correctionDetails && (
-                        <div style={{ fontSize: '11px', color: '#92400E', backgroundColor: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: '4px', padding: '0.4rem 0.65rem', textAlign: 'left' }}>
+                        <div className="geo-todo-card-note" style={{ fontSize: '11px', color: '#92400E', backgroundColor: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: '4px', padding: '0.4rem 0.65rem', textAlign: 'left' }}>
                           <strong>Correction Note:</strong> {item.correctionDetails}
                         </div>
                       )}
                       {item.requirementUpdateNote && (
-                        <div style={{ fontSize: '11px', color: '#0369A1', backgroundColor: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: '4px', padding: '0.4rem 0.65rem', textAlign: 'left' }}>
+                        <div className="geo-todo-card-note" style={{ fontSize: '11px', color: '#0369A1', backgroundColor: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: '4px', padding: '0.4rem 0.65rem', textAlign: 'left' }}>
                           <strong>Requirement Update:</strong> {item.requirementUpdateNote}
                         </div>
                       )}
 
                       {/* Row 4: Footer Context (Project, Assigned To, Timeline, Actions) */}
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F1F5F9', paddingTop: '0.5rem', marginTop: '0.2rem', textAlign: 'left' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '11px', color: '#64748B', flexWrap: 'wrap', textAlign: 'left' }}>
+                      <div className="geo-todo-card-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F1F5F9', paddingTop: '0.5rem', marginTop: '0.2rem', textAlign: 'left' }}>
+                        <div className="geo-todo-card-meta" style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '11px', color: '#64748B', flexWrap: 'wrap', textAlign: 'left' }}>
                           {item.projectContext && (
                             <span style={{ fontWeight: 600, color: '#334155', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                               <Building2 size={12} />
@@ -954,7 +962,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
                           </span>
                         </div>
 
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <div className="geo-todo-card-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                           <button
                             type="button"
                             onClick={() => {
@@ -1012,6 +1020,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
         {/* RIGHT COLUMN: UI-LEVEL COMMUNICATION & CHAT PANEL (SIDE PANEL) */}
         {isChatPanelOpen && (
           <div
+            className="geo-todo-chat-panel"
             style={{
               width: '360px',
               backgroundColor: '#FFFFFF',
@@ -1194,6 +1203,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
           onClick={() => setActiveDetailItem(null)}
         >
           <div
+            className="geo-todo-modal-content"
             style={{
               backgroundColor: '#FFFFFF',
               border: '1px solid #CBD5E1',
@@ -1242,7 +1252,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
             {/* Modal Body */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', textAlign: 'left' }}>
               {/* Metadata Cards */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
+              <div className="geo-todo-modal-grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
                 <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
                   <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textAlign: 'left' }}>TARGET TIMELINE</div>
                   <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginTop: '2px', textAlign: 'left' }}>{activeDetailItem.targetTime}</div>
@@ -1301,7 +1311,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
             </div>
 
             {/* Modal Footer */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '1rem', marginTop: '0.5rem', textAlign: 'left' }}>
+            <div className="geo-todo-modal-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '1rem', marginTop: '0.5rem', textAlign: 'left' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
                 <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748B' }}>Change Status:</span>
                 <select
@@ -1349,6 +1359,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
           onClick={() => setIsCreateModalOpen(false)}
         >
           <div
+            className="geo-todo-modal-content"
             style={{
               backgroundColor: '#FFFFFF',
               border: '1px solid #CBD5E1',
@@ -1402,7 +1413,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
+              <div className="geo-todo-modal-grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
                 <div style={{ textAlign: 'left' }}>
                   <label style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', display: 'block', marginBottom: '4px', textAlign: 'left' }}>
                     Category Area *
@@ -1436,7 +1447,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
+              <div className="geo-todo-modal-grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
                 <div style={{ textAlign: 'left' }}>
                   <label style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', display: 'block', marginBottom: '4px', textAlign: 'left' }}>
                     Target Time / Timeline
@@ -1462,7 +1473,7 @@ export const ToDoListView: React.FC<ToDoListViewProps> = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
+              <div className="geo-todo-modal-grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
                 <div style={{ textAlign: 'left' }}>
                   <label style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', display: 'block', marginBottom: '4px', textAlign: 'left' }}>
                     Assigned Staff
