@@ -223,6 +223,7 @@ export const InquiryManagementView: React.FC<InquiryManagementViewProps> = () =>
           boxShadow: '0 1px 3px rgba(15, 23, 42, 0.03)',
           textAlign: 'left'
         }}
+        className="geo-inquiry-header"
       >
         <div style={{ textAlign: 'left' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
@@ -254,7 +255,7 @@ export const InquiryManagementView: React.FC<InquiryManagementViewProps> = () =>
         </div>
 
         {/* Action Controls Header Right */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }} className="geo-inquiry-header-actions">
           <button
             type="button"
             onClick={handleRefresh}
@@ -308,6 +309,7 @@ export const InquiryManagementView: React.FC<InquiryManagementViewProps> = () =>
           gap: '0.75rem',
           width: '100%'
         }}
+        className="geo-inquiry-channels-grid"
       >
         {(
           [
@@ -378,6 +380,7 @@ export const InquiryManagementView: React.FC<InquiryManagementViewProps> = () =>
           boxShadow: '0 1px 3px rgba(15, 23, 42, 0.03)',
           textAlign: 'left'
         }}
+        className="geo-inquiry-toolbar"
       >
         {/* Search Input Box */}
         <div
@@ -386,6 +389,7 @@ export const InquiryManagementView: React.FC<InquiryManagementViewProps> = () =>
             flex: '1 1 300px',
             minWidth: '260px'
           }}
+          className="geo-inquiry-search-wrapper"
         >
           <Search
             size={14}
@@ -436,7 +440,7 @@ export const InquiryManagementView: React.FC<InquiryManagementViewProps> = () =>
         </div>
 
         {/* Filter Controls Group */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }} className="geo-inquiry-filter-group">
           {/* Channel Filter Select */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
             <Filter size={13} style={{ color: '#64748B' }} />
@@ -685,186 +689,311 @@ export const InquiryManagementView: React.FC<InquiryManagementViewProps> = () =>
             </button>
           </div>
         ) : (
-          /* CONDITION: ACTIVE DATA TABLE */
-          <div style={{ overflowX: 'auto', width: '100%' }}>
-            <table
-              style={{
-                width: '100%',
-                borderCollapse: 'collapse',
-                textAlign: 'left',
-                fontSize: '13px'
-              }}
-            >
-              <thead>
-                <tr
-                  style={{
-                    backgroundColor: '#F8FAFC',
-                    borderBottom: '1.5px solid #E2E8F0',
-                    color: '#64748B',
-                    fontWeight: 650,
-                    fontSize: '11px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.04em'
-                  }}
-                >
-                  <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>ID & Date</th>
-                  <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Inquiry Title & Client Name</th>
-                  <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Source / Channel</th>
-                  <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Status</th>
-                  <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Quotation Ref & Value</th>
-                  <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Urgency</th>
-                  <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredInquiries.map((item) => {
-                  const channelBadgeStyle = getChannelBadgeStyle(item.channel);
-                  const statusBadgeStyle = getStatusBadgeStyle(item.status);
+          /* CONDITION: ACTIVE DATA TABLE & MOBILE CARDS */
+          <>
+            {/* Desktop Table View */}
+            <div style={{ overflowX: 'auto', width: '100%' }} className="geo-inquiry-desktop-table">
+              <table
+                style={{
+                  width: '100%',
+                  borderCollapse: 'collapse',
+                  textAlign: 'left',
+                  fontSize: '13px'
+                }}
+              >
+                <thead>
+                  <tr
+                    style={{
+                      backgroundColor: '#F8FAFC',
+                      borderBottom: '1.5px solid #E2E8F0',
+                      color: '#64748B',
+                      fontWeight: 650,
+                      fontSize: '11px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.04em'
+                    }}
+                  >
+                    <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>ID & Date</th>
+                    <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Inquiry Title & Client Name</th>
+                    <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Source / Channel</th>
+                    <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Status</th>
+                    <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Quotation Ref & Value</th>
+                    <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Urgency</th>
+                    <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredInquiries.map((item) => {
+                    const channelBadgeStyle = getChannelBadgeStyle(item.channel);
+                    const statusBadgeStyle = getStatusBadgeStyle(item.status);
 
-                  return (
-                    <tr
-                      key={item.id}
-                      style={{
-                        borderBottom: '1px solid #F1F5F9',
-                        transition: 'background-color var(--transition-fast)'
-                      }}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#F8FAFC')}
-                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-                    >
-                      {/* ID & Date */}
-                      <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
-                        <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '12px', textAlign: 'left' }}>
+                    return (
+                      <tr
+                        key={item.id}
+                        style={{
+                          borderBottom: '1px solid #F1F5F9',
+                          transition: 'background-color var(--transition-fast)'
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#F8FAFC')}
+                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                      >
+                        {/* ID & Date */}
+                        <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
+                          <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '12px', textAlign: 'left' }}>
+                            {item.code}
+                          </div>
+                          <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px', textAlign: 'left' }}>
+                            {item.dateReceived}
+                          </div>
+                        </td>
+
+                        {/* Title & Client Name */}
+                        <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top', maxWidth: '320px' }}>
+                          <div
+                            style={{
+                              fontWeight: 600,
+                              color: '#0F172A',
+                              fontSize: '13px',
+                              lineHeight: 1.3,
+                              textAlign: 'left'
+                            }}
+                          >
+                            {item.title}
+                          </div>
+                          <div style={{ fontSize: '11px', color: '#64748B', marginTop: '3px', fontWeight: 500, textAlign: 'left' }}>
+                            Client: {item.clientName}
+                          </div>
+                        </td>
+
+                        {/* Source / Channel */}
+                        <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
+                          <span
+                            style={{
+                              padding: '3px 8px',
+                              borderRadius: '12px',
+                              fontSize: '11px',
+                              fontWeight: 600,
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '5px',
+                              border: `1px solid ${channelBadgeStyle.borderColor}`,
+                              backgroundColor: channelBadgeStyle.backgroundColor,
+                              color: channelBadgeStyle.color,
+                              textAlign: 'left'
+                            }}
+                          >
+                            {getChannelIcon(item.channel)}
+                            {item.channel}
+                          </span>
+                        </td>
+
+                        {/* Status */}
+                        <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
+                          <span
+                            style={{
+                              padding: '3px 8px',
+                              borderRadius: '12px',
+                              fontSize: '11px',
+                              fontWeight: 650,
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              border: `1px solid ${statusBadgeStyle.borderColor}`,
+                              backgroundColor: statusBadgeStyle.backgroundColor,
+                              color: statusBadgeStyle.color,
+                              textAlign: 'left'
+                            }}
+                          >
+                            {item.status === 'Converted' ? <CheckCircle2 size={11} /> : <Clock size={11} />}
+                            {item.status}
+                          </span>
+                        </td>
+
+                        {/* Quotation Ref & Value */}
+                        <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
+                          <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '13px', textAlign: 'left' }}>
+                            {item.estimatedValue}
+                          </div>
+                          <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px', textAlign: 'left' }}>
+                            {item.quotationRef ? `Ref: ${item.quotationRef}` : 'Quote pending'}
+                          </div>
+                        </td>
+
+                        {/* Urgency */}
+                        <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
+                          <span
+                            style={{
+                              fontSize: '11px',
+                              fontWeight: 600,
+                              color: item.urgency === 'High' ? '#DC2626' : item.urgency === 'Medium' ? '#D97706' : '#64748B',
+                              textAlign: 'left'
+                            }}
+                          >
+                            {item.urgency} Priority
+                          </span>
+                        </td>
+
+                        {/* Action */}
+                        <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
+                          <button
+                            type="button"
+                            onClick={() => setActiveDetailItem(item)}
+                            style={{
+                              padding: '0.35rem 0.65rem',
+                              borderRadius: '6px',
+                              backgroundColor: '#F8FAFC',
+                              border: '1px solid #CBD5E1',
+                              color: '#0F172A',
+                              fontSize: '11px',
+                              fontWeight: 650,
+                              cursor: 'pointer',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              transition: 'all var(--transition-fast)'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.borderColor = 'var(--color-accent-500)';
+                              e.currentTarget.style.color = 'var(--color-accent-600)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.borderColor = '#CBD5E1';
+                              e.currentTarget.style.color = '#0F172A';
+                            }}
+                          >
+                            View Details
+                            <ChevronRight size={12} />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Cards View */}
+            <div className="geo-inquiry-mobile-cards">
+              {filteredInquiries.map((item) => {
+                const channelBadgeStyle = getChannelBadgeStyle(item.channel);
+                const statusBadgeStyle = getStatusBadgeStyle(item.status);
+
+                return (
+                  <div
+                    key={item.id}
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #E2E8F0',
+                      borderRadius: '8px',
+                      padding: '0.85rem 1rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.65rem',
+                      textAlign: 'left'
+                    }}
+                  >
+                    {/* Row 1: Code + Date + Status Badge */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        <span style={{ fontWeight: 700, color: '#0F172A', fontSize: '12px', backgroundColor: '#F8FAFC', padding: '2px 6px', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
                           {item.code}
-                        </div>
-                        <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px', textAlign: 'left' }}>
+                        </span>
+                        <span style={{ fontSize: '11px', color: '#64748B' }}>
                           {item.dateReceived}
-                        </div>
-                      </td>
-
-                      {/* Title & Client Name */}
-                      <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top', maxWidth: '320px' }}>
-                        <div
-                          style={{
-                            fontWeight: 600,
-                            color: '#0F172A',
-                            fontSize: '13px',
-                            lineHeight: 1.3,
-                            textAlign: 'left'
-                          }}
-                        >
-                          {item.title}
-                        </div>
-                        <div style={{ fontSize: '11px', color: '#64748B', marginTop: '3px', fontWeight: 500, textAlign: 'left' }}>
-                          Client: {item.clientName}
-                        </div>
-                      </td>
-
-                      {/* Source / Channel */}
-                      <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
-                        <span
-                          style={{
-                            padding: '3px 8px',
-                            borderRadius: '12px',
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '5px',
-                            border: `1px solid ${channelBadgeStyle.borderColor}`,
-                            backgroundColor: channelBadgeStyle.backgroundColor,
-                            color: channelBadgeStyle.color,
-                            textAlign: 'left'
-                          }}
-                        >
-                          {getChannelIcon(item.channel)}
-                          {item.channel}
                         </span>
-                      </td>
+                      </div>
 
-                      {/* Status */}
-                      <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
-                        <span
-                          style={{
-                            padding: '3px 8px',
-                            borderRadius: '12px',
-                            fontSize: '11px',
-                            fontWeight: 650,
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                            border: `1px solid ${statusBadgeStyle.borderColor}`,
-                            backgroundColor: statusBadgeStyle.backgroundColor,
-                            color: statusBadgeStyle.color,
-                            textAlign: 'left'
-                          }}
-                        >
-                          {item.status === 'Converted' ? <CheckCircle2 size={11} /> : <Clock size={11} />}
-                          {item.status}
-                        </span>
-                      </td>
+                      <span
+                        style={{
+                          padding: '2px 7px',
+                          borderRadius: '12px',
+                          fontSize: '11px',
+                          fontWeight: 650,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          border: `1px solid ${statusBadgeStyle.borderColor}`,
+                          backgroundColor: statusBadgeStyle.backgroundColor,
+                          color: statusBadgeStyle.color
+                        }}
+                      >
+                        {item.status === 'Converted' ? <CheckCircle2 size={11} /> : <Clock size={11} />}
+                        {item.status}
+                      </span>
+                    </div>
 
-                      {/* Quotation Ref & Value */}
-                      <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
-                        <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '13px', textAlign: 'left' }}>
+                    {/* Row 2: Channel Source Badge */}
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <span
+                        style={{
+                          padding: '2px 8px',
+                          borderRadius: '12px',
+                          fontSize: '11px',
+                          fontWeight: 600,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          border: `1px solid ${channelBadgeStyle.borderColor}`,
+                          backgroundColor: channelBadgeStyle.backgroundColor,
+                          color: channelBadgeStyle.color,
+                          textAlign: 'left'
+                        }}
+                      >
+                        {getChannelIcon(item.channel)}
+                        {item.channel}
+                      </span>
+                    </div>
+
+                    {/* Row 3: Inquiry Title & Client Name */}
+                    <div>
+                      <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#0F172A', lineHeight: 1.35, margin: 0, wordBreak: 'break-word', overflowWrap: 'break-word', textAlign: 'left' }}>
+                        {item.title}
+                      </h4>
+                      <div style={{ fontSize: '12px', color: '#64748B', marginTop: '3px', fontWeight: 500, wordBreak: 'break-word', overflowWrap: 'break-word', textAlign: 'left' }}>
+                        Client: <strong>{item.clientName}</strong>
+                      </div>
+                    </div>
+
+                    {/* Row 4: Valuation + Quotation Ref + Urgency + View Details button */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap', borderTop: '1px solid #F1F5F9', paddingTop: '0.55rem', marginTop: '0.2rem' }}>
+                      <div>
+                        <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '13px' }}>
                           {item.estimatedValue}
                         </div>
-                        <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px', textAlign: 'left' }}>
-                          {item.quotationRef ? `Ref: ${item.quotationRef}` : 'Quote pending'}
+                        <div style={{ fontSize: '11px', color: '#64748B', marginTop: '1px' }}>
+                          {item.quotationRef ? `Ref: ${item.quotationRef}` : 'Quote pending'} &bull;{' '}
+                          <span style={{ color: item.urgency === 'High' ? '#DC2626' : item.urgency === 'Medium' ? '#D97706' : '#64748B', fontWeight: 600 }}>
+                            {item.urgency}
+                          </span>
                         </div>
-                      </td>
+                      </div>
 
-                      {/* Urgency */}
-                      <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
-                        <span
-                          style={{
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            color: item.urgency === 'High' ? '#DC2626' : item.urgency === 'Medium' ? '#D97706' : '#64748B',
-                            textAlign: 'left'
-                          }}
-                        >
-                          {item.urgency} Priority
-                        </span>
-                      </td>
-
-                      {/* Action */}
-                      <td style={{ padding: '0.75rem 0.85rem', textAlign: 'left', verticalAlign: 'top' }}>
-                        <button
-                          type="button"
-                          onClick={() => setActiveDetailItem(item)}
-                          style={{
-                            padding: '0.35rem 0.65rem',
-                            borderRadius: '6px',
-                            backgroundColor: '#F8FAFC',
-                            border: '1px solid #CBD5E1',
-                            color: '#0F172A',
-                            fontSize: '11px',
-                            fontWeight: 650,
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                            transition: 'all var(--transition-fast)'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.borderColor = 'var(--color-accent-500)';
-                            e.currentTarget.style.color = 'var(--color-accent-600)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.borderColor = '#CBD5E1';
-                            e.currentTarget.style.color = '#0F172A';
-                          }}
-                        >
-                          View Details
-                          <ChevronRight size={12} />
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                      <button
+                        type="button"
+                        onClick={() => setActiveDetailItem(item)}
+                        style={{
+                          padding: '0.35rem 0.75rem',
+                          borderRadius: '6px',
+                          backgroundColor: '#0F172A',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          fontSize: '11px',
+                          fontWeight: 650,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px'
+                        }}
+                      >
+                        View Details
+                        <ChevronRight size={12} />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
 
