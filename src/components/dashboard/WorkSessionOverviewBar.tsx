@@ -41,11 +41,13 @@ export const WorkSessionOverviewBar: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '1rem'
+          gap: '1rem',
+          flexWrap: 'wrap'
         }}
+        className="geo-greeting-banner"
       >
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
             <h2 style={{ fontSize: '1.25rem', color: '#0F172A', fontWeight: 700, lineHeight: 1.2 }}>
               {timeGreeting}, {userName}
             </h2>
@@ -76,7 +78,8 @@ export const WorkSessionOverviewBar: React.FC = () => {
               lineHeight: 1.3,
               display: 'flex',
               alignItems: 'center',
-              gap: '8px'
+              gap: '8px',
+              flexWrap: 'wrap'
             }}
           >
             <span>Here is your daily engineering workflow overview.</span>

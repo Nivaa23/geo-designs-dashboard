@@ -17,7 +17,7 @@ export const TimelineSummarySection: React.FC = () => {
       }}
     >
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
         <div style={{ textAlign: 'left' }}>
           <h3
             style={{
@@ -87,8 +87,8 @@ export const TimelineSummarySection: React.FC = () => {
               }}
             >
               {/* Project Title + Current Milestone */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
-                <div style={{ textAlign: 'left' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }} className="geo-timeline-card-top">
+                <div style={{ textAlign: 'left', flex: 1, minWidth: '180px' }}>
                   <h4
                     style={{
                       fontSize: '15px',
@@ -96,7 +96,9 @@ export const TimelineSummarySection: React.FC = () => {
                       color: '#0F172A',
                       lineHeight: 1.3,
                       margin: 0,
-                      textAlign: 'left'
+                      textAlign: 'left',
+                      wordBreak: 'break-word',
+                      overflowWrap: 'break-word'
                     }}
                   >
                     {mp.name}
@@ -110,10 +112,11 @@ export const TimelineSummarySection: React.FC = () => {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '5px',
-                      textAlign: 'left'
+                      textAlign: 'left',
+                      flexWrap: 'wrap'
                     }}
                   >
-                    <MapPin size={12} style={{ color: '#64748B' }} /> {mp.location} &bull;{' '}
+                    <MapPin size={12} style={{ color: '#64748B', flexShrink: 0 }} /> {mp.location} &bull;{' '}
                     <span style={{ color: 'var(--color-accent-600)', fontWeight: 500 }}>{mp.phase}</span>
                   </div>
                 </div>
@@ -145,6 +148,7 @@ export const TimelineSummarySection: React.FC = () => {
                   borderRadius: 'var(--radius-sm)',
                   padding: '0.55rem'
                 }}
+                className="geo-weekly-timeline-grid"
               >
                 {mp.weeklyProgress.map((wp, idx) => {
                   let stepColor = '#94A3B8';

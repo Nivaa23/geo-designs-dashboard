@@ -17,7 +17,7 @@ export const FinancialRecoverySection: React.FC = () => {
       }}
     >
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
         <div style={{ textAlign: 'left' }}>
           <h3
             style={{
@@ -105,7 +105,7 @@ export const FinancialRecoverySection: React.FC = () => {
               }}
             >
               {/* Card Header */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
                 <h4
                   style={{
                     fontSize: '15px',
@@ -113,7 +113,9 @@ export const FinancialRecoverySection: React.FC = () => {
                     color: '#0F172A',
                     lineHeight: 1.3,
                     margin: 0,
-                    textAlign: 'left'
+                    textAlign: 'left',
+                    wordBreak: 'break-word',
+                    overflowWrap: 'break-word'
                   }}
                 >
                   {item.category}
@@ -173,7 +175,9 @@ export const FinancialRecoverySection: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     fontSize: '12px',
-                    marginBottom: '4px'
+                    marginBottom: '4px',
+                    flexWrap: 'wrap',
+                    gap: '0.25rem'
                   }}
                 >
                   <span style={{ fontWeight: 400, color: '#64748B' }}>Cleared: {item.recoveredAmount}</span>

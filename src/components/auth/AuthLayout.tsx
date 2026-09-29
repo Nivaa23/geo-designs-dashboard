@@ -144,7 +144,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
 
           {/* Mobile/Tablet Compact Brand Header */}
           <div className="mobile-brand-wrapper">
-            <GeoBrandLogo size="md" showSubTag={true} />
+            <GeoBrandLogo size="md" showSubTag={true} theme="light" />
           </div>
 
           {/* Centered Auth Form Content Wrapper (Max-Width 420px) */}

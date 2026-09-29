@@ -17,7 +17,7 @@ export const ProjectProgressSection: React.FC = () => {
       }}
     >
       {/* Section Header */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
         <div>
           <h3
             style={{
@@ -103,11 +103,12 @@ export const ProjectProgressSection: React.FC = () => {
                 flexDirection: 'column',
                 gap: '0.6rem'
               }}
+              className="geo-project-card"
             >
               {/* Top row */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '3px' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.75rem', flexWrap: 'wrap' }} className="geo-project-card-header">
+                <div style={{ textAlign: 'left', flex: 1, minWidth: '180px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '3px', flexWrap: 'wrap' }}>
                     <span
                       style={{
                         fontSize: '11px',
@@ -138,14 +139,16 @@ export const ProjectProgressSection: React.FC = () => {
                       color: '#0F172A',
                       lineHeight: 1.3,
                       margin: 0,
-                      textAlign: 'left'
+                      textAlign: 'left',
+                      wordBreak: 'break-word',
+                      overflowWrap: 'break-word'
                     }}
                   >
                     {proj.name}
                   </h4>
                 </div>
 
-                <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                <div style={{ textAlign: 'right', flexShrink: 0 }} className="geo-project-card-status">
                   <span
                     style={{
                       padding: '2px 7px',
@@ -183,14 +186,16 @@ export const ProjectProgressSection: React.FC = () => {
                     fontSize: '12px',
                     color: '#64748B',
                     fontWeight: 400,
-                    marginBottom: '4px'
+                    marginBottom: '4px',
+                    flexWrap: 'wrap',
+                    gap: '0.35rem'
                   }}
                 >
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <Building size={13} style={{ color: '#64748B' }} /> {proj.client} &bull;{' '}
-                    <Clock size={13} style={{ color: '#64748B' }} /> Target: {proj.deadline}
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap', wordBreak: 'break-word' }}>
+                    <Building size={13} style={{ color: '#64748B', flexShrink: 0 }} /> {proj.client} &bull;{' '}
+                    <Clock size={13} style={{ color: '#64748B', flexShrink: 0 }} /> Target: {proj.deadline}
                   </span>
-                  <span style={{ fontSize: '12px', fontWeight: 600, color: '#0F172A' }}>
+                  <span style={{ fontSize: '12px', fontWeight: 600, color: '#0F172A', flexShrink: 0 }}>
                     {proj.progressPercentage}%
                   </span>
                 </div>

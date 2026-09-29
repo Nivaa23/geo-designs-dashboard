@@ -25,7 +25,7 @@ export const InquiryOverviewSection: React.FC = () => {
       }}
     >
       {/* Section Header */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
         <div style={{ textAlign: 'left' }}>
           <h3
             style={{
@@ -93,9 +93,10 @@ export const InquiryOverviewSection: React.FC = () => {
                 justifyContent: 'space-between',
                 gap: '0.75rem'
               }}
+              className="geo-inquiry-channel-card"
             >
               {/* [Icon] → [Title + Description] */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flex: 1, minWidth: 0, textAlign: 'left' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flex: 1, minWidth: 0, textAlign: 'left' }} className="geo-inquiry-card-left">
                 <div
                   style={{
                     width: '30px',
@@ -112,7 +113,7 @@ export const InquiryOverviewSection: React.FC = () => {
                 >
                   {icon}
                 </div>
-                <div style={{ textAlign: 'left', overflow: 'hidden' }}>
+                <div style={{ textAlign: 'left', flex: 1, minWidth: 0 }}>
                   <div
                     style={{
                       fontSize: '15px',
@@ -131,11 +132,11 @@ export const InquiryOverviewSection: React.FC = () => {
                       color: '#64748B',
                       lineHeight: 1.3,
                       marginTop: '2px',
-                      whiteSpace: 'nowrap',
-                      textOverflow: 'ellipsis',
-                      overflow: 'hidden',
-                      textAlign: 'left'
+                      textAlign: 'left',
+                      wordBreak: 'break-word',
+                      overflowWrap: 'break-word'
                     }}
+                    className="geo-inquiry-card-desc"
                   >
                     {item.recentTitle}
                   </div>
@@ -143,8 +144,8 @@ export const InquiryOverviewSection: React.FC = () => {
               </div>
 
               {/* [Received] [Pending] [Converted] → [Arrow] */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexShrink: 0 }}>
-                <div style={{ textAlign: 'center', minWidth: '55px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexShrink: 0 }} className="geo-inquiry-card-stats">
+                <div style={{ textAlign: 'center' }} className="geo-inquiry-stat-col">
                   <div style={{ fontSize: '11px', color: '#64748B', textTransform: 'uppercase', fontWeight: 600 }}>
                     RECEIVED
                   </div>
@@ -153,7 +154,7 @@ export const InquiryOverviewSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div style={{ textAlign: 'center', minWidth: '55px' }}>
+                <div style={{ textAlign: 'center' }} className="geo-inquiry-stat-col">
                   <div style={{ fontSize: '11px', color: '#64748B', textTransform: 'uppercase', fontWeight: 600 }}>
                     PENDING
                   </div>
@@ -169,7 +170,7 @@ export const InquiryOverviewSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div style={{ textAlign: 'center', minWidth: '85px' }}>
+                <div style={{ textAlign: 'center' }} className="geo-inquiry-stat-col">
                   <div style={{ fontSize: '11px', color: '#64748B', textTransform: 'uppercase', fontWeight: 600 }}>
                     CONVERTED
                   </div>

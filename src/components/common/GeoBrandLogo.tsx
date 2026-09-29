@@ -3,11 +3,13 @@ import React from 'react';
 interface GeoBrandLogoProps {
   size?: 'sm' | 'md' | 'lg';
   showSubTag?: boolean;
+  theme?: 'dark' | 'light';
 }
 
 export const GeoBrandLogo: React.FC<GeoBrandLogoProps> = ({ 
   size = 'md', 
-  showSubTag = true 
+  showSubTag = true,
+  theme = 'dark'
 }) => {
   const iconSizes = {
     sm: 28,
@@ -22,6 +24,10 @@ export const GeoBrandLogo: React.FC<GeoBrandLogoProps> = ({
   };
 
   const dim = iconSizes[size];
+
+  const titleColor = theme === 'light' ? '#0F172A' : '#F8FAFC';
+  const subtitleColor = theme === 'light' ? '#475569' : 'var(--text-left-secondary)';
+  const subtagColor = theme === 'light' ? 'var(--color-accent-600)' : 'var(--color-accent-300)';
 
   return (
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.85rem', userSelect: 'none' }}>
@@ -47,11 +53,11 @@ export const GeoBrandLogo: React.FC<GeoBrandLogoProps> = ({
             fontSize: titleSizes[size], 
             fontWeight: 700, 
             letterSpacing: '-0.025em',
-            color: '#F8FAFC',
+            color: titleColor,
             lineHeight: 1.1
           }}
         >
-          Geo Designs <span style={{ color: 'var(--text-left-secondary)', fontWeight: 400 }}>&amp; Research</span>
+          Geo Designs <span style={{ color: subtitleColor, fontWeight: 400 }}>&amp; Research</span>
         </span>
 
         {showSubTag && (
@@ -61,7 +67,7 @@ export const GeoBrandLogo: React.FC<GeoBrandLogoProps> = ({
               fontSize: '0.62rem', 
               fontWeight: 600, 
               letterSpacing: '0.12em', 
-              color: 'var(--color-accent-300)',
+              color: subtagColor,
               textTransform: 'uppercase',
               marginTop: '3px'
             }}

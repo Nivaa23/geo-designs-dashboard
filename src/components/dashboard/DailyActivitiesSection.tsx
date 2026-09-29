@@ -17,7 +17,7 @@ export const DailyActivitiesSection: React.FC = () => {
       }}
     >
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
         <div style={{ textAlign: 'left' }}>
           <h3
             style={{
@@ -101,9 +101,10 @@ export const DailyActivitiesSection: React.FC = () => {
                 justifyContent: 'space-between',
                 gap: '0.85rem'
               }}
+              className="geo-activity-card"
             >
               {/* Column 1: Priority Badge */}
-              <div style={{ flexShrink: 0 }}>
+              <div style={{ flexShrink: 0 }} className="geo-activity-priority">
                 <span
                   style={{
                     padding: '3px 7px',
@@ -126,7 +127,7 @@ export const DailyActivitiesSection: React.FC = () => {
               </div>
 
               {/* Column 2: Activity Information */}
-              <div style={{ flex: 1, minWidth: 0, textAlign: 'left' }}>
+              <div style={{ flex: 1, minWidth: 0, textAlign: 'left' }} className="geo-activity-info">
                 <h4
                   style={{
                     fontSize: '15px',
@@ -134,7 +135,9 @@ export const DailyActivitiesSection: React.FC = () => {
                     color: '#0F172A',
                     lineHeight: 1.3,
                     margin: 0,
-                    textAlign: 'left'
+                    textAlign: 'left',
+                    wordBreak: 'break-word',
+                    overflowWrap: 'break-word'
                   }}
                 >
                   {act.title}
@@ -154,7 +157,7 @@ export const DailyActivitiesSection: React.FC = () => {
               </div>
 
               {/* Column 3: Assignee */}
-              <div style={{ textAlign: 'right', flexShrink: 0 }}>
+              <div style={{ textAlign: 'right', flexShrink: 0 }} className="geo-activity-assignee">
                 <div
                   style={{
                     fontSize: '13px',
@@ -191,6 +194,7 @@ export const DailyActivitiesSection: React.FC = () => {
                   flexShrink: 0,
                   whiteSpace: 'nowrap'
                 }}
+                className="geo-activity-time"
               >
                 <Clock size={11} style={{ color: '#B45309' }} />
                 {act.targetTime}

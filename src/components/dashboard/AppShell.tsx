@@ -60,6 +60,7 @@ export const AppShell: React.FC = () => {
             margin: '0 auto',
             boxSizing: 'border-box'
           }}
+          className="geo-main-workspace"
         >
           {activeModule === 'overview' ? (
             <MainDashboardView />
