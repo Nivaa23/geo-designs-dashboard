@@ -514,11 +514,153 @@ a:hover {
   .geo-todo-modal-footer button {
     width: 100% !important;
   }
+
+  /* Strategic & Marketing Activities Mobile Responsiveness Rules */
+  .geo-strat-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    padding: 0.85rem 1rem !important;
+  }
+
+  .geo-strat-header-title-area {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .geo-strat-header-title-area p {
+    max-width: 100% !important;
+    width: 100% !important;
+    word-break: break-word !important;
+  }
+
+  .geo-strat-header-actions {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    white-space: normal !important;
+    gap: 0.5rem !important;
+  }
+
+  .geo-strat-header-actions button {
+    flex: 1 1 calc(50% - 0.5rem) !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  .geo-strat-categories-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .geo-strat-categories-grid > div:last-child {
+    grid-column: span 2 !important;
+  }
+
+  .geo-strat-categories-grid > div {
+    padding: 0.75rem 0.85rem !important;
+    word-break: break-word !important;
+  }
+
+  .geo-strat-toolbar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  .geo-strat-search-wrapper {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: none !important;
+  }
+
+  .geo-strat-filter-group {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    gap: 0.5rem !important;
+  }
+
+  .geo-strat-filter-group > div {
+    width: 100% !important;
+  }
+
+  .geo-strat-filter-group select {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .geo-strat-record-card {
+    padding: 0.85rem !important;
+    gap: 0.65rem !important;
+  }
+
+  .geo-strat-record-row1 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.4rem !important;
+    width: 100% !important;
+  }
+
+  .geo-strat-record-tags {
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    gap: 0.4rem !important;
+  }
+
+  .geo-strat-record-date {
+    width: 100% !important;
+  }
+
+  .geo-strat-record-content {
+    width: 100% !important;
+  }
+
+  .geo-strat-record-title {
+    width: 100% !important;
+    word-break: break-word !important;
+    line-height: 1.35 !important;
+  }
+
+  .geo-strat-record-desc {
+    width: 100% !important;
+    word-break: break-word !important;
+  }
+
+  .geo-strat-record-footer {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+  }
+
+  .geo-strat-record-scope {
+    width: 100% !important;
+    word-break: break-word !important;
+  }
+
+  .geo-strat-record-footer button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .geo-strat-modal-content {
+    padding: 1rem !important;
+    max-height: calc(100vh - 1.5rem) !important;
+    width: 95% !important;
+  }
+
+  .geo-strat-modal-grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
 }
 
 /* Desktop default for mobile inquiry cards */
 .geo-inquiry-mobile-cards {
   display: none;
 }
+
 
 

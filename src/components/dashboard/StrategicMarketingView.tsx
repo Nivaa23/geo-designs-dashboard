@@ -215,6 +215,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
 
       {/* SECTION 1: PAGE HEADER */}
       <div
+        className="geo-strat-header"
         style={{
           backgroundColor: '#FFFFFF',
           border: '1px solid #E2E8F0',
@@ -228,7 +229,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
           textAlign: 'left'
         }}
       >
-        <div style={{ textAlign: 'left', flex: 1, minWidth: 0 }}>
+        <div className="geo-strat-header-title-area" style={{ textAlign: 'left', flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <div
               style={{
@@ -259,7 +260,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
         </div>
 
         {/* Header Action Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0, whiteSpace: 'nowrap' }}>
+        <div className="geo-strat-header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0, whiteSpace: 'nowrap' }}>
           <button
             type="button"
             onClick={() => setIsCreateModalOpen(true)}
@@ -326,6 +327,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
 
       {/* SECTION 2: 5 CONFIRMED CATEGORY FILTER CARDS */}
       <div
+        className="geo-strat-categories-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(5, 1fr)',
@@ -389,6 +391,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
 
       {/* SECTION 3: SEARCH & FILTER TOOLBAR */}
       <div
+        className="geo-strat-toolbar"
         style={{
           backgroundColor: '#FFFFFF',
           border: '1px solid #E2E8F0',
@@ -404,7 +407,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
         }}
       >
         {/* Search Bar */}
-        <div style={{ position: 'relative', flex: '1 1 300px', minWidth: '240px' }}>
+        <div className="geo-strat-search-wrapper" style={{ position: 'relative', flex: '1 1 300px', minWidth: '240px' }}>
           <Search
             size={14}
             style={{
@@ -454,7 +457,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
         </div>
 
         {/* Filter Selects */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+        <div className="geo-strat-filter-group" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
           {/* Area Filter */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
             <Filter size={13} style={{ color: '#64748B' }} />
@@ -669,6 +672,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                     return (
                       <div
                         key={item.id}
+                        className="geo-strat-record-card"
                         style={{
                           backgroundColor: '#FFFFFF',
                           border: '1px solid #E2E8F0',
@@ -685,8 +689,8 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                         onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#E2E8F0')}
                       >
                         {/* Row 1: Code & Category */}
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', textAlign: 'left' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
+                        <div className="geo-strat-record-row1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', textAlign: 'left' }}>
+                          <div className="geo-strat-record-tags" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
                             <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-accent-600)', backgroundColor: '#F5F3FF', padding: '2px 7px', borderRadius: '4px', border: '1px solid #DDD6FE' }}>
                               {item.code}
                             </span>
@@ -709,14 +713,15 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                             </span>
                           </div>
 
-                          <span style={{ fontSize: '11px', color: '#64748B' }}>
+                          <span className="geo-strat-record-date" style={{ fontSize: '11px', color: '#64748B' }}>
                             Logged: {item.dateLogged}
                           </span>
                         </div>
 
                         {/* Title & Description */}
-                        <div style={{ textAlign: 'left' }}>
+                        <div className="geo-strat-record-content" style={{ textAlign: 'left' }}>
                           <h4
+                            className="geo-strat-record-title"
                             onClick={() => setActiveDetailItem(item)}
                             style={{
                               fontSize: '14px',
@@ -730,14 +735,14 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                           >
                             {item.title}
                           </h4>
-                          <p style={{ fontSize: '12px', color: '#475569', marginTop: '4px', marginBottom: 0, lineHeight: 1.4, textAlign: 'left' }}>
+                          <p className="geo-strat-record-desc" style={{ fontSize: '12px', color: '#475569', marginTop: '4px', marginBottom: 0, lineHeight: 1.4, textAlign: 'left' }}>
                             {item.description}
                           </p>
                         </div>
 
                         {/* Footer Context */}
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F1F5F9', paddingTop: '0.5rem', marginTop: '0.2rem', textAlign: 'left' }}>
-                          <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 500, textAlign: 'left' }}>
+                        <div className="geo-strat-record-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F1F5F9', paddingTop: '0.5rem', marginTop: '0.2rem', textAlign: 'left' }}>
+                          <div className="geo-strat-record-scope" style={{ fontSize: '11px', color: '#64748B', fontWeight: 500, textAlign: 'left' }}>
                             Target Scope: <strong>{item.targetScope || 'All Engineering Divisions'}</strong>
                           </div>
 
@@ -824,6 +829,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                           return (
                             <div
                               key={item.id}
+                              className="geo-strat-record-card"
                               style={{
                                 backgroundColor: '#FFFFFF',
                                 border: '1px solid #E2E8F0',
@@ -839,8 +845,8 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                               onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--color-accent-500)')}
                               onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#E2E8F0')}
                             >
-                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', textAlign: 'left' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
+                              <div className="geo-strat-record-row1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', textAlign: 'left' }}>
+                                <div className="geo-strat-record-tags" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
                                   <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-accent-600)', backgroundColor: '#F5F3FF', padding: '2px 7px', borderRadius: '4px', border: '1px solid #DDD6FE' }}>
                                     {item.code}
                                   </span>
@@ -862,25 +868,26 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                                     {item.category}
                                   </span>
                                 </div>
-                                <span style={{ fontSize: '11px', color: '#64748B' }}>
+                                <span className="geo-strat-record-date" style={{ fontSize: '11px', color: '#64748B' }}>
                                   Logged: {item.dateLogged}
                                 </span>
                               </div>
 
-                              <div style={{ textAlign: 'left' }}>
+                              <div className="geo-strat-record-content" style={{ textAlign: 'left' }}>
                                 <h4
+                                  className="geo-strat-record-title"
                                   onClick={() => setActiveDetailItem(item)}
                                   style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A', margin: 0, cursor: 'pointer', lineHeight: 1.3, textAlign: 'left' }}
                                 >
                                   {item.title}
                                 </h4>
-                                <p style={{ fontSize: '12px', color: '#475569', marginTop: '4px', marginBottom: 0, lineHeight: 1.4, textAlign: 'left' }}>
+                                <p className="geo-strat-record-desc" style={{ fontSize: '12px', color: '#475569', marginTop: '4px', marginBottom: 0, lineHeight: 1.4, textAlign: 'left' }}>
                                   {item.description}
                                 </p>
                               </div>
 
-                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F1F5F9', paddingTop: '0.5rem', marginTop: '0.2rem', textAlign: 'left' }}>
-                                <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 500, textAlign: 'left' }}>
+                              <div className="geo-strat-record-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F1F5F9', paddingTop: '0.5rem', marginTop: '0.2rem', textAlign: 'left' }}>
+                                <div className="geo-strat-record-scope" style={{ fontSize: '11px', color: '#64748B', fontWeight: 500, textAlign: 'left' }}>
                                   Target Scope: <strong>{item.targetScope || 'Corporate Communications'}</strong>
                                 </div>
                                 <button
@@ -930,6 +937,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                           .map((item) => (
                             <div
                               key={item.id}
+                              className="geo-strat-record-card"
                               style={{
                                 backgroundColor: '#FFFFFF',
                                 border: '1px solid #A7F3D0',
@@ -942,8 +950,8 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                                 boxShadow: '0 1px 3px rgba(4, 120, 87, 0.05)'
                               }}
                             >
-                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', textAlign: 'left' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
+                              <div className="geo-strat-record-row1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', textAlign: 'left' }}>
+                                <div className="geo-strat-record-tags" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'left' }}>
                                   <span style={{ fontSize: '12px', fontWeight: 700, color: '#047857', backgroundColor: '#ECFDF5', padding: '2px 7px', borderRadius: '4px', border: '1px solid #A7F3D0' }}>
                                     {item.code}
                                   </span>
@@ -952,25 +960,26 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                                     New-Work Planning
                                   </span>
                                 </div>
-                                <span style={{ fontSize: '11px', color: '#64748B' }}>
+                                <span className="geo-strat-record-date" style={{ fontSize: '11px', color: '#64748B' }}>
                                   Logged: {item.dateLogged}
                                 </span>
                               </div>
 
-                              <div style={{ textAlign: 'left' }}>
+                              <div className="geo-strat-record-content" style={{ textAlign: 'left' }}>
                                 <h4
+                                  className="geo-strat-record-title"
                                   onClick={() => setActiveDetailItem(item)}
                                   style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A', margin: 0, cursor: 'pointer', lineHeight: 1.3, textAlign: 'left' }}
                                 >
                                   {item.title}
                                 </h4>
-                                <p style={{ fontSize: '12px', color: '#475569', marginTop: '4px', marginBottom: 0, lineHeight: 1.4, textAlign: 'left' }}>
+                                <p className="geo-strat-record-desc" style={{ fontSize: '12px', color: '#475569', marginTop: '4px', marginBottom: 0, lineHeight: 1.4, textAlign: 'left' }}>
                                   {item.description}
                                 </p>
                               </div>
 
-                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '0.5rem', marginTop: '0.2rem', textAlign: 'left' }}>
-                                <div style={{ fontSize: '11px', color: '#047857', fontWeight: 600, textAlign: 'left' }}>
+                              <div className="geo-strat-record-footer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '0.5rem', marginTop: '0.2rem', textAlign: 'left' }}>
+                                <div className="geo-strat-record-scope" style={{ fontSize: '11px', color: '#047857', fontWeight: 600, textAlign: 'left' }}>
                                   Acquisition Division: <strong>{item.targetScope}</strong>
                                 </div>
                                 <button
@@ -1015,6 +1024,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
           onClick={() => setActiveDetailItem(null)}
         >
           <div
+            className="geo-strat-modal-content"
             style={{
               backgroundColor: '#FFFFFF',
               border: '1px solid #CBD5E1',
@@ -1059,7 +1069,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
 
             {/* Modal Content */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', textAlign: 'left' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
+              <div className="geo-strat-modal-grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
                 <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', padding: '0.65rem 0.85rem', textAlign: 'left' }}>
                   <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textAlign: 'left' }}>PRIMARY STRATEGIC AREA</div>
                   <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', marginTop: '2px', textAlign: 'left' }}>{activeDetailItem.area}</div>
@@ -1127,6 +1137,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
           onClick={() => setIsCreateModalOpen(false)}
         >
           <div
+            className="geo-strat-modal-content"
             style={{
               backgroundColor: '#FFFFFF',
               border: '1px solid #CBD5E1',
@@ -1180,7 +1191,7 @@ export const StrategicMarketingView: React.FC<StrategicMarketingViewProps> = () 
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
+              <div className="geo-strat-modal-grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', textAlign: 'left' }}>
                 <div style={{ textAlign: 'left' }}>
                   <label style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', display: 'block', marginBottom: '4px', textAlign: 'left' }}>
                     Primary Area *
