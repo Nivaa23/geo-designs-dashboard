@@ -6,6 +6,7 @@ import { InquiryManagementView } from './InquiryManagementView';
 import { ToDoListView } from './ToDoListView';
 import { StrategicMarketingView } from './StrategicMarketingView';
 import { ProjectTrackingView } from './ProjectTrackingView';
+import { MajorProjectsView } from './MajorProjectsView';
 import { ModulePlaceholderView } from './ModulePlaceholderView';
 import type { NavModuleId } from '../../types/dashboard';
 
@@ -72,6 +73,8 @@ export const AppShell: React.FC = () => {
             <StrategicMarketingView onReturnToOverview={() => setActiveModule('overview')} />
           ) : activeModule === 'project-tracking' ? (
             <ProjectTrackingView onReturnToOverview={() => setActiveModule('overview')} />
+          ) : activeModule === 'major-projects' ? (
+            <MajorProjectsView onReturnToOverview={() => setActiveModule('overview')} />
           ) : (
             <ModulePlaceholderView
               moduleId={activeModule}

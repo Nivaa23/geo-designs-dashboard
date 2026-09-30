@@ -811,12 +811,105 @@ a:hover {
     grid-template-columns: 1fr !important;
     gap: 0.5rem !important;
   }
+
+  /* Major Projects Mobile Responsive Styles */
+  .geo-major-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.85rem !important;
+  }
+
+  .geo-major-header-actions {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .geo-major-action-btn {
+    flex: 1 !important;
+    min-width: 130px !important;
+    justify-content: center !important;
+  }
+
+  .geo-major-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+  }
+
+  .geo-major-categories-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .geo-major-toolbar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+
+  .geo-major-search-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .geo-major-filter-group {
+    flex-wrap: wrap !important;
+    width: 100% !important;
+  }
+
+  .geo-major-filter-select {
+    flex: 1 1 140px !important;
+    min-width: 120px !important;
+  }
+
+  .geo-major-card-row1 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  .geo-major-timeline-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .geo-major-card-metrics {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+  }
+
+  .geo-major-card-risks {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .geo-major-card-footer {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.65rem !important;
+  }
+
+  .geo-major-card-footer-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .geo-major-modal-content {
+    padding: 1rem !important;
+    width: 95% !important;
+    max-height: min(90vh, calc(100vh - 1rem)) !important;
+  }
+
+  .geo-major-modal-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
 }
 
 /* Desktop default for mobile inquiry cards */
 .geo-inquiry-mobile-cards {
   display: none;
 }
+
 
 
 
