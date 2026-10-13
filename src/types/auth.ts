@@ -38,7 +38,8 @@ export type AuthErrorCode =
   | 'NETWORK_ERROR'
   | 'TOO_MANY_ATTEMPTS'
   | 'WEAK_PASSWORD'
-  | 'PASSWORD_MISMATCH';
+  | 'PASSWORD_MISMATCH'
+  | 'CONFIGURATION_ERROR';
 
 export interface AuthErrorState {
   code: AuthErrorCode;

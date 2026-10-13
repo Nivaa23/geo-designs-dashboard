@@ -66,7 +66,10 @@ export const LoginForm: React.FC = () => {
       {errorState && (
         <Alert
           type={
-            errorState.code === 'ACCOUNT_DISABLED' || errorState.code === 'ACCOUNT_LOCKED'
+            errorState.code === 'ACCOUNT_DISABLED' ||
+            errorState.code === 'ACCOUNT_LOCKED' ||
+            errorState.code === 'CONFIGURATION_ERROR' ||
+            errorState.code === 'NETWORK_ERROR'
               ? 'error'
               : 'warning'
           }

@@ -24,27 +24,54 @@ export function mapSupabaseUser(sbUser: SupabaseAuthUser): User {
 }
 
 export function mapSupabaseAuthError(error: any): AuthErrorState {
-  const msg = (error?.message || '').toLowerCase();
+  const msg = error?.message || 'Authentication request failed.';
+  const lowerMsg = msg.toLowerCase();
+  const code = (error?.code || '').toString().toLowerCase();
+  const status = error?.status;
 
-  if (msg.includes('invalid login credentials') || msg.includes('invalid credentials')) {
+  // 1. Configuration Errors: Invalid/missing API key, project reference, or unauthorized header
+  if (
+    status === 401 ||
+    code.includes('apikey') ||
+    code.includes('unauthorized') ||
+    lowerMsg.includes('api key') ||
+    lowerMsg.includes('apikey') ||
+    lowerMsg.includes('jwt')
+  ) {
+    return {
+      code: 'CONFIGURATION_ERROR',
+      title: 'Configuration Error',
+      message: 'The Supabase client could not authenticate using the provided project API key.',
+      details: 'Check VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY in your .env.local file.'
+    };
+  }
+
+  // 2. Invalid Credentials: User does not exist or password mismatch
+  if (
+    code === 'invalid_credentials' ||
+    lowerMsg.includes('invalid login credentials') ||
+    lowerMsg.includes('invalid credentials')
+  ) {
     return {
       code: 'INVALID_CREDENTIALS',
       title: 'Authentication Failed',
       message: 'The email address or password you entered is incorrect.',
-      details: 'Please verify your credentials or check your Supabase user directory.'
+      details: 'Verify your credentials or ensure this user has been created in the Supabase Authentication console.'
     };
   }
 
-  if (msg.includes('email not confirmed')) {
+  // 3. Email Not Confirmed: Account registered but email confirmation is pending
+  if (code === 'email_not_confirmed' || lowerMsg.includes('email not confirmed')) {
     return {
       code: 'INVALID_CREDENTIALS',
       title: 'Email Unverified',
-      message: 'Please confirm your email address before signing in.',
+      message: 'Your email address has not been confirmed yet.',
       details: 'Check your email inbox for the verification link sent by Supabase.'
     };
   }
 
-  if (msg.includes('rate limit') || msg.includes('too many requests')) {
+  // 4. Rate Limiting: Too many requests
+  if (status === 429 || code === 'over_request_rate_limit' || lowerMsg.includes('rate limit') || lowerMsg.includes('too many requests')) {
     return {
       code: 'TOO_MANY_ATTEMPTS',
       title: 'Too Many Attempts',
@@ -52,11 +79,28 @@ export function mapSupabaseAuthError(error: any): AuthErrorState {
     };
   }
 
+  // 5. Network / Connectivity Errors
+  if (
+    error?.name === 'AuthRetryableFetchError' ||
+    lowerMsg.includes('failed to fetch') ||
+    lowerMsg.includes('network') ||
+    lowerMsg.includes('connection') ||
+    status === 0
+  ) {
+    return {
+      code: 'NETWORK_ERROR',
+      title: 'Connection Error',
+      message: 'Unable to reach the Supabase authentication server.',
+      details: 'Please check your internet connection or verify that the Supabase project is active.'
+    };
+  }
+
+  // 6. Generic Supabase Auth Error fallback (capturing actual Supabase error message cleanly)
   return {
     code: 'NETWORK_ERROR',
-    title: 'Connection Error',
-    message: error?.message || 'Unable to establish secure connection with Supabase authentication server.',
-    details: 'Please check your internet connection or verify your Supabase project status.'
+    title: 'Authentication Error',
+    message: msg,
+    details: status ? `Supabase HTTP ${status}${code ? ` (${code})` : ''}` : undefined
   };
 }
 
@@ -66,47 +110,40 @@ export const supabaseAuthService = {
   login: async (email: string, password: string): Promise<{ user: User; requiresPasswordChange: boolean }> => {
     const cleanEmail = email.trim();
 
-    if (isSupabaseConfigured) {
-      try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: cleanEmail,
-          password
-        });
-
-        if (error) {
-          // If Supabase authentication fails with invalid credentials, check if it's one of the local seed/demo users
-          // This ensures demo accounts like employee@geodesigns.com / password123 continue to function seamlessly
-          try {
-            return await mockAuthService.login(cleanEmail, password);
-          } catch {
-            const mapped = mapSupabaseAuthError(error);
-            throw new AuthError(mapped.code, mapped.title, mapped.message, mapped.details);
-          }
-        }
-
-        if (data.user) {
-          const mappedUser = mapSupabaseUser(data.user);
-          return {
-            user: mappedUser,
-            requiresPasswordChange: mappedUser.isFirstLogin
-          };
-        }
-      } catch (err: any) {
-        if (err instanceof AuthError) {
-          throw err;
-        }
-        // Fall back to seed users if Supabase throws a network error during local development
-        try {
-          return await mockAuthService.login(cleanEmail, password);
-        } catch {
-          const mapped = mapSupabaseAuthError(err);
-          throw new AuthError(mapped.code, mapped.title, mapped.message, mapped.details);
-        }
-      }
+    // Verify configuration without silent mock fallback
+    if (!isSupabaseConfigured) {
+      throw new AuthError(
+        'CONFIGURATION_ERROR',
+        'Configuration Error',
+        'Supabase client is not configured.',
+        'Please verify that VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY are set in .env.local.'
+      );
     }
 
-    // Default to mockAuthService if Supabase is not configured
-    return await mockAuthService.login(cleanEmail, password);
+    // Direct Supabase Auth call - no mock interception
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: cleanEmail,
+      password
+    });
+
+    if (error) {
+      const mapped = mapSupabaseAuthError(error);
+      throw new AuthError(mapped.code, mapped.title, mapped.message, mapped.details);
+    }
+
+    if (!data.user) {
+      throw new AuthError(
+        'INVALID_CREDENTIALS',
+        'Authentication Failed',
+        'No user session was returned by Supabase.'
+      );
+    }
+
+    const mappedUser = mapSupabaseUser(data.user);
+    return {
+      user: mappedUser,
+      requiresPasswordChange: mappedUser.isFirstLogin
+    };
   },
 
   logout: async (): Promise<void> => {
