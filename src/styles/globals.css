@@ -903,10 +903,83 @@ a:hover {
     grid-template-columns: 1fr !important;
     gap: 0.5rem !important;
   }
+
+  /* Account Expenses Mobile Responsive Styles */
+  .geo-expense-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.85rem !important;
+  }
+
+  .geo-expense-header-actions {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .geo-expense-header-actions button {
+    flex: 1 1 120px !important;
+    justify-content: center !important;
+  }
+
+  .geo-expense-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+  }
+
+  .geo-expense-categories-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .geo-expense-toolbar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+
+  .geo-expense-search-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .geo-expense-filter-group {
+    flex-wrap: wrap !important;
+    width: 100% !important;
+  }
+
+  .geo-expense-filter-select {
+    flex: 1 1 140px !important;
+    min-width: 120px !important;
+  }
+
+  .geo-expense-desktop-table {
+    display: none !important;
+  }
+
+  .geo-expense-mobile-cards {
+    display: flex !important;
+  }
+
+  .geo-expense-modal-content {
+    padding: 1rem !important;
+    width: 95% !important;
+    max-height: min(90vh, calc(100vh - 1rem)) !important;
+  }
+
+  .geo-expense-modal-grid-3,
+  .geo-expense-modal-grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
 }
 
 /* Desktop default for mobile inquiry cards */
 .geo-inquiry-mobile-cards {
+  display: none;
+}
+
+/* Desktop default for mobile expense cards */
+.geo-expense-mobile-cards {
   display: none;
 }
 
