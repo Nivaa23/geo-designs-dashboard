@@ -42,15 +42,42 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [currentView, setCurrentView] = useState<AuthScreenView>(() => {
     const params = new URLSearchParams(window.location.search);
     const viewParam = params.get('view') || params.get('screen');
+    if (viewParam === 'dashboard') {
+      return 'dashboard';
+    }
     if (viewParam === 'reset-password' || params.get('token')) {
       return 'reset-password';
     }
     if (viewParam === 'force-password-change' || viewParam === 'first-time-login' || viewParam === 'force-password') {
       return 'force-password-change';
     }
+    // In development mode, check if a dev session was previously saved
+    if (!isSupabaseConfigured) {
+      const savedDevUser = localStorage.getItem('geo_dev_user');
+      if (savedDevUser) {
+        return 'dashboard';
+      }
+    }
     return 'login';
   });
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const viewParam = params.get('view') || params.get('screen');
+    if (!isSupabaseConfigured) {
+      const savedDevUser = localStorage.getItem('geo_dev_user');
+      if (savedDevUser) {
+        try {
+          return JSON.parse(savedDevUser);
+        } catch {
+          localStorage.removeItem('geo_dev_user');
+        }
+      }
+      if (viewParam === 'dashboard') {
+        return mockAuthService.getSeedUsers()[0]; // Sarah Jenkins (Senior Civil Engineer)
+      }
+    }
+    return null;
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorState, setErrorState] = useState<AuthErrorState | null>(null);
   const [resetTargetEmail, setResetTargetEmail] = useState<string>('');
@@ -66,7 +93,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.setItem('geo_color_theme', colorTheme);
   }, [colorTheme]);
 
-  // Session restoration and single auth state change listener
+  // Session restoration and single auth state change listener (only when Supabase is enabled)
   useEffect(() => {
     if (!isSupabaseConfigured) return;
 
@@ -117,13 +144,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setIsLoading(true);
     setErrorState(null);
     try {
-      const { user, requiresPasswordChange } = await supabaseAuthService.login(email, pass);
-      setCurrentUser(user);
+      if (isSupabaseConfigured) {
+        const { user, requiresPasswordChange } = await supabaseAuthService.login(email, pass);
+        setCurrentUser(user);
 
-      if (requiresPasswordChange) {
-        setCurrentView('force-password-change');
+        if (requiresPasswordChange) {
+          setCurrentView('force-password-change');
+        } else {
+          setCurrentView('dashboard');
+        }
       } else {
-        setCurrentView('dashboard');
+        // Development/demo access flow: authenticate using mockAuthService
+        const { user, requiresPasswordChange } = await mockAuthService.login(email, pass);
+        setCurrentUser(user);
+        localStorage.setItem('geo_dev_user', JSON.stringify(user));
+
+        if (requiresPasswordChange) {
+          setCurrentView('force-password-change');
+        } else {
+          setCurrentView('dashboard');
+        }
       }
     } catch (err: any) {
       if (err instanceof AuthError) {
@@ -158,6 +198,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           newPass
         );
         setCurrentUser(updatedUser);
+        if (!isSupabaseConfigured) {
+          localStorage.setItem('geo_dev_user', JSON.stringify(updatedUser));
+        }
         setCurrentView('dashboard');
       }
     } catch (err: any) {
@@ -179,7 +222,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setIsLoading(true);
     setErrorState(null);
     try {
-      const confirmedEmail = await supabaseAuthService.requestPasswordReset(email);
+      const confirmedEmail = isSupabaseConfigured
+        ? await supabaseAuthService.requestPasswordReset(email)
+        : await mockAuthService.requestPasswordReset(email);
       setResetTargetEmail(confirmedEmail);
       setCurrentView('forgot-password-success');
     } catch (err: any) {
@@ -223,7 +268,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const logout = () => {
-    supabaseAuthService.logout();
+    if (isSupabaseConfigured) {
+      supabaseAuthService.logout();
+    } else {
+      localStorage.removeItem('geo_dev_user');
+    }
     setCurrentUser(null);
     setErrorState(null);
     setCurrentView('login');
@@ -231,6 +280,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const switchSeedUser = (user: User) => {
     setCurrentUser(user);
+    if (!isSupabaseConfigured) {
+      localStorage.setItem('geo_dev_user', JSON.stringify(user));
+    }
     setErrorState(null);
     if (user.accountStatus === 'disabled') {
       setCurrentView('login');
