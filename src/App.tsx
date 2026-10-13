@@ -1,4 +1,5 @@
 import React from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { AuthLayout } from './components/auth/AuthLayout';
 import { LoginForm } from './components/auth/LoginForm';
@@ -44,6 +45,7 @@ export const App: React.FC = () => {
   return (
     <AuthProvider>
       <AppContent />
+      <Analytics />
     </AuthProvider>
   );
 };
