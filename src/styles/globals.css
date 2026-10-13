@@ -971,6 +971,74 @@ a:hover {
     grid-template-columns: 1fr !important;
     gap: 0.5rem !important;
   }
+
+  /* Finance & Recovery Mobile Responsive Styles */
+  .geo-recovery-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.85rem !important;
+  }
+
+  .geo-recovery-header-actions {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .geo-recovery-header-actions button {
+    flex: 1 1 120px !important;
+    justify-content: center !important;
+  }
+
+  .geo-recovery-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+  }
+
+  .geo-recovery-categories-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+  }
+
+  .geo-recovery-toolbar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+
+  .geo-recovery-search-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .geo-recovery-filter-group {
+    flex-wrap: wrap !important;
+    width: 100% !important;
+  }
+
+  .geo-recovery-filter-select {
+    flex: 1 1 140px !important;
+    min-width: 120px !important;
+  }
+
+  .geo-recovery-desktop-table {
+    display: none !important;
+  }
+
+  .geo-recovery-mobile-cards {
+    display: flex !important;
+  }
+
+  .geo-recovery-modal-content {
+    padding: 1rem !important;
+    width: 95% !important;
+    max-height: min(90vh, calc(100vh - 1rem)) !important;
+  }
+
+  .geo-recovery-modal-grid-4,
+  .geo-recovery-modal-grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
 }
 
 /* Desktop default for mobile inquiry cards */
@@ -982,6 +1050,12 @@ a:hover {
 .geo-expense-mobile-cards {
   display: none;
 }
+
+/* Desktop default for mobile recovery cards */
+.geo-recovery-mobile-cards {
+  display: none;
+}
+
 
 
 
