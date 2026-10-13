@@ -1,6 +1,8 @@
-import React, { createContext, useContext, useState, type ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import type { User, AuthScreenView, AuthErrorState } from '../types/auth';
 import { mockAuthService, AuthError } from '../services/mockAuthService';
+import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { supabaseAuthService, mapSupabaseUser } from '../services/supabaseAuthService';
 
 export type ColorTheme =
   | 'blue'
@@ -64,13 +66,58 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.setItem('geo_color_theme', colorTheme);
   }, [colorTheme]);
 
+  // Session restoration and single auth state change listener
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+
+    let isMounted = true;
+
+    // Restore active session on initial load
+    supabaseAuthService.getCurrentSessionUser().then((sessionUser) => {
+      if (isMounted && sessionUser) {
+        setCurrentUser(sessionUser);
+        setCurrentView((prev) => {
+          if (prev === 'reset-password' || prev === 'force-password-change') return prev;
+          return sessionUser.isFirstLogin ? 'force-password-change' : 'dashboard';
+        });
+      }
+    });
+
+    // Single Supabase auth listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (!isMounted) return;
+
+      if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || event === 'TOKEN_REFRESHED') {
+        if (session?.user) {
+          const mapped = mapSupabaseUser(session.user);
+          setCurrentUser(mapped);
+          if (mapped.isFirstLogin) {
+            setCurrentView('force-password-change');
+          } else {
+            setCurrentView((prev) => (prev === 'login' ? 'dashboard' : prev));
+          }
+        }
+      } else if (event === 'PASSWORD_RECOVERY') {
+        setCurrentView('reset-password');
+      } else if (event === 'SIGNED_OUT') {
+        setCurrentUser(null);
+        setCurrentView('login');
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
   const clearError = () => setErrorState(null);
 
   const handleLogin = async (email: string, pass: string) => {
     setIsLoading(true);
     setErrorState(null);
     try {
-      const { user, requiresPasswordChange } = await mockAuthService.login(email, pass);
+      const { user, requiresPasswordChange } = await supabaseAuthService.login(email, pass);
       setCurrentUser(user);
 
       if (requiresPasswordChange) {
@@ -99,13 +146,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setIsLoading(true);
     setErrorState(null);
     try {
-      const updatedUser = await mockAuthService.changeMandatoryPassword(
-        currentUser.id,
-        currentPass,
-        newPass
-      );
-      setCurrentUser(updatedUser);
-      setCurrentView('dashboard');
+      // Check if user is a Supabase user (UUID id format)
+      if (isSupabaseConfigured && currentUser.id.length > 20) {
+        await supabaseAuthService.updatePassword(newPass);
+        setCurrentUser({ ...currentUser, isFirstLogin: false });
+        setCurrentView('dashboard');
+      } else {
+        const updatedUser = await mockAuthService.changeMandatoryPassword(
+          currentUser.id,
+          currentPass,
+          newPass
+        );
+        setCurrentUser(updatedUser);
+        setCurrentView('dashboard');
+      }
     } catch (err: any) {
       if (err instanceof AuthError) {
         setErrorState(err.state);
@@ -125,7 +179,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setIsLoading(true);
     setErrorState(null);
     try {
-      const confirmedEmail = await mockAuthService.requestPasswordReset(email);
+      const confirmedEmail = await supabaseAuthService.requestPasswordReset(email);
       setResetTargetEmail(confirmedEmail);
       setCurrentView('forgot-password-success');
     } catch (err: any) {
@@ -147,7 +201,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setIsLoading(true);
     setErrorState(null);
     try {
-      await mockAuthService.resetPasswordWithToken(token, newPass);
+      if (isSupabaseConfigured) {
+        await supabaseAuthService.updatePassword(newPass);
+      } else {
+        await mockAuthService.resetPasswordWithToken(token, newPass);
+      }
       setCurrentView('reset-password-success');
     } catch (err: any) {
       if (err instanceof AuthError) {
@@ -165,6 +223,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const logout = () => {
+    supabaseAuthService.logout();
     setCurrentUser(null);
     setErrorState(null);
     setCurrentView('login');
