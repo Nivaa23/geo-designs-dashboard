@@ -10,15 +10,24 @@ import {
   Menu,
   ChevronDown,
   Building2,
-  Clock
+  Clock,
+  PanelLeftClose,
+  PanelLeftOpen
 } from 'lucide-react';
 
 interface HeaderProps {
   activeModule: NavModuleId;
   onToggleMobileSidebar: () => void;
+  isSidebarCollapsed?: boolean;
+  onToggleSidebarCollapse?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ activeModule, onToggleMobileSidebar }) => {
+export const Header: React.FC<HeaderProps> = ({
+  activeModule,
+  onToggleMobileSidebar,
+  isSidebarCollapsed = false,
+  onToggleSidebarCollapse
+}) => {
   const { currentUser, logout } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -44,7 +53,8 @@ export const Header: React.FC<HeaderProps> = ({ activeModule, onToggleMobileSide
       }}
     >
       {/* Left Title Area */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+        {/* Mobile menu drawer button */}
         <button
           type="button"
           onClick={onToggleMobileSidebar}
@@ -61,6 +71,42 @@ export const Header: React.FC<HeaderProps> = ({ activeModule, onToggleMobileSide
         >
           <Menu size={22} />
         </button>
+
+        {/* Desktop Sidebar Collapse/Expand Toggle Button */}
+        {onToggleSidebarCollapse && (
+          <button
+            type="button"
+            onClick={onToggleSidebarCollapse}
+            className="geo-desktop-sidebar-toggle-btn"
+            title={isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            aria-label={isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '32px',
+              height: '32px',
+              borderRadius: '6px',
+              border: '1px solid #E2E8F0',
+              backgroundColor: '#F8FAFC',
+              color: '#64748B',
+              cursor: 'pointer',
+              transition: 'all var(--transition-fast)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#EEF2F6';
+              e.currentTarget.style.color = 'var(--color-accent-600)';
+              e.currentTarget.style.borderColor = 'var(--color-accent-300)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#F8FAFC';
+              e.currentTarget.style.color = '#64748B';
+              e.currentTarget.style.borderColor = '#E2E8F0';
+            }}
+          >
+            {isSidebarCollapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
+          </button>
+        )}
 
         <h1
           style={{

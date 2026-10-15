@@ -15,6 +15,17 @@ import type { NavModuleId } from '../../types/dashboard';
 export const AppShell: React.FC = () => {
   const [activeModule, setActiveModule] = useState<NavModuleId>('overview');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(() => {
+    return localStorage.getItem('geo_sidebar_collapsed') === 'true';
+  });
+
+  const handleToggleSidebarCollapse = () => {
+    setIsSidebarCollapsed((prev) => {
+      const next = !prev;
+      localStorage.setItem('geo_sidebar_collapsed', String(next));
+      return next;
+    });
+  };
 
   return (
     <div
@@ -33,6 +44,7 @@ export const AppShell: React.FC = () => {
         onSelectModule={setActiveModule}
         isOpenMobile={isMobileSidebarOpen}
         onCloseMobile={() => setIsMobileSidebarOpen(false)}
+        isCollapsed={isSidebarCollapsed}
       />
 
       {/* Main Content Area — Independently Scrollable Right Pane */}
@@ -51,6 +63,8 @@ export const AppShell: React.FC = () => {
         <Header
           activeModule={activeModule}
           onToggleMobileSidebar={() => setIsMobileSidebarOpen((prev) => !prev)}
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebarCollapse={handleToggleSidebarCollapse}
         />
 
         {/* Dynamic Main Body Workspace */}
