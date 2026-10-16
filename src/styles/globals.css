@@ -1077,6 +1077,106 @@ a:hover {
   transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), min-width 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ========================================================
+   Internal Chat Screen Styles & Responsive Rules
+   ======================================================== */
+.geo-chat-employee-row:hover:not(.geo-chat-employee-active) {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+.geo-chat-input-wrapper:focus-within {
+  border-color: var(--color-accent-500) !important;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15) !important;
+}
+
+.geo-chat-identity-block {
+  text-align: left !important;
+}
+
+.geo-chat-bubble-peer {
+  text-align: left !important;
+}
+
+.geo-chat-bubble-user {
+  text-align: left !important;
+}
+
+.geo-chat-unified-composer:focus-within {
+  border-color: var(--color-accent-500) !important;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15) !important;
+  background-color: #FFFFFF !important;
+}
+
+.geo-drawer-option:hover {
+  background-color: #F8FAFC !important;
+}
+
+.geo-drawer-option:focus-visible {
+  outline: 2px solid var(--color-accent-500) !important;
+  outline-offset: -2px !important;
+  background-color: #F8FAFC !important;
+}
+
+.geo-composer-attachment-chip {
+  transition: all var(--transition-fast);
+}
+
+.geo-composer-attachment-chip:hover {
+  border-color: #94A3B8 !important;
+}
+
+@media (max-width: 900px) {
+  .geo-chat-panel-employees {
+    width: 260px !important;
+    min-width: 240px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .geo-workspace-chat {
+    padding: 0.5rem 0.5rem !important;
+    height: calc(100vh - 72px) !important;
+  }
+
+  .geo-internal-chat-wrapper {
+    height: 100% !important;
+    max-height: 100% !important;
+    min-height: 0 !important;
+  }
+
+  .geo-internal-chat-container {
+    border-radius: 8px !important;
+  }
+
+  .geo-chat-panel-employees {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    border-right: none !important;
+  }
+
+  .geo-chat-mobile-back {
+    display: flex !important;
+  }
+
+  .geo-hide-mobile {
+    display: none !important;
+  }
+
+  .geo-chat-bubble-user,
+  .geo-chat-bubble-peer {
+    max-width: 88% !important;
+  }
+
+  .geo-chat-attachment-drawer {
+    left: 0.5rem !important;
+    width: calc(100% - 1rem) !important;
+    max-width: calc(100% - 1rem) !important;
+    bottom: calc(100% + 4px) !important;
+  }
+}
+
 
 
 

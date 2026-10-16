@@ -10,6 +10,7 @@ import {
   Layers,
   CreditCard,
   DollarSign,
+  MessageSquare,
   ChevronRight
 } from 'lucide-react';
 
@@ -29,7 +30,8 @@ const ICON_MAP: Record<string, (size?: number) => React.ReactNode> = {
   Briefcase: (size = 15) => <Briefcase size={size} />,
   Layers: (size = 15) => <Layers size={size} />,
   CreditCard: (size = 15) => <CreditCard size={size} />,
-  DollarSign: (size = 15) => <DollarSign size={size} />
+  DollarSign: (size = 15) => <DollarSign size={size} />,
+  MessageSquare: (size = 15) => <MessageSquare size={size} />
 };
 
 interface NavSection {
@@ -46,12 +48,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   // Grouped Navigation Structure
   const overviewItems = NAV_ITEMS.filter((i) => i.id === 'overview' || i.id === 'inquiry-management');
+  const communicationItems = NAV_ITEMS.filter((i) => i.id === 'internal-chat');
   const operationsItems = NAV_ITEMS.filter((i) => i.id === 'daily-critical-activities' || i.id === 'strategic-marketing');
   const projectItems = NAV_ITEMS.filter((i) => i.id === 'project-tracking' || i.id === 'major-projects');
   const financeItems = NAV_ITEMS.filter((i) => i.id === 'account-expenses' || i.id === 'finance-recovery');
 
   const navSections: NavSection[] = [
     { title: 'OVERVIEW', items: overviewItems },
+    { title: 'COMMUNICATION', items: communicationItems },
     { title: 'OPERATIONS', items: operationsItems },
     { title: 'PROJECTS', items: projectItems },
     { title: 'FINANCE', items: financeItems }

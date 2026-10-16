@@ -6,7 +6,8 @@ export type NavModuleId =
   | 'project-tracking'
   | 'major-projects'
   | 'account-expenses'
-  | 'finance-recovery';
+  | 'finance-recovery'
+  | 'internal-chat';
 
 export interface NavItemConfig {
   id: NavModuleId;

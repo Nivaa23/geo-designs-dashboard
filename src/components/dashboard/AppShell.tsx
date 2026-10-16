@@ -9,6 +9,7 @@ import { ProjectTrackingView } from './ProjectTrackingView';
 import { MajorProjectsView } from './MajorProjectsView';
 import { AccountExpensesView } from './AccountExpensesView';
 import { FinanceRecoveryView } from './FinanceRecoveryView';
+import { InternalChatView } from './InternalChatView';
 import { ModulePlaceholderView } from './ModulePlaceholderView';
 import type { NavModuleId } from '../../types/dashboard';
 
@@ -71,13 +72,16 @@ export const AppShell: React.FC = () => {
         <main
           style={{
             flex: 1,
-            padding: '1.25rem 1.5rem 2rem 1.5rem',
+            padding: activeModule === 'internal-chat' ? '1rem 1.5rem' : '1.25rem 1.5rem 2rem 1.5rem',
             maxWidth: '1600px',
             width: '100%',
             margin: '0 auto',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            display: activeModule === 'internal-chat' ? 'flex' : 'block',
+            flexDirection: 'column',
+            minHeight: 0
           }}
-          className="geo-main-workspace"
+          className={`geo-main-workspace ${activeModule === 'internal-chat' ? 'geo-workspace-chat' : ''}`}
         >
           {activeModule === 'overview' ? (
             <MainDashboardView />
@@ -95,6 +99,8 @@ export const AppShell: React.FC = () => {
             <AccountExpensesView onReturnToOverview={() => setActiveModule('overview')} />
           ) : activeModule === 'finance-recovery' ? (
             <FinanceRecoveryView onReturnToOverview={() => setActiveModule('overview')} />
+          ) : activeModule === 'internal-chat' ? (
+            <InternalChatView onReturnToOverview={() => setActiveModule('overview')} />
           ) : (
             <ModulePlaceholderView
               moduleId={activeModule}

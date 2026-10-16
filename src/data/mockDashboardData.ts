@@ -82,6 +82,12 @@ export const NAV_ITEMS: NavItemConfig[] = [
     iconName: 'DollarSign',
     badgeCount: 2,
     description: 'Commitment tracking, client billing recovery, and outstanding receivables'
+  },
+  {
+    id: 'internal-chat',
+    label: 'Internal Chat',
+    iconName: 'MessageSquare',
+    description: 'Internal employee-to-employee messaging and peer collaboration'
   }
 ];
 
